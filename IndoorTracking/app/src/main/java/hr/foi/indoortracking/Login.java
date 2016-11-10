@@ -35,7 +35,8 @@ public class Login extends AppCompatActivity {
                }
                else  {
 
-                  // Log.d("user",userName.getText().toString());
+
+                   //Log.d("user",userName.getText().toString());
 
 
                    manager.setPreferences(Login.this,"status","1");
