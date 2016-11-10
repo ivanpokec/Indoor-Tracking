@@ -5,29 +5,61 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.SqlClient;
+using IndoorTracking.Services;
 
 namespace IndoorTracking.Controllers
 {
     public class UserController : ApiController
     {
-        Users[] user = new Users[] {
-            new Users {Id= 1, userName="test", passWord="test", name="pero"},
-            new Users {Id= 2, userName="test2", passWord="test2", name="pero2"}
-        };
-        public IEnumerable<Users> GetAllUsers()
+        //User[] users = new User[] {
+        //    //new User {Id= 1, userName="test", passWord="test", name="pero"},
+        //    //new User {Id= 2, userName="test2", passWord="test2", name="pero2"}
+        //};
+        public IEnumerable<User> GetAllUsers()
         {
-            return user;
-        }
-        public IHttpActionResult GetUser(int id)
-        {
-            var username = user.FirstOrDefault((p) => p.Id == id);
-            
-            if (username == null)
+            //IEnumerable<User> users;
+            List<User> users = new List<User>();
+            using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
-                return NotFound();
+                connection.Open();
+                string strCmd = @"SELECT kor_id, kor_username, kor_lozinka, kor_ime FROM korisnici";
+                using (SqlCommand cmd = new SqlCommand(strCmd, connection))
+                {
+                    //cmd.Parameters.Add("@pa1",System.Data.SqlDbType.VarChar).Value="test";
+                    using (SqlDataReader data = cmd.ExecuteReader())
+                    {
+
+                        while (data.Read())
+                        {
+                            
+                            //Filati strukturu users
+                            User userRead = new User();
+                            userRead.Id = int.Parse(data["kor_id"].ToString());
+                            userRead.userName = data["kor_username"].ToString();
+                            userRead.passWord = data["kor_lozinka"].ToString();
+                            userRead.name = data["kor_ime"].ToString();
+                            users.Add(userRead);
+                        }
+                    }
+                }
+                
             }
-            return Ok(user);
+
+            return users;
         }
-        
+        //public IHttpActionResult GetUser(int id)
+        //{
+        //    var user = users.FirstOrDefault((p) => p.Id == id);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
+
+
+
     }
 }
