@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.content_main);
-
         manager = new SessionManager();
 
         Button button = (Button) findViewById(R.id.button_1);
@@ -65,14 +62,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
 
-        /*Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
-        */
-    }
+            }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
