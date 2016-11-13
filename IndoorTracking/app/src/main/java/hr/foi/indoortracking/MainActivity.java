@@ -30,18 +30,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         manager = new SessionManager();
-
-        Button button = (Button) findViewById(R.id.button_1);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manager.setPreferences(MainActivity.this, "status", "0");
-                finish();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,6 +71,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if(id== R.id.action_logout) {
+            manager.setPreferences(MainActivity.this, "status", "0");
+            finish();
+                    }
 
         return super.onOptionsItemSelected(item);
     }
