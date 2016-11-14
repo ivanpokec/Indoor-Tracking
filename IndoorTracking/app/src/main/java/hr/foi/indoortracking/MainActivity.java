@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            this.finishAffinity();
         }
-
-            }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,9 +73,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(id== R.id.action_logout) {
-            manager.setPreferences(MainActivity.this, "status", "0");
+            manager.setPreferences(MainActivity.this, "id", "");
+            manager.setPreferences(MainActivity.this, "name", "");
+            manager.setPreferences(MainActivity.this, "username", "");
+
             finish();
-                    }
+        }
 
         return super.onOptionsItemSelected(item);
     }
