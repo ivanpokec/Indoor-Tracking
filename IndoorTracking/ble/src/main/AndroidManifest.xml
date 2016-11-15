@@ -3,6 +3,8 @@
     package="hr.foi.ble">
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -11,6 +13,20 @@
             android:name=".BluetoothMonitoringService"
             android:enabled="true"
             android:exported="true"></service>
+
+
+        <receiver android:name=".BluetoothStateReceiver" >
+            <intent-filter>
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
+                <action android:name="android.bluetooth.device.action.FOUND"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:enabled="true"
+            android:name=".BeaconsMonitoringService">
+        </service>
+
     </application>
 
 </manifest>

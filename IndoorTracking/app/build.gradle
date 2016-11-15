@@ -30,4 +30,5 @@ dependencies {
 
 
     compile project(":dbaccess")
+    compile project(":ble")
 }
