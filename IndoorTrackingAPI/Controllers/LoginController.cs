@@ -56,9 +56,6 @@ namespace IndoorTracking.Controllers
                 }
 
             }
-
-            //var user = users.FirstOrDefault((p) => p.userName == username && p.passWord == passWord);
-
             
         }
     }

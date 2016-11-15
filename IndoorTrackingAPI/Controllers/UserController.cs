@@ -18,7 +18,13 @@ namespace IndoorTracking.Controllers
         //};
         public IEnumerable<User> GetAllUsers()
         {
-            //IEnumerable<User> users;
+            //IEnumerable<User> users = new List<User>();
+            //UserCollection uc = new UserCollection();
+            //uc.Add(new Models.User());
+
+            //return uc;
+
+
             List<User> users = new List<User>();
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
