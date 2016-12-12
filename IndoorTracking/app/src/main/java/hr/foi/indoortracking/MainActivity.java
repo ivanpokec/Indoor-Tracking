@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity
     private static ArrayList<Sensor> scanedSensors;
     private static long mLastFiltrationTime;
     private static TextView txtCurrentLocation;
-    private static int treashold = -100;
-    private static float factor = 0;
+    private static int treashold = -99;
+    private static float factor = 0.1f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
                     //Misc.openBluetoothSettings(AllStaticData.getmContext());
                 }else {
                     if (!BeaconsMonitoringService.isScanRunning()) startService(new Intent(this, BeaconsMonitoringService.class));
-                    //BeaconsMonitoringService.setMainHandler(mHandler);
+                    BeaconsMonitoringService.setMainHandler(mHandler);
                 }
             }
         }catch (Exception e){
@@ -186,16 +186,6 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         if (msg.obj instanceof ArrayList) {
                             ArrayList<Sensor> scanedSensors = (ArrayList<Sensor>) msg.obj;
-
-
-//                            if (lvBeacons.getAdapter() == null) {
-//                                BeaconsAdapter beaconsAdapter = new BeaconsAdapter(mContext, scanedSensors);
-//                                lvBeacons.setAdapter(beaconsAdapter);
-//                            }else {
-//                                BeaconsAdapter beaconsAdapter = (BeaconsAdapter) lvBeacons.getAdapter();
-//                                beaconsAdapter.setSensors(scanedSensors);
-//                                beaconsAdapter.notifyDataSetChanged();
-//                            }
 
                         }
                         break;
@@ -251,8 +241,6 @@ public class MainActivity extends AppCompatActivity
 
                     if (splited.length >= 12) {
 
-                        //int canIndex = Math.abs(Misc.getInt(splited[12]));
-
                         int r = sensor.getSnrSignalR();
 
                         if (r == 0) r = rssi;
@@ -265,7 +253,6 @@ public class MainActivity extends AppCompatActivity
                         int z = sensor.getSnrSignalZ();
                         z++;
 
-                        //sensor.setSnrSignalCanIndex(canIndex);
                         sensor.setSnrSignalZ(z);
                         if (r < 0) sensor.setSnrSignalR(r);
                         sensor.setSnrSignalX(rssi);
@@ -285,7 +272,7 @@ public class MainActivity extends AppCompatActivity
                 sensor.setSnrSignalR(rssi);
                 sensor.setSnrSignalZ(1);
                 sensor.setSnrSignalX(rssi);
-                //sensor.setSnrName(mKnownSensors.get(device.getAddress()));
+
                 String[] splited = ByteArrayToString(data).split(" ");
 
                 if (splited.length >= 12) {
@@ -372,7 +359,7 @@ public class MainActivity extends AppCompatActivity
 //                }
                 if (nearestSensor != null){
                     String snrName = nearestSensor.getSnrBleMac();
-                    txtCurrentLocation.setText(snrName);
+                    txtCurrentLocation.setText(snrName + " frame: "+nearestSensor.getSnrSignalZ());
                     //txtCurrentLocation.setText(snrName+ " " +nearestSensor.getSnrSignalZ());
 
                     Date date = new Date(nearestSensor.getLastScannTime());

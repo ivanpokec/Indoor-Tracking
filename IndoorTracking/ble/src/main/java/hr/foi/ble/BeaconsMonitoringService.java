@@ -64,7 +64,7 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
     public void start(){
 
         Log.d(TAG, "Beacons monitoring service created");
-        Toast.makeText(this, "Beacons monitoring service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Beacons monitoring service started (start)", Toast.LENGTH_SHORT).show();
 
         BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = manager.getAdapter();
@@ -81,7 +81,7 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
     public void onCreate() {
         // Configure BeaconManager.
         Log.d(TAG, "Beacons monitoring service created");
-        Toast.makeText(this, "Beacons monitoring service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Beacons monitoring service started (created)", Toast.LENGTH_SHORT).show();
 
         BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = manager.getAdapter();
@@ -121,29 +121,7 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
-        Log.i(TAG, "New LE Device: " + device.getName() + " @ " + rssi + " mac: "+device.getAddress());
-
-//        mainFragment = MainFragment.getFragment();
-//        MainActivity mainActivity = MainActivity.getMainActivity();
-//        Date dateNow = new Date();
-
-//        if (device.getName() != null && rssi > nearestRssi && rssi < 0 && device.getName().contains("ACPS")){
-//
-//
-//            if (notificationSetDate != null){
-//                long dateDiff = dateNow.getTime() - notificationSetDate.getTime();
-//                if (dateDiff > 300000){
-////                    if (!mainActivity.isAppInFront()) addNotification(device);
-//                }
-//            }else {
-//
-////                if (!mainActivity.isAppInFront()) addNotification(device);
-//            }
-//        }
         if (device.getName() != null && device.getName().contains("ACPS")){
-
-//            updateSensorSignal(device,scanRecord, rssi);
-
 
             Message msg = mainHandler.obtainMessage(2,device);
             Bundle bundle = new Bundle();
@@ -151,10 +129,6 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
             bundle.putByteArray("scanRecord", scanRecord);
             msg.setData(bundle);
             mainHandler.sendMessage(msg);
-
-//            if (lastScanTime == null)  setActivePaymentSensor();
-//            lastScanTime = new Date();
-
 
         }
 
@@ -222,12 +196,8 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
                         //notificationSetDate = null;
                     }else {
 
-                        //setActivePaymentSensor();
                     }
                 }
-
-
-
 
                 mHandler.postDelayed(mStopRunnable, 10000);
             }
@@ -264,13 +234,6 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
 
                mainHandler.obtainMessage(1,scanedSensors).sendToTarget();
 
-//                mainFragment = MainFragment.getFragment();
-//                if (mainFragment != null) {
-//                    mainFragment.GetSensorLocation(nearestSensor);
-                    //mainFragment.updatePayAvailability(nearestSensor);
-
-
-//                }
             }
         }
 
@@ -314,8 +277,6 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
             }
             boolean deviceExists = false;
 
-
-
             for (Sensor sensor : scanedSensors) {
                 if (sensor.getSnrBleMac().equalsIgnoreCase(device.getAddress())) {
                     deviceExists = true;
@@ -324,57 +285,16 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
 
                     if (splited.length >= 12) {
 
-                        //int canIndex = Math.abs(Misc.getInt(splited[12]));
-//                        int x = Math.abs(Misc.getInt(splited[4]));
-//                        int y = Math.abs(Misc.getInt(splited[5]));
-//                        int z = Math.abs(Misc.getInt(splited[6]));
                         int r = sensor.getSnrSignalR();
-//
-                       //Log.d("DEBUG", "CanIndex -> " + canIndex+ " mac: "+device.getAddress());
-//                        Log.d("DEBUG", "X -> " + x);
-//                        Log.d("DEBUG", "Y -> " + y);
-//                        Log.d("DEBUG", "Z -> " + z);
-//
-//                        int xr = sensor.getSnrSignalX();
-//                        int yr = sensor.getSnrSignalY();
-//                        int zr = sensor.getSnrSignalZ();
-//
-//
-//                        if (xr == 0) xr = x;
-//                        else xr += (x - xr) * 0.1;
-//
-//
-//                        if (yr == 0) yr = y;
-//                        else yr += (y - yr) * 0.1;
-//
-//
-//                        if (zr == 0) zr = z;
-//                        else zr += (z - zr) * 0.1;
-//
+
                         if (r == 0) r = rssi;
                         else r += (rssi - r) * 0.1;
 
-                       // sensor.setSnrSignalCanIndex(canIndex);
-//                        sensor.setSnrSignalX(xr);
-//                        sensor.setSnrSignalY(yr);
-//                        sensor.setSnrSignalZ(zr);
                         sensor.setSnrSignalR(r);
                         sensor.setBluetoothDevice(device);
 
-//                        MyLog.d("CALCULATION", "Sensor: "+ sensor.getSnrBleMac() + " X: " + x + " XR:" + xr);
-//                        MyLog.d("CALCULATION", "Sensor: "+ sensor.getSnrBleMac() + " Y: " + y + " YR:" + yr);
-//                        MyLog.d("CALCULATION", "Sensor: "+ sensor.getSnrBleMac() + " Z: " + z + " ZR:" + zr);
-                        Log.d("CALCULATION", "Sensor: "+ sensor.getSnrBleMac() + " RSSI: " + rssi + " R: "+r);
-
                         Date dateLastScann = new Date();
                         sensor.setLastScannTime(dateLastScann.getTime());
-                        //float factor = ss / 250.0f;
-
-                        //r = (int)factor * 250;
-                        //r = ss;
-                        //double r = Math.sqrt((x*x)+(y*y)+(z*z));
-
-
 
                     }
 
@@ -388,10 +308,6 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
 
                 if (splited.length >= 12) {
 
-//                    int canIndex = Math.abs(Misc.getInt(splited[12]));
-//                    sensor.setSnrSignalCanIndex(canIndex);
-//                    //sensor.setBluetoothDevice(device);
-//                    Log.d("DEBUG", "CanIndex -> " + canIndex+ " mac: "+device.getAddress());
                     Date dateLastScann = new Date();
                     sensor.setLastScannTime(dateLastScann.getTime());
                 }
