@@ -24,6 +24,8 @@
             />
 
         <activity android:name=".SessionManager"></activity>
-    </application>
+
+    <activity android:name=".Profile"></activity>
+</application>
 
 </manifest>

@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_profil) {
+            Intent intent = new Intent(this, Profile.class);
+            startActivity(intent);
+
+        }
 
         if(id== R.id.action_logout) {
             manager.setPreferences(MainActivity.this, "id", "");
