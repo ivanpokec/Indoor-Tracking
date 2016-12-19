@@ -15,6 +15,11 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<UserModel> getUser(@Field("userName") String username, @Field("passWord") String password);
 
+    @POST("IndoorTracking/api/history")
+    @FormUrlEncoded
+    Call<HistoryModel> getHistory(@Field("UserId") int id); //spremiti svaki dohvaćeni objekt u listu!
+
+
 
 
 }
