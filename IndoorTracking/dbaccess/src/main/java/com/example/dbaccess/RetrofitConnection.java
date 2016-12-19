@@ -15,15 +15,13 @@ import retrofit2.http.POST;
 
 public interface RetrofitConnection {
     String BASE_URL = "http://development.mobilisis.hr/";
-    @POST("IndoorTracking/api/login")
-    @FormUrlEncoded
-    Call<UserModel> response(@Field("userName") String username, @Field("passWord") String password);
+
     class Factory{
-        private static RetrofitConnection service;
-        public static RetrofitConnection getIstance(){
+        private static ApiEndpoint service;
+        public static ApiEndpoint getInstance(){
             if(service==null){
                 Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).build();
-                service = retrofit.create(RetrofitConnection.class);
+                service = retrofit.create(ApiEndpoint.class);
                 return service;
             }
             else{

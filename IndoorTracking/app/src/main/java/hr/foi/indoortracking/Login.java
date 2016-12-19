@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.RetrofitConnection;
 import com.example.dbaccess.UserModel;
 
@@ -51,7 +52,8 @@ public class Login extends AppCompatActivity {
                     //String status = manager.getPreferences(Login.this, "status");
                     //Log.d("status", status);
 
-                    RetrofitConnection.Factory.getIstance().response(userName.getText().toString(), password.getText().toString()).enqueue(new Callback<UserModel>() {
+                    ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
+                    apiService.getUser(userName.getText().toString(), password.getText().toString()).enqueue(new Callback<UserModel>() {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
