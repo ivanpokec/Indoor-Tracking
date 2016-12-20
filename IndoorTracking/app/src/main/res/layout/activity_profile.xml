@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
 
+    <ImageView
+        android:layout_width="386dp"
+        android:layout_height="102dp"
+        app:srcCompat="@mipmap/profil"
+        android:id="@+id/imageView3"
+        android:layout_weight="0.44"
+        android:layout_marginTop="10dp"
+        />
+
     <TextView
         android:id="@+id/textview_name"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="150dp"
         android:text="Ime:"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:textSize="24sp" />
+        android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
+        android:textSize="24sp"
+        android:textColor="?attr/colorAccent" />
 
 
 
@@ -20,21 +34,27 @@
         android:id="@+id/textview_surname"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="150dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         android:text="Prezime:"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="?attr/colorAccent" />
 
     <TextView
         android:id="@+id/textview_username"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="150dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         android:text="Ime:"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="?attr/colorAccent" />
 
 
     <LinearLayout
@@ -47,22 +67,26 @@
             android:id="@+id/textview_password1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="5dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
             android:text="Lozinka:"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
+            android:layout_weight="0.08"
             android:textSize="24sp"
-            android:layout_weight="0.08" />
+            android:textColor="?android:attr/colorAccent" />
         <TextView
             android:id="@+id/textview_password"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
             android:text="lozinka"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="0.005dp"
             android:textSize="24sp"
-            android:layout_marginLeft="0.005dp" />
+            android:textColor="?attr/colorAccent" />
 
 
 
@@ -73,19 +97,26 @@
         android:id="@+id/textview_odjel"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="150dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         android:text="Odjel:"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:textSize="24sp" />
-    <Button
-        android:text="Odjavi se"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="?attr/colorAccent" />
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/button_LogOut"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:padding="15dp"
+        android:text="Odjavi se"
         android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/background_light"
-        />
+        android:textColor="@android:color/background_light" />
 
 </LinearLayout>
