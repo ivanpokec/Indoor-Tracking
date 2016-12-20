@@ -155,7 +155,9 @@ public class HistoryAll extends AppCompatActivity{
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
 
-        id = 2; // DOHVATITI PRAVI ID
+        Login login = new Login();
+
+        id = login.activeUser.getId();
         apiService.getHistory(id).enqueue(new Callback<List<HistoryModel>>() {
             @Override
             public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
@@ -174,10 +176,10 @@ public class HistoryAll extends AppCompatActivity{
             for (int i=0; i<HistoryModelList.size(); i++) {
                 HistoryModel hm = HistoryModelList.get(i);
 
-                if (i-1>0 && hm.getDatum().equals(HistoryModelList.get(i-1).getDatum())) { //ako je još uvijek isti datum, ispiši vrijeme ispod
+                if (i-1>0 && hm.getDatum().equals(HistoryModelList.get(i-1).getDatum())) { //TODO: ako je još uvijek isti datum, ispiši vrijeme ispod
 
                 }
-                else { //ako nije, ispiši novi datum i vremena ispod
+                else { //TODO: ako nije, ispiši novi datum i vremena ispod
 
                 }
             }

@@ -125,7 +125,7 @@ public class MainService extends Service {
 //                    mLastFiltrationTime = new Date().getTime();
 //                }
                 if (nearestSensor != null && lastSensor != nearestSensor){
-                    String snrName = nearestSensor.getSnrBleMac();
+                    String snrName = nearestSensor.getSnrBleMac(); //TODO: DOHVAĆANJE LOKACIJE PREMA MAC ADRESI
                     Toast.makeText(this, snrName + " frame: "+nearestSensor.getSnrSignalZ(), Toast.LENGTH_SHORT).show();
                     //txtCurrentLocation.setText(snrName + " frame: "+nearestSensor.getSnrSignalZ());
                     //txtCurrentLocation.setText(snrName+ " " +nearestSensor.getSnrSignalZ());
