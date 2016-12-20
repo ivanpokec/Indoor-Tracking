@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_lokacije) {
 
         } else if (id == R.id.nav_kretanja) {
-
+            Intent intent = new Intent(this, History.class);
+            startActivity(intent);
         } else if (id == R.id.nav_korisnici) {
 
         }

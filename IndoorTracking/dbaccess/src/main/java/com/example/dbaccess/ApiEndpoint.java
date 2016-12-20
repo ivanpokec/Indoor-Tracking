@@ -1,5 +1,7 @@
 package com.example.dbaccess;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -17,7 +19,7 @@ public interface ApiEndpoint {
 
     @POST("IndoorTracking/api/history")
     @FormUrlEncoded
-    Call<HistoryModel> getHistory(@Field("UserId") int id); //spremiti svaki dohvaćeni objekt u listu!
+    Call<List<HistoryModel>> getHistory(@Field("UserId") int id);
 
 
 
