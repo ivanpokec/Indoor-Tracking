@@ -81,7 +81,6 @@ public class Login extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<UserModel> call, Throwable t) {
-                            Log.i("LOGIN", "error");
                             Toast.makeText(Login.this, "Greška prilikom prijave!", Toast.LENGTH_SHORT).show();
                         }
                     });
