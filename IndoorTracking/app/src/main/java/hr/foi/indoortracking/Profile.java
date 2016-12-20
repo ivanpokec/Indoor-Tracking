@@ -35,6 +35,7 @@ public class Profile  extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Moj profil");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         button_LogOut = (Button) findViewById(R.id.button_LogOut);
