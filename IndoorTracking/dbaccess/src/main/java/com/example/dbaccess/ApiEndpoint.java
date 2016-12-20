@@ -23,6 +23,10 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<List<HistoryModel>> getHistory(@Field("UserId") int id);
 
+    @POST("IndoorTracking/api/location")
+    @FormUrlEncoded
+    Call<LocationModel> getLocation(@Field("MacAddress") String MacAddress, @Field("UsrId") int userId);
+
 
 
 

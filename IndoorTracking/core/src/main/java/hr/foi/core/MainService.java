@@ -16,12 +16,19 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
+import com.example.dbaccess.ApiEndpoint;
+import com.example.dbaccess.LocationModel;
+import com.example.dbaccess.RetrofitConnection;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ListIterator;
 
 import hr.foi.ble.BeaconsMonitoringService;
 import hr.foi.ble.Sensor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainService extends Service {
     public MainService() {
@@ -35,6 +42,8 @@ public class MainService extends Service {
     private static float factor = 0.2f;
 
     private static Sensor lastSensor = null;
+    private Sensor nearestSensor = null;
+    private String locationName ="";
 
     @Override
     public void onCreate() {
@@ -95,7 +104,7 @@ public class MainService extends Service {
                     diffFiltration = dateNow.getTime() - mLastFiltrationTime;
                     if (diffFiltration > 1000) removeInactive = true;
                 }
-                Sensor nearestSensor = null;
+
 
                 ListIterator<Sensor> sensorListIterator = scanedSensors.listIterator();
                 int nearestSensorSignal = -120;
@@ -132,42 +141,27 @@ public class MainService extends Service {
                 if (nearestSensor != null && lastSensor != nearestSensor){
                     String snrName = nearestSensor.getSnrBleMac(); //TODO: DOHVAĆANJE LOKACIJE PREMA MAC ADRESI
 
-                    NotificationCompat.Builder mBuilder =
-                            new NotificationCompat.Builder(this)
-                                    .setSmallIcon(R.drawable.notification_icon)
-                                    .setContentTitle("Indoor Tracking")
-                                    .setContentText("Welcome to "+ snrName+ "!");
-// Creates an explicit intent for an Activity in your app
+                    ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
+                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {
+                        @Override
+                        public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
+                            if(response.body() != null) {
+                                locationName = response.body().getName();
 
-                    //Intent resultIntent = new Intent(this, ResultActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-                    //stackBuilder.addParentStack(ResultActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-
-                    /*stackBuilder.addNextIntent(resultIntent);
-                    PendingIntent resultPendingIntent =
-                            stackBuilder.getPendingIntent(
-                                    0,
-                                    PendingIntent.FLAG_UPDATE_CURRENT
-                            );
-                    mBuilder.setContentIntent(resultPendingIntent); */
-
-                    NotificationManager mNotificationManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-
-                    mNotificationManager.notify(nearestSensor.getSnrSignalZ(), mBuilder.build());
+                                generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
 
-                    //Toast.makeText(this, snrName + " frame: "+nearestSensor.getSnrSignalZ(), Toast.LENGTH_SHORT).show();
-                    //txtCurrentLocation.setText(snrName + " frame: "+nearestSensor.getSnrSignalZ());
-                    //txtCurrentLocation.setText(snrName+ " " +nearestSensor.getSnrSignalZ());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LocationModel> call, Throwable t) {
+                            Toast.makeText(MainService.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
+                        }
+                    }); //TODO: Refaktorirati - napraviti da servis šalje drugim aktivnostima kad je došlo do promjene lokacije
+
+
+
 
                     Date date = new Date(nearestSensor.getLastScannTime());
                     lastSensor = nearestSensor;
@@ -179,6 +173,48 @@ public class MainService extends Service {
         }
 
     }
+
+
+    private void generateNotification(String locationName, int notId) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .setContentTitle("Indoor Tracking")
+                        .setContentText("Welcome to "+ locationName+ "!");
+
+// Creates an explicit intent for an Activity in your app
+
+        //Intent resultIntent = new Intent(this, ResultActivity.class);
+
+// The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+// Adds the back stack for the Intent (but not the Intent itself)
+        //stackBuilder.addParentStack(ResultActivity.class);
+// Adds the Intent that starts the Activity to the top of the stack
+
+                    /*stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent); */
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+
+        mNotificationManager.notify(notId, mBuilder.build());
+
+
+        //Toast.makeText(this, snrName + " frame: "+nearestSensor.getSnrSignalZ(), Toast.LENGTH_SHORT).show();
+        //txtCurrentLocation.setText(snrName + " frame: "+nearestSensor.getSnrSignalZ());
+        //txtCurrentLocation.setText(snrName+ " " +nearestSensor.getSnrSignalZ());
+    }
+
 
     private Handler mLogHandler = new Handler() {
         @Override
