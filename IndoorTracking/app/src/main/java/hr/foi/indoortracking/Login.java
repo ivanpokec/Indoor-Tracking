@@ -45,6 +45,7 @@ public class Login extends AppCompatActivity {
             activeUser.setName(manager.getPreferences(this,"name"));
             activeUser.setUsername(manager.getPreferences(this,"userName"));
             activeUser.setPassword(manager.getPreferences(this,"password"));
+            activeUser.setOdjel(manager.getPreferences(this,"locationName"));
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -70,6 +71,7 @@ public class Login extends AppCompatActivity {
                                 manager.setPreferences(Login.this, "password", String.valueOf(response.body().getPassword()));
                                 manager.setPreferences(Login.this, "userName", response.body().getUsername());
                                 manager.setPreferences(Login.this, "name", response.body().getName());
+                                manager.setPreferences(Login.this, "locationName", response.body().getOdjel());
 
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
