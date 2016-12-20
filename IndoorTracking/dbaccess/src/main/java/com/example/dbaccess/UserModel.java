@@ -5,40 +5,37 @@ package com.example.dbaccess;
  */
 
 public class UserModel {
-    int id;
-    String username;
-    String password;
+    int Id;
+    String userName;
+    String passWord;
     String name;
 
-    public UserModel(int id, String username, String password, String name) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
+    public UserModel() {
+
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public String getPassword() {
-        return password;
+        return passWord;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.passWord = password;
     }
 
     public String getName() {

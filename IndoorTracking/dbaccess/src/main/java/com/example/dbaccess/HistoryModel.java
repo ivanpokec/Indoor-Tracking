@@ -13,147 +13,29 @@ import java.util.ListIterator;
 
 public class HistoryModel {
 
-    public static List<HistoryModel> HistoryModelList = new List<HistoryModel>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<HistoryModel> iterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @NonNull
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(HistoryModel historyModel) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends HistoryModel> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(int index, Collection<? extends HistoryModel> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public HistoryModel get(int index) {
-            return null;
-        }
-
-        @Override
-        public HistoryModel set(int index, HistoryModel element) {
-            return null;
-        }
-
-        @Override
-        public void add(int index, HistoryModel element) {
-
-        }
-
-        @Override
-        public HistoryModel remove(int index) {
-            return null;
-        }
-
-        @Override
-        public int indexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public int lastIndexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public ListIterator<HistoryModel> listIterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<HistoryModel> listIterator(int index) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public List<HistoryModel> subList(int fromIndex, int toIndex) {
-            return null;
-        }
-    };
-
-    String roomName;
+    String name;
     String time;
     String description;
-    String userNameLastName;
+    String user;
+
+    String datum;
+    String vrijeme;
 
 
-    public HistoryModel(String description, String roomName, String time, String userNameLastName) {
-        this.roomName = roomName;
+    public HistoryModel(String description, String roomName, String time, String user) {
+        this.name = roomName;
         this.time = time;
         this.description = description;
-        this.userNameLastName = userNameLastName;
+        this.user = user;
+        separateDateTime();
     }
 
     public String getRoomName() {
-        return roomName;
+        return name;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setRoomName(String name) {
+        this.name = name;
     }
 
     public String getTime() {
@@ -173,10 +55,25 @@ public class HistoryModel {
     }
 
     public String getUserNameLastName() {
-        return userNameLastName;
+        return user;
     }
 
-    public void setUserNameLastName(String userNameLastName) {
-        this.userNameLastName = userNameLastName;
+    public void setUserNameLastName(String user) {
+        this.user = user;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public String getVrijeme() {
+        return vrijeme;
+    }
+
+    private void separateDateTime() {
+        String time = this.getTime();
+        String[] splittedTime = time.split(" ");
+        this.datum = splittedTime[0];
+        this.vrijeme = splittedTime[1];
     }
 }

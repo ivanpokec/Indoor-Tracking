@@ -7,6 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dbaccess.ApiEndpoint;
+import com.example.dbaccess.HistoryModel;
+import com.example.dbaccess.RetrofitConnection;
+import com.example.dbaccess.UserModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by Zana on 19.12.2016..
  */
@@ -34,14 +43,27 @@ public class Profile  extends AppCompatActivity {
         passwordTextView = (TextView) findViewById(R.id.textview_password);
         odjelTextView = (TextView) findViewById(R.id.textview_odjel);
 
-       // usernameTextView.setText(String.format("Korisničko ime: %s",user.getUsername()));
+        //String name = manager.getPreferences(Profile.this,"username");
+        Login login = new Login();
+        String username = login.activeUser.getUsername();
+        int id = login.activeUser.getId();
+        String name = login.activeUser.getName();
+        String passWord = login.activeUser.getPassword();
 
-     button_LogOut.setOnClickListener(new View.OnClickListener() {
+        nameTextView.setText(String.format("Id: %s",id));
+        usernameTextView.setText(String.format("Korisničko ime: %s",username));
+        surnameTextView.setText(String.format("Ime i prezime: %s",name));
+        passwordTextView.setText(String.format("Lozinka: %s",passWord));
+
+
+
+        button_LogOut.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
              manager.setPreferences(Profile.this, "id", "");
              manager.setPreferences(Profile.this, "name", "");
-             manager.setPreferences(Profile.this, "username", "");
+             manager.setPreferences(Profile.this, "userName", "");
+             manager.setPreferences(Profile.this, "passWord", "");
              Intent intent = new Intent(Profile.this, Login.class);
              startActivity(intent);
              finish();
