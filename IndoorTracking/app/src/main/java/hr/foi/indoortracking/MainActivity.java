@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         manager = new SessionManager();
+        Login login = new Login();
+
+        login.activeUser.setId(Integer.parseInt(manager.getPreferences(this, "id")));
+        login.activeUser.setName(manager.getPreferences(this,"name"));
+        login.activeUser.setUsername(manager.getPreferences(this,"userName"));
+        login.activeUser.setPassword(manager.getPreferences(this,"password"));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,7 +106,8 @@ public class MainActivity extends AppCompatActivity
         if(id== R.id.action_logout) {
             manager.setPreferences(MainActivity.this, "id", "");
             manager.setPreferences(MainActivity.this, "name", "");
-            manager.setPreferences(MainActivity.this, "username", "");
+            manager.setPreferences(MainActivity.this, "userName", "");
+            manager.setPreferences(MainActivity.this, "passWord", "");
 
             finish();
         }

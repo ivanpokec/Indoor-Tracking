@@ -21,7 +21,20 @@ public class SessionManager extends AppCompatActivity {
 
     public String getPreferences(Context context, String key) {
         SharedPreferences prefs = context.getSharedPreferences("IndoorTracking", Context.MODE_PRIVATE);
-        String position = prefs.getString(key, "");
-        return position;
+        String position = prefs.getString(key,"");
+
+            return position;
+
+
+    }
+
+
+    boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
