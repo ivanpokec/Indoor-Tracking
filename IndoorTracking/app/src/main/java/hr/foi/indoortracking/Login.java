@@ -22,9 +22,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-    EditText userName, password;
+    EditText userName, passWord;
     Button logIn;
     SessionManager manager;
+
+    public static UserModel activeUser = new UserModel();
 
 
     @Override
@@ -33,11 +35,16 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         manager = new SessionManager();
         userName = (EditText) findViewById(R.id.editText_User);
-        password = (EditText) findViewById(R.id.editText_Password);
+        passWord = (EditText) findViewById(R.id.editText_Password);
         logIn = (Button) findViewById(R.id.button_LogIn);
 
         String id = manager.getPreferences(Login.this, "id");
+
         if (id != "") {
+            activeUser.setId(Integer.parseInt(id));
+            activeUser.setName(manager.getPreferences(this,"name"));
+            activeUser.setUsername(manager.getPreferences(this,"userName"));
+            activeUser.setPassword(manager.getPreferences(this,"password"));
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -45,7 +52,7 @@ public class Login extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userName.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+                if (userName.getText().toString().isEmpty() || passWord.getText().toString().isEmpty()) {
                     Toast.makeText(Login.this, "Niste unijeli potrebne podatke!", Toast.LENGTH_SHORT).show();
                 } else {
                     //Log.d("user",userName.getText().toString());
@@ -53,14 +60,15 @@ public class Login extends AppCompatActivity {
                     //Log.d("status", status);
 
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-                    apiService.getUser(userName.getText().toString(), password.getText().toString()).enqueue(new Callback<UserModel>() {
+                    apiService.getUser(userName.getText().toString(), passWord.getText().toString()).enqueue(new Callback<UserModel>() {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
                                 //Log.i("LOGIN", response.body().getName());
                                 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getId()));
-                                manager.setPreferences(Login.this, "username", response.body().getUsername());
+                                manager.setPreferences(Login.this, "password", String.valueOf(response.body().getPassword()));
+                                manager.setPreferences(Login.this, "userName", response.body().getUsername());
                                 manager.setPreferences(Login.this, "name", response.body().getName());
 
                                 Intent intent = new Intent(Login.this, MainActivity.class);
