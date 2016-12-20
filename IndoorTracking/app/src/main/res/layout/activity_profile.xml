@@ -30,7 +30,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Ime:"
+        android:text="Korisničko ime:"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textSize="24sp" />
@@ -46,15 +46,7 @@
         android:layout_marginTop="16dp"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textview_email"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Email:"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textSize="24sp" />
+
 
     <TextView
         android:id="@+id/textview_odjel"
@@ -66,15 +58,7 @@
         android:layout_marginTop="16dp"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textview_trenutna_lokacija"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Trenutna lokacija:"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textSize="24sp" />
+
 
     <Button
         android:text="Odjavi se"
