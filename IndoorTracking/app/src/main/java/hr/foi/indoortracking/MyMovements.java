@@ -8,13 +8,12 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Paula on 20.12.2016..
  */
 
-public class History extends AppCompatActivity{
+public class MyMovements extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+
+        setContentView(R.layout.activity_my_movements);
     }
-
-
 }
