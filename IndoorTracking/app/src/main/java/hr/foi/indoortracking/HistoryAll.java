@@ -152,6 +152,7 @@ public class HistoryAll extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_all);
+        setTitle("Moja kretanja");
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
 

@@ -23,6 +23,8 @@ public class MyMovements extends AppCompatActivity {
 
         setContentView(R.layout.activity_my_movements);
 
+        setTitle("Moja kretanja");
+
        showAll = (Button) findViewById(R.id.button_ShowAllHistory);
         showAll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
