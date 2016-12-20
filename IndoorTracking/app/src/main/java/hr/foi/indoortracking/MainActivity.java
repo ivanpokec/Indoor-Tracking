@@ -113,20 +113,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
         if (id == R.id.nav_trenutna) {
 
         } else if (id == R.id.nav_lokacije) {
 
         } else if (id == R.id.nav_kretanja) {
-            Intent intent = new Intent(this, MyMovements.class);
+            Intent intent = new Intent(MainActivity.this, MyMovements.class);
             startActivity(intent);
         } else if (id == R.id.nav_korisnici) {
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
 

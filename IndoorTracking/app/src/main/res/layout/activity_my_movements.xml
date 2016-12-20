@@ -3,4 +3,28 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    //Dodati naslov "Moja kretanja", gumbić za povratak (Back)
+
+    <Button
+        android:text="Prikaži sve"
+        android:layout_width="500px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button_ShowAllHistory"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="@android:color/background_light"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="80px"
+        />
+
+
+
+
 </LinearLayout>
