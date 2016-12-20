@@ -9,6 +9,8 @@ public class UserModel {
     String userName;
     String passWord;
     String name;
+    String locationName;
+    int locationId;
 
     public UserModel() {
 
@@ -18,9 +20,17 @@ public class UserModel {
         return Id;
     }
 
+    public void setLocationId(int locationId) {this.locationId = locationId;}
+
+    public int getLocationId() {return locationId;}
+
     public void setId(int id) {
         this.Id = id;
     }
+
+    public void setOdjel(String locationName) {this.locationName = locationName;}
+
+    public String getOdjel() { return locationName; }
 
     public String getUsername() {
         return userName;

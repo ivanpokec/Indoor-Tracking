@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         login.activeUser.setName(manager.getPreferences(this,"name"));
         login.activeUser.setUsername(manager.getPreferences(this,"userName"));
         login.activeUser.setPassword(manager.getPreferences(this,"password"));
+        login.activeUser.setOdjel(manager.getPreferences(this,"locationName"));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "name", "");
             manager.setPreferences(MainActivity.this, "userName", "");
             manager.setPreferences(MainActivity.this, "passWord", "");
+            manager.setPreferences(MainActivity.this, "locationName", "");
 
             finish();
         }
