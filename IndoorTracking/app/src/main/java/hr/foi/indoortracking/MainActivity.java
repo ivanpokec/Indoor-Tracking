@@ -18,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         checkPermissions();
 
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,7 +117,8 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "userName", "");
             manager.setPreferences(MainActivity.this, "passWord", "");
             manager.setPreferences(MainActivity.this, "locationName", "");
-
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
             finish();
         }
 
