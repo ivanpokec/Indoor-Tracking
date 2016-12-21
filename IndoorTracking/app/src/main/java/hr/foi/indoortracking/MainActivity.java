@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
 
+        txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
+        txtCurrentLocation.setText("Lokacija");
         Intent mService = new Intent(this, MainService.class);
         startService(mService);
 

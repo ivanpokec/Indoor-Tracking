@@ -2,8 +2,11 @@ package hr.foi.indoortracking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +24,7 @@ import retrofit2.Response;
  * Created by Zana on 19.12.2016..
  */
 
-public class Profile  extends AppCompatActivity {
+public class Profile  extends ActionBarActivity {
 
     private TextView nameTextView;
     private TextView surnameTextView;
@@ -37,6 +40,7 @@ public class Profile  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Moj profil");
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_profile);
         button_LogOut = (Button) findViewById(R.id.button_LogOut);
         manager = new SessionManager();
@@ -81,4 +85,11 @@ public class Profile  extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 }
+
+

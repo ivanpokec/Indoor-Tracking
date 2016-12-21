@@ -6,6 +6,17 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
+
+
+    <activity
+        android:name="hr.foi.indoortracking.Profile"
+        android:label="@string/title_activity_display_message"
+        android:parentActivityName="hr.foi.indoortracking.MainActivity" >
+                <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="hr.foi.indoortracking.MainActivity" />
+    </activity>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
