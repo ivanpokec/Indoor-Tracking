@@ -152,6 +152,7 @@ public class HistoryAll extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_all);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Moja kretanja");
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
@@ -190,6 +191,10 @@ public class HistoryAll extends AppCompatActivity{
     }
 
 
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 
 }

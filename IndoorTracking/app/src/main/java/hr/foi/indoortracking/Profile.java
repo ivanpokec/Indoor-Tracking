@@ -24,7 +24,7 @@ import retrofit2.Response;
  * Created by Zana on 19.12.2016..
  */
 
-public class Profile  extends ActionBarActivity {
+public class Profile  extends AppCompatActivity {
 
     private TextView nameTextView;
     private TextView surnameTextView;
