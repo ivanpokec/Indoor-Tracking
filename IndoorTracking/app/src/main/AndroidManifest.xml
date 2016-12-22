@@ -32,7 +32,7 @@
        <activity android:name=".SessionManager"></activity>
        <activity android:name=".MyMovements"></activity>
        <activity android:name=".HistoryAll"></activity>
-
+       <activity android:name=".DetailsCurrentLocation"></activity>
 
 </application>
 

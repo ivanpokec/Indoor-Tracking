@@ -20,9 +20,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.dbaccess.ApiEndpoint;
+import com.example.dbaccess.RetrofitConnection;
 
 import hr.foi.ble.*;
 import hr.foi.core.MainService;
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     SessionManager manager;
 
     private static TextView txtCurrentLocation;
-
+    Button details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +73,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
         txtCurrentLocation.setText("Lokacija");
+        details = (Button) findViewById(R.id.buttonDetails);
+
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,DetailsCurrentLocation.class);
+                startActivity(intent);
+            }
+        });
+
         Intent mService = new Intent(this, MainService.class);
         startService(mService);
 
