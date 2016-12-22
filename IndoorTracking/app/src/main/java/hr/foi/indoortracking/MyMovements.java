@@ -24,6 +24,7 @@ public class MyMovements extends AppCompatActivity {
         setContentView(R.layout.activity_my_movements);
 
         setTitle("Moja kretanja");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
        showAll = (Button) findViewById(R.id.button_ShowAllHistory);
         showAll.setOnClickListener(new View.OnClickListener() {
@@ -37,5 +38,9 @@ public class MyMovements extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 }

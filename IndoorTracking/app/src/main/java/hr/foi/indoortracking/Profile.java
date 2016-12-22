@@ -1,12 +1,20 @@
 package hr.foi.indoortracking;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.HistoryModel;
@@ -31,12 +39,15 @@ public class Profile  extends AppCompatActivity {
     private TextView odjelTextView;
     Button button_LogOut;
     SessionManager manager;
+    final Context context = this;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setTitle("Moj profil");
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_profile);
         button_LogOut = (Button) findViewById(R.id.button_LogOut);
         manager = new SessionManager();
@@ -52,7 +63,7 @@ public class Profile  extends AppCompatActivity {
         String odjel = login.activeUser.getOdjel();
         String name = login.activeUser.getName();
         String[] odvojeno = name.split(" ");
-        String passWord = login.activeUser.getPassword();
+        final String passWord = login.activeUser.getPassword();
 
 
         usernameTextView.setText(String.format("Korisničko ime: %s",username));
@@ -64,6 +75,46 @@ public class Profile  extends AppCompatActivity {
         odjelTextView.setText(String.format("Odjel: %s",odjel));
 
 
+        passwordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.activity_change_password);
+                dialog.setTitle("Promijeni lozinku");
+
+                final Context context = dialog.getContext();
+                final LayoutInflater inflater = LayoutInflater.from(context);
+                final View view = inflater.inflate(R.layout.activity_change_password, null, false);
+
+                Button dialogButton1 = (Button) dialog.findViewById(R.id.dialogButtonCancle);
+                Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonSave);
+                final EditText passwordC = (EditText) view.findViewById(R.id.editText_Password_change);
+
+
+                dialogButton1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialogButton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (passwordC.getText().toString().isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Niste unijeli lozinku!", Toast.LENGTH_SHORT).show();
+                        } else {
+
+
+                        }
+                    }
+                });
+
+                dialog.show();
+
+            }
+        });
 
         button_LogOut.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -81,4 +132,11 @@ public class Profile  extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 }
+
+
