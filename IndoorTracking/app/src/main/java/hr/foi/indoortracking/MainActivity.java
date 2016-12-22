@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("Trenutna lokacija");
         checkPermissions();
 
         setContentView(R.layout.activity_main);
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity
         txtCurrentLocation.setText("Lokacija");
         Intent mService = new Intent(this, MainService.class);
         startService(mService);
+
+
+
 
     }
 
