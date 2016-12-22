@@ -142,7 +142,7 @@ public class MainService extends Service {
                     String snrName = nearestSensor.getSnrBleMac(); //TODO: DOHVAĆANJE LOKACIJE PREMA MAC ADRESI
 
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {
+                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {  //TODO: PROSLIJEDITI PRAVI ID KORISNIKA
                         @Override
                         public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
                             if(response.body() != null) {
