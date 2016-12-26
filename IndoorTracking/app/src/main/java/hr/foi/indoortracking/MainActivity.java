@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private BroadcastReceiver myReceiver;
 
     private static TextView txtCurrentLocation;
+    private static TextView txtCurrentLocationDesc;
     Button details;
 
     @Override
@@ -66,7 +67,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
-        txtCurrentLocation.setText("Lokacija");
+        txtCurrentLocation.setText("Tražim lokaciju...");
+        txtCurrentLocationDesc = (TextView) findViewById(R.id.txtCurrentLocationOpis);
+        txtCurrentLocationDesc.setText("");
         details = (Button) findViewById(R.id.buttonDetails);
 
         details.setOnClickListener(new View.OnClickListener() {
@@ -98,8 +101,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent) {
                 Bundle extras = intent.getExtras();
-                String nazivLokacija = extras.getString("Lokacija");
-                Toast.makeText(MainActivity.this, "Sada se nalazite na " + nazivLokacija, Toast.LENGTH_LONG).show();
+                String nazivLokacija = extras.getString("Naziv");
+                String opisLokacija = extras.getString("Opis");
+                txtCurrentLocation.setText(nazivLokacija);
+                txtCurrentLocationDesc.setText(opisLokacija);
+
+                //Toast.makeText(MainActivity.this, "Sada se nalazite na " + nazivLokacija, Toast.LENGTH_LONG).show();
             }
         };
 
