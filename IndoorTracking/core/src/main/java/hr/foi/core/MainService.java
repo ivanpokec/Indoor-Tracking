@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -30,9 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainService extends Service {
-    public MainService() {
-    }
+public class MainService extends Service{
 
     public static boolean sIsStarted = false;
 
@@ -44,6 +43,12 @@ public class MainService extends Service {
     private static Sensor lastSensor = null;
     private Sensor nearestSensor = null;
     private String locationName ="";
+
+    private final IBinder myBinder = new MyBinder();
+
+    public MainService() {
+        super();
+    }
 
     @Override
     public void onCreate() {
@@ -57,7 +62,6 @@ public class MainService extends Service {
 
         scanedSensors = new ArrayList<Sensor>();
         mLastFiltrationTime = new Date().getTime();
-
 
         try {
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -80,15 +84,12 @@ public class MainService extends Service {
         }
         BeaconsMonitoringService.setMainHandler(mHandler);
 
-
-
-
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return myBinder;
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void writeSensorsToLog(){
@@ -104,7 +105,6 @@ public class MainService extends Service {
                     diffFiltration = dateNow.getTime() - mLastFiltrationTime;
                     if (diffFiltration > 1000) removeInactive = true;
                 }
-
 
                 ListIterator<Sensor> sensorListIterator = scanedSensors.listIterator();
                 int nearestSensorSignal = -120;
@@ -139,10 +139,10 @@ public class MainService extends Service {
 //                    mLastFiltrationTime = new Date().getTime();
 //                }
                 if (nearestSensor != null && lastSensor != nearestSensor){
-                    String snrName = nearestSensor.getSnrBleMac(); //TODO: DOHVAĆANJE LOKACIJE PREMA MAC ADRESI
+                    String snrName = nearestSensor.getSnrBleMac();
 
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {  //TODO: PROSLIJEDITI PRAVI ID KORISNIKA
+                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {  //TODO: PROSLIJEDITI ID USERA
                         @Override
                         public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
                             if(response.body() != null) {
@@ -150,6 +150,10 @@ public class MainService extends Service {
 
                                 generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
+                                Intent i = new Intent();
+                                i.putExtra("Lokacija", locationName);
+                                i.setAction("ServiceIntent");
+                                sendBroadcast(i);
 
                             }
                         }
@@ -158,10 +162,7 @@ public class MainService extends Service {
                         public void onFailure(Call<LocationModel> call, Throwable t) {
                             Toast.makeText(MainService.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
                         }
-                    }); //TODO: Refaktorirati - napraviti da servis šalje drugim aktivnostima kad je došlo do promjene lokacije
-
-
-
+                    });
 
                     Date date = new Date(nearestSensor.getLastScannTime());
                     lastSensor = nearestSensor;
@@ -215,7 +216,6 @@ public class MainService extends Service {
         //txtCurrentLocation.setText(snrName+ " " +nearestSensor.getSnrSignalZ());
     }
 
-
     private Handler mLogHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -229,7 +229,6 @@ public class MainService extends Service {
             writeSensorsToLog();
         }
     };
-
 
     public String ByteArrayToString(byte[] ba)
     {
@@ -352,7 +351,6 @@ public class MainService extends Service {
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
             try {
                 switch (msg.what) {
 
@@ -395,5 +393,12 @@ public class MainService extends Service {
             }
         }
     };
+
+
+    public class MyBinder extends Binder {
+        public MainService getService() {
+            return MainService.this;
+        }
+    }
 
 }

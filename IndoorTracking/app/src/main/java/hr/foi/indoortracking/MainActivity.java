@@ -1,13 +1,15 @@
 package hr.foi.indoortracking;
 
 import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.design.widget.NavigationView;
@@ -19,26 +21,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-
-import hr.foi.ble.*;
 import hr.foi.core.MainService;
-
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
     SessionManager manager;
+    private ServiceConnection sConnection;
+    private MainService mainService;
+    private BroadcastReceiver myReceiver;
 
     private static TextView txtCurrentLocation;
     Button details;
@@ -50,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         checkPermissions();
 
         setContentView(R.layout.activity_main);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,8 +65,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
         txtCurrentLocation.setText("Lokacija");
         details = (Button) findViewById(R.id.buttonDetails);
@@ -86,11 +77,35 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Intent mService = new Intent(this, MainService.class);
+        final Intent mService = new Intent(this, MainService.class);
         startService(mService);
 
+        sConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                mainService =((MainService.MyBinder)service).getService();
+            }
 
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                mainService = null;
+            }
+        };
 
+        bindService(mService, sConnection, Context.BIND_AUTO_CREATE);
+
+        myReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Bundle extras = intent.getExtras();
+                String nazivLokacija = extras.getString("Lokacija");
+                Toast.makeText(MainActivity.this, "Sada se nalazite na " + nazivLokacija, Toast.LENGTH_LONG).show();
+            }
+        };
+
+        IntentFilter filter = new IntentFilter("ServiceIntent");
+
+        registerReceiver(myReceiver, filter);
 
     }
 
@@ -161,11 +176,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_korisnici) {
 
         }
-
-
-
         return true;
     }
+
 
     private boolean checkPermissions(){
 
