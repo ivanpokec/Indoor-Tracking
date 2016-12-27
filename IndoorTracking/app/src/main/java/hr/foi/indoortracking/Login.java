@@ -20,6 +20,7 @@ import com.example.dbaccess.UserModel;
 
 import java.util.ArrayList;
 
+import hr.foi.core.LoggedUser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,8 +33,6 @@ public class Login extends Activity {
     Button b2;
     public static UserModel activeUser = new UserModel();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +44,6 @@ public class Login extends Activity {
         passWord = (EditText) findViewById(R.id.editText_Password);
         logIn = (Button) findViewById(R.id.button_LogIn);
 
-
-
         String id = manager.getPreferences(Login.this, "id");
 
         if (id != "") {
@@ -55,6 +52,9 @@ public class Login extends Activity {
             activeUser.setUsername(manager.getPreferences(this,"userName"));
             activeUser.setPassword(manager.getPreferences(this,"password"));
             activeUser.setOdjel(manager.getPreferences(this,"locationName"));
+
+            LoggedUser.getUser().setUserModel(activeUser);
+
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -85,10 +85,11 @@ public class Login extends Activity {
                                 manager.setPreferences(Login.this, "name", response.body().getName());
                                 manager.setPreferences(Login.this, "locationName", response.body().getOdjel());
 
+                                activeUser = response.body();
+                                LoggedUser.getUser().setUserModel(activeUser);
 
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
-
 
                             }
                             else {
@@ -101,11 +102,8 @@ public class Login extends Activity {
                             Toast.makeText(Login.this, "Greška prilikom prijave!", Toast.LENGTH_SHORT).show();
                         }
 
-
                     });
                 }
-
-
 
             }
         });

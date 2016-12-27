@@ -21,6 +21,7 @@ import com.example.dbaccess.HistoryModel;
 import com.example.dbaccess.RetrofitConnection;
 import com.example.dbaccess.UserModel;
 
+import hr.foi.core.LoggedUser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,12 +59,21 @@ public class Profile  extends AppCompatActivity {
         odjelTextView = (TextView) findViewById(R.id.textview_odjel);
         passwordTextView1 = (TextView) findViewById(R.id.textview_password1);
         //String name = manager.getPreferences(Profile.this,"username");
+
+        /*
         Login login = new Login();
+
         String username = login.activeUser.getUsername();
         String odjel = login.activeUser.getOdjel();
-        String name = login.activeUser.getName();
+        String name = login.activeUser.getName(); */
+
+        String username = LoggedUser.getUser().getUserModel().getUsername();
+        String odjel = LoggedUser.getUser().getUserModel().getOdjel();
+        String name = LoggedUser.getUser().getUserModel().getName();
+
+
         String[] odvojeno = name.split(" ");
-        final String passWord = login.activeUser.getPassword();
+        final String passWord = LoggedUser.getUser().getUserModel().getPassword();
 
 
         usernameTextView.setText(String.format("Korisničko ime: %s",username));
@@ -124,6 +134,7 @@ public class Profile  extends AppCompatActivity {
              manager.setPreferences(Profile.this, "userName", "");
              manager.setPreferences(Profile.this, "passWord", "");
              manager.setPreferences(Profile.this, "locationName", "");
+             LoggedUser.getUser().releaseUserModel();
              Intent intent = new Intent(Profile.this, Login.class);
              startActivity(intent);
              finish();

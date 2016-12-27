@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
 
 public class MainActivity extends AppCompatActivity
@@ -49,13 +50,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         manager = new SessionManager();
+
+        /*
         Login login = new Login();
 
         login.activeUser.setId(Integer.parseInt(manager.getPreferences(this, "id")));
         login.activeUser.setName(manager.getPreferences(this,"name"));
         login.activeUser.setUsername(manager.getPreferences(this,"userName"));
         login.activeUser.setPassword(manager.getPreferences(this,"password"));
-        login.activeUser.setOdjel(manager.getPreferences(this,"locationName"));
+        login.activeUser.setOdjel(manager.getPreferences(this,"locationName")); */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -148,7 +151,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_profil) {
             Intent intent = new Intent(this, Profile.class);
             startActivity(intent);
-
         }
 
         if(id== R.id.action_logout) {
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "userName", "");
             manager.setPreferences(MainActivity.this, "passWord", "");
             manager.setPreferences(MainActivity.this, "locationName", "");
+            LoggedUser.getUser().releaseUserModel();
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
             finish();
@@ -185,7 +188,6 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
-
 
     private boolean checkPermissions(){
 

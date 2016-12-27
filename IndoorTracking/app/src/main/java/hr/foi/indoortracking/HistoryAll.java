@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import hr.foi.core.LoggedUser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -157,9 +158,7 @@ public class HistoryAll extends AppCompatActivity{
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
 
-        Login login = new Login();
-
-        id = login.activeUser.getId();
+        id = LoggedUser.getUser().getUserModel().getId();
         apiService.getHistory(id).enqueue(new Callback<List<HistoryModel>>() {
             @Override
             public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {

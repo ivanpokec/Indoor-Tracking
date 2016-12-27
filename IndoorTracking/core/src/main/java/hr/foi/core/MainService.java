@@ -142,8 +142,9 @@ public class MainService extends Service{
                 if (nearestSensor != null && lastSensor != nearestSensor){
                     String snrName = nearestSensor.getSnrBleMac();
 
+                    int userId = LoggedUser.getUser().getUserModel().getId();
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-                    apiService.getLocation(snrName,1).enqueue(new Callback< LocationModel>() {  //TODO: PROSLIJEDITI ID USERA
+                    apiService.getLocation(snrName,userId).enqueue(new Callback< LocationModel>() {
                         @Override
                         public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
                             if(response.body() != null) {
