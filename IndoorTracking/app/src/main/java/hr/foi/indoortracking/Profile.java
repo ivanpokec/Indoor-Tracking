@@ -76,13 +76,13 @@ public class Profile  extends AppCompatActivity {
         final String passWord = LoggedUser.getUser().getUserModel().getPassword();
 
 
-        usernameTextView.setText(String.format("Korisničko ime: %s",username));
-        nameTextView.setText(String.format("Ime: %s",odvojeno[0]));
-        surnameTextView.setText(String.format("Prezime: %s",odvojeno[1]));
+        usernameTextView.setText(String.format(username));
+        nameTextView.setText(String.format(odvojeno[0]));
+        surnameTextView.setText(String.format(odvojeno[1]));
         passwordTextView1.setText("Lozinka: ");
         passwordTextView.setTransformationMethod(new PasswordTransformationMethod());
         passwordTextView.setText(String.format(passWord));
-        odjelTextView.setText(String.format("Odjel: %s",odjel));
+        odjelTextView.setText(String.format(odjel));
 
 
         passwordTextView.setOnClickListener(new View.OnClickListener() {
