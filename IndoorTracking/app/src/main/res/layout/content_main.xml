@@ -24,7 +24,6 @@
 
            <TextView
                android:id="@+id/textViewNaziv"
-               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginLeft="1dp"
                android:layout_marginRight="5dp"
@@ -34,7 +33,9 @@
                android:layout_marginTop="16dp"
                android:layout_weight="0.08"
                android:textSize="24sp"
-               android:textColor="?android:attr/colorAccent" />
+               android:textColor="?android:attr/colorAccent"
+               android:textStyle="normal|bold"
+               android:layout_width="160dp" />
 
            <TextView
             android:id="@+id/txtCurrentLocation"
@@ -44,9 +45,10 @@
             android:text="lokacija"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="0.005dp"
+            android:layout_marginLeft="0.001dp"
             android:textSize="24sp"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="?attr/colorAccent"
+               android:textStyle="normal|italic" />
 
 
 
@@ -77,16 +79,6 @@
         android:layout_toEndOf="@+id/textViewOpis"
         android:layout_marginStart="42dp" />
 
-    <ImageView
-        android:layout_width="200dp"
-        app:srcCompat="@mipmap/plan"
-        android:id="@+id/imageView"
-        android:layout_height="300dp"
-
-        android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
-
     <Button
         android:text="Detalji"
         android:id="@+id/buttonDetails"
@@ -103,16 +95,27 @@
         android:id="@+id/textViewOpis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginRight="5dp"
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         android:text="Kratki opis:"
         android:layout_weight="0.08"
         android:textSize="24sp"
         android:textColor="?android:attr/colorAccent"
-        android:layout_marginStart="18dp"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="2dp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/imageView"
+        android:textAlignment="viewStart" />
+
+    <ImageView
+        android:layout_width="200dp"
+        app:srcCompat="@mipmap/plan"
+        android:id="@+id/imageView"
+        android:layout_height="300dp"
+
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
 
 
 </RelativeLayout>

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
-        txtCurrentLocation.setText("Tražim lokaciju...");
+        txtCurrentLocation.setText("Traženje...");
         txtCurrentLocationDesc = (TextView) findViewById(R.id.txtCurrentLocationOpis);
         txtCurrentLocationDesc.setText("");
         details = (Button) findViewById(R.id.buttonDetails);
