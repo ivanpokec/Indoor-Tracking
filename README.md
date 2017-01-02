@@ -6,4 +6,4 @@ Testni podaci za prijavu:
 
 username: zzekic
 
-password: zzekic
+password: zanaz
