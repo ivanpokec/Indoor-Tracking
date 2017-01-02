@@ -32,6 +32,7 @@ import retrofit2.Response;
 
 public class Profile  extends AppCompatActivity {
 
+    public static UserModel activeUser = new UserModel();
     private TextView nameTextView;
     private TextView surnameTextView;
     private TextView usernameTextView;
@@ -58,6 +59,7 @@ public class Profile  extends AppCompatActivity {
         passwordTextView = (TextView) findViewById(R.id.textview_password);
         odjelTextView = (TextView) findViewById(R.id.textview_odjel);
         passwordTextView1 = (TextView) findViewById(R.id.textview_password1);
+
         //String name = manager.getPreferences(Profile.this,"username");
 
         /*
@@ -67,9 +69,10 @@ public class Profile  extends AppCompatActivity {
         String odjel = login.activeUser.getOdjel();
         String name = login.activeUser.getName(); */
 
-        String username = LoggedUser.getUser().getUserModel().getUsername();
-        String odjel = LoggedUser.getUser().getUserModel().getOdjel();
-        String name = LoggedUser.getUser().getUserModel().getName();
+        final String username = LoggedUser.getUser().getUserModel().getUsername();
+        final String odjel = LoggedUser.getUser().getUserModel().getOdjel();
+        final String name = LoggedUser.getUser().getUserModel().getName();
+        final int id = LoggedUser.getUser().getUserModel().getId();
 
 
         String[] odvojeno = name.split(" ");
@@ -88,17 +91,17 @@ public class Profile  extends AppCompatActivity {
         passwordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(context);
+                final Dialog dialog = new Dialog(Profile.this);
                 dialog.setContentView(R.layout.activity_change_password);
                 dialog.setTitle("Promijeni lozinku");
 
-                final Context context = dialog.getContext();
-                final LayoutInflater inflater = LayoutInflater.from(context);
-                final View view = inflater.inflate(R.layout.activity_change_password, null, false);
+                //final Context context = dialog.getContext();
+                //final LayoutInflater inflater = LayoutInflater.from(context);
+                //final View layout = View.inflate(this, R.layout.activity_change_password, null);
 
                 Button dialogButton1 = (Button) dialog.findViewById(R.id.dialogButtonCancle);
                 Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonSave);
-                final EditText passwordC = (EditText) view.findViewById(R.id.editText_Password_change);
+                final EditText passWordChange = (EditText) dialog.findViewById(R.id.editText_Password_change);
 
 
                 dialogButton1.setOnClickListener(new View.OnClickListener() {
@@ -111,14 +114,42 @@ public class Profile  extends AppCompatActivity {
                 dialogButton2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        if (passwordC.getText().toString().isEmpty()) {
+                        Toast.makeText(Profile.this,String.valueOf(id), Toast.LENGTH_SHORT).show();
+                        if (passWordChange.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Niste unijeli lozinku!", Toast.LENGTH_SHORT).show();
                         } else {
 
+                            ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
+                            apiService.changePassword(passWordChange.getText().toString(),id).enqueue(new Callback<UserModel>() {
+                                @Override
+                                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                                    if (response.body() != null) {
+                                        manager.setPreferences(Profile.this, "id",String.valueOf(id));
+                                        manager.setPreferences(Profile.this, "password", String.valueOf(response.body().getPassword()));
+                                        manager.setPreferences(Profile.this, "userName",username);
+                                        manager.setPreferences(Profile.this, "name",name);
+                                        manager.setPreferences(Profile.this, "locationName",odjel);
+
+                                        activeUser = response.body();
+                                        LoggedUser.getUser().setUserModel(activeUser);
+
+                                    }  else {
+                                        Toast.makeText(Profile.this, "Neuspješna promjena!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<UserModel> call, Throwable t) {
+                                    Toast.makeText(Profile.this, "Greška prilikom promjene!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
 
                         }
+                   dialog.dismiss();
                     }
+
+
                 });
 
                 dialog.show();

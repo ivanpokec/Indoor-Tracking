@@ -19,6 +19,10 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<UserModel> getUser(@Field("userName") String username, @Field("passWord") String password);
 
+    @POST("IndoorTracking/api/userpassupdate")
+    @FormUrlEncoded
+    Call<UserModel> changePassword(@Field("passWord") String passWord, @Field("usrId") int id);
+
     @POST("IndoorTracking/api/history")
     @FormUrlEncoded
     Call<List<HistoryModel>> getHistory(@Field("UserId") int id);
