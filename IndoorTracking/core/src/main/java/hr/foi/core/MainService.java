@@ -44,6 +44,7 @@ public class MainService extends Service{
     private Sensor nearestSensor = null;
     private String locationName = "";
     private String locationDesc = "";
+    private String locationCat =  "";
 
     private final IBinder myBinder = new MyBinder();
 
@@ -150,12 +151,14 @@ public class MainService extends Service{
                             if(response.body() != null) {
                                 locationName = response.body().getName();
                                 locationDesc = response.body().getDescription();
+                                locationCat = response.body().getCategory();
 
                                 generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
                                 Intent i = new Intent();
                                 i.putExtra("Naziv", locationName);
                                 i.putExtra("Opis", locationDesc);
+                                i.putExtra("Kategorija", locationCat);
                                 i.setAction("ServiceIntent");
                                 sendBroadcast(i);
 

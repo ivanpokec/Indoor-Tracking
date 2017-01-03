@@ -9,12 +9,14 @@ public class LocationModel {
     String name;
     String macAddress;
     String description;
+    String category;
 
-    public LocationModel(int id, String name, String macAddress, String description) {
+    public LocationModel(int id, String name, String macAddress, String description, String category) {
         Id = id;
         this.name = name;
         this.macAddress = macAddress;
         this.description = description;
+        this.category = category;
     }
 
     public int getId() {
@@ -47,5 +49,13 @@ public class LocationModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
