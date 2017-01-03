@@ -1,5 +1,7 @@
 package com.example.dbaccess;
 
+import android.location.Location;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,7 +33,8 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<LocationModel> getLocation(@Field("MacAddress") String MacAddress, @Field("UsrId") int userId);
 
-
+    @GET("IndoorTracking/api/Category")
+    Call<List<CategoryModel>> listLocations();
 
 
 }

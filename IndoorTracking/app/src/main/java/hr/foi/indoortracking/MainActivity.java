@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
@@ -179,7 +178,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_trenutna) {
 
         } else if (id == R.id.nav_lokacije) {
-
+            Intent intent = new Intent(MainActivity.this,Category.class);
+            startActivity(intent);
         } else if (id == R.id.nav_kretanja) {
             Intent intent = new Intent(MainActivity.this, MyMovements.class);
             startActivity(intent);
