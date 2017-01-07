@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity
                 String nazivLokacija = extras.getString("Naziv");
                 String kategorija = extras.getString("Kategorija");
                 String opisLokacija = extras.getString("Opis");
+
                 txtCurrentLocation.setText(nazivLokacija);
                 txtCategory.setText(kategorija);
                 txtCurrentLocationDesc.setText(opisLokacija);

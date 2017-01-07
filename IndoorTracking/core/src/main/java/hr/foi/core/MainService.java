@@ -155,7 +155,10 @@ public class MainService extends Service{
 
                                 generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
+                                int locationId = response.body().getId();
+
                                 Intent i = new Intent();
+                                i.putExtra("LocationId",locationId);
                                 i.putExtra("Naziv", locationName);
                                 i.putExtra("Opis", locationDesc);
                                 i.putExtra("Kategorija", locationCat);
