@@ -20,7 +20,7 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT kor_ime FROM korisnici WHERE kor_lokacija = @location";
+                string strCmd = @"SELECT kor_ime FROM korisnici WHERE kor_lokacija = @location AND kor_trenutna_lokacija != @location";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
 
