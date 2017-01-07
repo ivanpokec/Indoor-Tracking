@@ -88,3 +88,6 @@ C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\System.W
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Release\IndoorTracking.csprojResolveAssemblyReference.cache
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Release\IndoorTracking.dll
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Release\IndoorTracking.pdb
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.dll
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.pdb
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.xml

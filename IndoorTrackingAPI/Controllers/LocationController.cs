@@ -32,6 +32,7 @@ namespace IndoorTracking.Controllers
                             locationRead.name = data["lok_naziv"].ToString();
                             locationRead.description = data["lok_opis"].ToString();
                             locationRead.macAddress = data["lok_ble_mac"].ToString();
+                            locationRead.category = data["kat_naziv"].ToString();
                             locations.Add(locationRead);
                         }
                     }
@@ -48,10 +49,11 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT lok_id, lok_naziv, lok_opis, lok_ble_mac FROM lokacije WHERE lok_ble_mac=@mac_address";
+                string strCmd = @"SELECT lok_id, lok_naziv, lok_opis, lok_ble_mac,kat_naziv FROM lokacije LEFT JOIN kategorije_prostorija ON lok_kategorija = kat_id WHERE lok_ble_mac=@mac_address; INSERT INTO povijest_kretanja SELECT @usrId, lok_id, GETDATE() FROM lokacije WHERE lok_ble_mac=@mac_address; UPDATE korisnici SET kor_trenutna_lokacija = (SELECT lok_id FROM lokacije WHERE lok_ble_mac=@mac_address) WHERE kor_id = @usrId;";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
                     cmd.Parameters.Add("@mac_address", System.Data.SqlDbType.VarChar).Value = loginRequest.MacAddress;
+                    cmd.Parameters.Add("@usrId", System.Data.SqlDbType.VarChar).Value = loginRequest.UsrId;
 
                     using (SqlDataReader data = cmd.ExecuteReader())
                     {
@@ -65,6 +67,7 @@ namespace IndoorTracking.Controllers
                                 location.name = data["lok_naziv"].ToString();
                                 location.description = data["lok_opis"].ToString();
                                 location.macAddress = data["lok_ble_mac"].ToString();
+                                location.category = data["kat_naziv"].ToString();
                                 return Ok(location);
                             }
                         }

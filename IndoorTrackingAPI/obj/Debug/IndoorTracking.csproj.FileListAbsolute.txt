@@ -85,6 +85,9 @@ C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\Microsof
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\System.Web.Http.Owin.xml
-C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Debug\IndoorTracking.csprojResolveAssemblyReference.cache
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Debug\IndoorTracking.dll
 C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Debug\IndoorTracking.pdb
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.dll
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.pdb
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\bin\HtmlAgilityPack.xml
+C:\Users\ipokec\Documents\mobilisisServisi\Mobilisis\IndoorTracking\obj\Debug\IndoorTracking.csprojResolveAssemblyReference.cache

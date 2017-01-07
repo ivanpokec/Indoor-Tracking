@@ -5,9 +5,9 @@ using System.Web;
 
 namespace IndoorTracking.Models
 {
-    public class Mac
+    public class UserUpdate
     {
-        public string MacAddress    { get; set; }
-        public int      UsrId       { get; set; }
+        public string passWord { get;  set; }
+        public int usrId { get;  set; }
     }
 }

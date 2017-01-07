@@ -11,5 +11,7 @@ namespace IndoorTracking.Models
         public string userName { get; set; }
         public string passWord { get; set; }
         public string name { get; set; }
+        public int locationId { get; set; }
+        public string locationName { get; set; }
     }
 }
