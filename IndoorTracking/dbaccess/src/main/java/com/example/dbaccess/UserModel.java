@@ -6,13 +6,18 @@ package com.example.dbaccess;
 
 public class UserModel {
     private int Id;
-    String userName;
+   public String userName;
     String passWord;
-    String name;
+    public String name;
     String locationName;
     int locationId;
 
     public UserModel() {
+
+    }
+
+    public UserModel(String name) {
+        this.name = name;
 
     }
 

@@ -192,7 +192,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, MyMovements.class);
             startActivity(intent);
         } else if (id == R.id.nav_korisnici) {
-
+            Intent intent = new Intent(MainActivity.this, Users.class);
+            startActivity(intent);
         }
         return true;
     }

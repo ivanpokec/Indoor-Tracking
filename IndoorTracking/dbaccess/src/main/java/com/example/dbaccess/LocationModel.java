@@ -6,7 +6,7 @@ package com.example.dbaccess;
 
 public class LocationModel {
     int Id;
-    String name;
+   public String name;
     String macAddress;
     String description;
     String category;
@@ -17,6 +17,11 @@ public class LocationModel {
         this.macAddress = macAddress;
         this.description = description;
         this.category = category;
+    }
+
+    public LocationModel (String name) {
+
+        this.name=name;
     }
 
     public int getId() {
@@ -58,4 +63,6 @@ public class LocationModel {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void getLocationInCategory (String name) {this.name=name;}
 }

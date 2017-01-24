@@ -1,10 +1,12 @@
 package hr.foi.indoortracking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,38 +38,44 @@ public class Category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTitle("Lokacije");
+        setTitle("Kategorije lokacija");
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_category);
 
         categoryListView = (ListView) findViewById(R.id.list_category);
-       // categoryListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new LinkedList<CategoryModel>());
 
         categoryListAdapter = new ArrayAdapter<CategoryModel>(this,
-                android.R.layout.simple_list_item_1
-                , new LinkedList<CategoryModel>()) {
+                        android.R.layout.simple_list_item_1
+                        , new LinkedList<CategoryModel>()) {
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-
-
-                    CategoryModel categoryModel = getItem(position);
-
-                    if (convertView == null) {
-                        convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-                    }
-                    
-                    ((TextView) convertView).setText(categoryModel.catName);
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
 
 
-                    return convertView;
+
+                        CategoryModel categoryModel = getItem(position);
+
+                        if (convertView == null) {
+                            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                        }
+
+                        ((TextView) convertView).setText(categoryModel.catName);
+
+
+                        return convertView;
             }
         };
         getLocations(categoryListView);
         categoryListView.setAdapter(categoryListAdapter);
 
+        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Category.this, Locations.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void getLocations(View view) {
@@ -88,7 +96,12 @@ public class Category extends AppCompatActivity {
                 Toast.makeText(Category.this, "Greška prilikom dohvaćanja podataka!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
+
+
+
 
     @Override
     public boolean onSupportNavigateUp(){
