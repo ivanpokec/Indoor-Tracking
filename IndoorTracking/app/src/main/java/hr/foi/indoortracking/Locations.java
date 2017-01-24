@@ -1,5 +1,6 @@
 package hr.foi.indoortracking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -11,8 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.CategoryModel;
-import com.example.dbaccess.LocationModel;
+import com.example.dbaccess.LocationCategoryModel;
 import com.example.dbaccess.RetrofitConnection;
 
 import java.util.LinkedList;
@@ -28,7 +28,9 @@ import retrofit2.Response;
 
 public class Locations extends AppCompatActivity {
     private ListView locationsListView;
-    ArrayAdapter<LocationModel> locationsListAdapter;
+    ArrayAdapter<LocationCategoryModel> locationsListAdapter;
+    String catID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,60 +40,67 @@ public class Locations extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_locations);
 
+        Intent mIntent = getIntent();
+        catID = mIntent.getStringExtra("ID");
 
-        locationsListView = (ListView) findViewById(R.id.list_category);
+       //Toast.makeText(Locations.this, catID, Toast.LENGTH_SHORT).show();
 
-       /* locationsListAdapter = new ArrayAdapter<LocationModel>(this,
+        locationsListView = (ListView) findViewById(R.id.list_locations);
+
+        locationsListAdapter = new ArrayAdapter<LocationCategoryModel>(this,
                 android.R.layout.simple_list_item_1
-                , new LinkedList<LocationModel>()) {
+                , new LinkedList<LocationCategoryModel>()) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
 
 
-               LocationModel locationModel = getItem(position);
+                LocationCategoryModel locationCategoryModel = getItem(position);
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
                 }
 
-                ((TextView) convertView).setText(locationModel.name);
+                ((TextView) convertView).setText(locationCategoryModel.getLocationInCategory());
 
 
                 return convertView;
             }
-        }; */
+        };
 
-       // getLocations(locationsListView);
-        //locationsListView.setAdapter(locationsListAdapter);
+            getLocations(locationsListView,Integer.parseInt(catID));
+            locationsListView.setAdapter(locationsListAdapter);
 
 
         }
 
 
-   /* public void getLocations(View view) {
+    public void getLocations(View view, int catID){
         locationsListAdapter.clear();
         locationsListAdapter.notifyDataSetChanged();
+
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        Call<List<LocationModel>> call = apiService.getLocationInCategory();
-        call.enqueue(new Callback<List<LocationModel>>() {
+        apiService.getLocationInCategory(catID).enqueue(new Callback<List<LocationCategoryModel>>() {
             @Override
-            public void onResponse(Call<List<LocationModel>> call, Response<List<LocationModel>> response) {
-                if (response.isSuccess()) {
-                    locationsListAdapter.addAll(response.body());
+            public void onResponse(Call<List<LocationCategoryModel>> call, Response<List<LocationCategoryModel>> response) {
+                if(response.body() != null) {
+
+                   locationsListAdapter.addAll(response.body());
+
                 }
             }
 
             @Override
-            public void onFailure(Call<List<LocationModel>> call, Throwable t) {
-                Toast.makeText(Locations.this, "Greška prilikom dohvaćanja podataka!", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<LocationCategoryModel>> call, Throwable t) {
+                Toast.makeText(Locations.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
             }
         });
 
-
     }
-*/
+
+
+
     @Override
     public boolean onSupportNavigateUp(){
         finish();

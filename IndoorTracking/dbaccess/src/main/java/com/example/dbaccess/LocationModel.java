@@ -11,6 +11,7 @@ public class LocationModel {
     String description;
     String category;
 
+
     public LocationModel(int id, String name, String macAddress, String description, String category) {
         Id = id;
         this.name = name;
@@ -19,10 +20,7 @@ public class LocationModel {
         this.category = category;
     }
 
-    public LocationModel (String name) {
 
-        this.name=name;
-    }
 
     public int getId() {
         return Id;
@@ -64,5 +62,5 @@ public class LocationModel {
         this.category = category;
     }
 
-    public void getLocationInCategory (String name) {this.name=name;}
+
 }

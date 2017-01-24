@@ -1,11 +1,8 @@
 package com.example.dbaccess;
 
-import android.location.Location;
-
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -38,16 +35,16 @@ public interface ApiEndpoint {
 
     @POST("IndoorTracking/api/UsersOnLocation")
     @FormUrlEncoded
-    Call<List<UserLocationModel>> getCurrentUsersOnLocation( @Field("locationId") int locationId);
+    Call<List<UserLocationModel>> getCurrentUsersOnLocation(@Field("locationId") int locationId);
 
     @POST("IndoorTracking/api/UserLocation")
     @FormUrlEncoded
-    Call<List<UserLocationModel>> getUsersOnLocation( @Field("locationId") int locationId);
+    Call<List<UserLocationModel>> getUsersOnLocation(@Field("locationId") int locationId);
 
     @GET("IndoorTracking/api/User")
     Call<List<UserModel>> listUsers();
 
     @POST("IndoorTracking/api/LocationInCategori")
     @FormUrlEncoded
-    Call<List<LocationModel>> getLocationInCategory( @Field("catId") int categoryId);
+    Call<List<LocationCategoryModel>> getLocationInCategory(@Field("catId") int catId);
 }

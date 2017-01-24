@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.CategoryModel;
 import com.example.dbaccess.RetrofitConnection;
+import com.example.dbaccess.UserModel;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,8 +32,9 @@ import retrofit2.Response;
 
 public class Category extends AppCompatActivity {
     private ListView categoryListView;
-    ArrayAdapter<CategoryModel> categoryListAdapter;
 
+    ArrayAdapter<CategoryModel> categoryListAdapter;
+    public int catId;
 
 
     @Override
@@ -63,6 +65,7 @@ public class Category extends AppCompatActivity {
                         ((TextView) convertView).setText(categoryModel.catName);
 
 
+
                         return convertView;
             }
         };
@@ -72,7 +75,11 @@ public class Category extends AppCompatActivity {
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CategoryModel catmodel;
+                catmodel = categoryListAdapter.getItem(position);
+                catId=catmodel.catId;
                 Intent intent = new Intent(Category.this, Locations.class);
+                intent.putExtra("ID",  Integer.toString(catId));
                 startActivity(intent);
             }
         });
@@ -83,7 +90,7 @@ public class Category extends AppCompatActivity {
         categoryListAdapter.notifyDataSetChanged();
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
         Call<List<CategoryModel>> call = apiService.listLocations();
-       call.enqueue(new Callback<List<CategoryModel>>() {
+        call.enqueue(new Callback<List<CategoryModel>>() {
             @Override
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
                 if (response.isSuccess()) {
