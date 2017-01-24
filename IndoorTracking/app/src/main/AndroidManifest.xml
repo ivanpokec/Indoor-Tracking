@@ -36,7 +36,9 @@
        <activity android:name=".Category"></activity>
        <activity android:name=".Users"></activity>
        <activity android:name=".Locations"></activity>
+       <activity android:name=".Settings"></activity>
 
-</application>
+
+   </application>
 
 </manifest>
