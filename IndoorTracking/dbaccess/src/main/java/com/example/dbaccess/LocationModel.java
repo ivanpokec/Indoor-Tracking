@@ -5,7 +5,7 @@ package com.example.dbaccess;
  */
 
 public class LocationModel {
-    int Id;
+   public int Id;
    public String name;
     String macAddress;
     String description;

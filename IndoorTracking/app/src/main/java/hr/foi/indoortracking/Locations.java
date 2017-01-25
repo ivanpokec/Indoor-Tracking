@@ -6,13 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
+import com.example.dbaccess.CategoryModel;
 import com.example.dbaccess.LocationCategoryModel;
+import com.example.dbaccess.LocationModel;
 import com.example.dbaccess.RetrofitConnection;
 
 import java.util.LinkedList;
@@ -30,6 +33,7 @@ public class Locations extends AppCompatActivity {
     private ListView locationsListView;
     ArrayAdapter<LocationCategoryModel> locationsListAdapter;
     String catID;
+    int locID;
 
 
     @Override
@@ -71,6 +75,18 @@ public class Locations extends AppCompatActivity {
 
             getLocations(locationsListView,Integer.parseInt(catID));
             locationsListView.setAdapter(locationsListAdapter);
+
+        locationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LocationCategoryModel locationCategoryModel;
+                locationCategoryModel = locationsListAdapter.getItem(position);
+                locID=locationCategoryModel.Id;
+                Intent intent = new Intent(Locations.this, LocationDetails.class);
+                intent.putExtra("ID",  Integer.toString(locID));
+                startActivity(intent);
+            }
+        });
 
 
         }

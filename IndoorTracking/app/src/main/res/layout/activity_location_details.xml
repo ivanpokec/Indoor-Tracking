@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Trenutno na lokaciji"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewTrenutno" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:id="@+id/trenutnonalokaciji">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="243dp"
+                android:id="@+id/trenutnonalokacijilist" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:text="Pridruženi lokaciji"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:id="@+id/textViewPridruzeniLokaciji" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pridruzenilokaciji">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="217dp"
+                android:id="@+id/pridruzenilokacijilist" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
