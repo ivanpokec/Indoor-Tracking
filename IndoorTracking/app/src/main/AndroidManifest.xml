@@ -37,6 +37,8 @@
        <activity android:name=".Users"></activity>
        <activity android:name=".Locations"></activity>
        <activity android:name=".Settings"></activity>
+       <activity android:name=".UserProfile"></activity>
+
 
 
    </application>

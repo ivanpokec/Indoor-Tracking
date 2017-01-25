@@ -1,10 +1,12 @@
 package hr.foi.indoortracking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import retrofit2.Response;
 public class Users extends AppCompatActivity {
     private ListView usersListView;
     ArrayAdapter<UserModel> usersListAdapter;
+    public int userID;
 
 
     @Override
@@ -65,6 +68,19 @@ public class Users extends AppCompatActivity {
         };
         getUsers(usersListView);
         usersListView.setAdapter(usersListAdapter);
+        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                UserModel userModel;
+                userModel = usersListAdapter.getItem(position);
+                userID=userModel.Id;
+                Intent intent = new Intent(Users.this, UserProfile.class);
+                intent.putExtra("ID",  Integer.toString(userID));
+                startActivity(intent);
+            }
+        });
+
+
             }
     public void getUsers(View view) {
         usersListAdapter.clear();

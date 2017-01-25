@@ -5,7 +5,7 @@ package com.example.dbaccess;
  */
 
 public class UserModel {
-    private int Id;
+    public int Id;
    public String userName;
     String passWord;
     public String name;
