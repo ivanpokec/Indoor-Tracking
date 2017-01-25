@@ -1,5 +1,6 @@
 package hr.foi.indoortracking;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.CategoryModel;
@@ -33,6 +35,7 @@ public class Users extends AppCompatActivity {
     private ListView usersListView;
     ArrayAdapter<UserModel> usersListAdapter;
     public int userID;
+    private Context context;
 
 
     @Override
@@ -46,7 +49,7 @@ public class Users extends AppCompatActivity {
         usersListView = (ListView) findViewById(R.id.list_users);
 
         usersListAdapter = new ArrayAdapter<UserModel>(this,
-                android.R.layout.simple_list_item_1
+                android.R.layout.simple_list_item_2
                 , new LinkedList<UserModel>()) {
 
             @Override
@@ -55,15 +58,48 @@ public class Users extends AppCompatActivity {
 
 
                 UserModel usersModel = getItem(position);
+                TwoLineListItem twoLineListItem;
+
+               if (convertView == null) {
+                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+                   context=getContext();
+                   LayoutInflater inflater = (LayoutInflater) context
+                           .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                   twoLineListItem = (TwoLineListItem) inflater.inflate(
+                           android.R.layout.simple_list_item_2, null);
+                } else {
+                   twoLineListItem = (TwoLineListItem) convertView;
+               }
+
+
+
+               // ((TextView) convertView).setText(usersModel.name);
+                //((TextView) convertView).setText(usersModel.locationName);
+
+                //return convertView;
+
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                    LayoutInflater inflater = (LayoutInflater) context
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    twoLineListItem = (TwoLineListItem) inflater.inflate(
+                            android.R.layout.simple_list_item_2, null);
+                } else {
+                    twoLineListItem = (TwoLineListItem) convertView;
                 }
 
-                ((TextView) convertView).setText(usersModel.name);
+                TextView text1 = twoLineListItem.getText1();
+                TextView text2 = twoLineListItem.getText2();
+
+                text1.setText(usersModel.name);
 
 
-                return convertView;
+                text2.setText("Trenutacna lokacija: ");
+
+                return twoLineListItem;
+
+
+
             }
         };
         getUsers(usersListView);

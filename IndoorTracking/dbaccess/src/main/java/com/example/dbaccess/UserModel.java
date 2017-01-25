@@ -9,17 +9,17 @@ public class UserModel {
    public String userName;
     String passWord;
     public String name;
-    String locationName;
+    public String locationName;
     int locationId;
 
     public UserModel() {
 
     }
 
-    public UserModel(String name) {
+    public UserModel(String name, String locationName) {
         this.name = name;
-
-    }
+        this.locationName=locationName;
+          }
 
     public int getId() {
         return Id;
