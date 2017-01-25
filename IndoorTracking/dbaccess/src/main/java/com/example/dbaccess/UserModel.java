@@ -6,19 +6,21 @@ package com.example.dbaccess;
 
 public class UserModel {
     public int Id;
-   public String userName;
+    public String userName;
     String passWord;
     public String name;
     public String locationName;
     int locationId;
+    public String currentLocarion;
 
     public UserModel() {
 
     }
 
-    public UserModel(String name, String locationName) {
+    public UserModel(String name, String locationName, String currentLocarion) {
         this.name = name;
         this.locationName=locationName;
+        this.currentLocarion=currentLocarion;
           }
 
     public int getId() {
@@ -60,4 +62,6 @@ public class UserModel {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getCurrentLocarion() {return currentLocarion;}
 }

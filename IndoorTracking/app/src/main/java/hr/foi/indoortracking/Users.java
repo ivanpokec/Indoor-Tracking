@@ -94,7 +94,7 @@ public class Users extends AppCompatActivity {
                 text1.setText(usersModel.name);
 
 
-                text2.setText("Trenutacna lokacija: ");
+                text2.setText("Trenutacna lokacija: " + usersModel.currentLocarion);
 
                 return twoLineListItem;
 
