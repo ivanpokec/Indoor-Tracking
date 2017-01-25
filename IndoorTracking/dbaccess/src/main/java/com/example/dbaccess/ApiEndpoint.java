@@ -47,4 +47,8 @@ public interface ApiEndpoint {
     @POST("IndoorTracking/api/LocationInCategori")
     @FormUrlEncoded
     Call<List<LocationCategoryModel>> getLocationInCategory(@Field("catId") int catId);
+
+    @POST("IndoorTracking/api/User")
+    @FormUrlEncoded
+    Call<UserModel> getUser(@Field("UserId") int UserId);
 }

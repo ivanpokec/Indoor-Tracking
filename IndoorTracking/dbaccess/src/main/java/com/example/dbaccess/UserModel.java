@@ -17,7 +17,7 @@ public class UserModel {
 
     }
 
-    public UserModel(String name, String locationName, String currentLocarion) {
+        public UserModel(String name, String locationName, String currentLocarion) {
         this.name = name;
         this.locationName=locationName;
         this.currentLocarion=currentLocarion;
