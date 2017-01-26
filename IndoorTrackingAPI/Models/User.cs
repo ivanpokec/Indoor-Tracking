@@ -13,5 +13,7 @@ namespace IndoorTracking.Models
         public string name { get; set; }
         public int locationId { get; set; }
         public string locationName { get; set; }
+        public string sector { get;  set; }
+        public string currentLocarion { get;  set; }
     }
 }
