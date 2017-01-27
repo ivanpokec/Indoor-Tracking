@@ -19,7 +19,7 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT lok_id, lok_naziv, lok_opis, lok_ble_mac FROM lokacije";
+                string strCmd = @"SELECT lok_id, lok_naziv, lok_opis, lok_ble_mac,kat_naziv FROM lokacije LEFT JOIN kategorije_prostorija ON lok_kategorija = kat_id ";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
                     //cmd.Parameters.Add("@pa1",System.Data.SqlDbType.VarChar).Value="test";
@@ -75,13 +75,7 @@ namespace IndoorTracking.Controllers
                     }
                 }
             }
-
-            //var location = locations.FirstOrDefault((p) => p.Id == id);
-            //if (location == null)
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(location);
+            
         }
 
 

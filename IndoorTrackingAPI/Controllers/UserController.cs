@@ -54,16 +54,49 @@ namespace IndoorTracking.Controllers
 
             return users;
         }
-        //public IHttpActionResult GetUser(int id)
-        //{
-        //    var user = users.FirstOrDefault((p) => p.Id == id);
 
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user);
-        //}
+        [HttpPost]
+        public IHttpActionResult GetUser([FromBody] UsrId userIdRequest)        
+        {
+            User user = new User();
+
+            //List<User> users = new List<User>();
+            using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
+            {
+                connection.Open();
+                string strCmd = @"SELECT kor_id, kor_username, kor_lozinka, kor_ime, trenutna.lok_naziv AS trenutna_lokacija, uobicaj.lok_id, uobicaj.lok_naziv AS kor_lokacija, kat_naziv FROM korisnici LEFT JOIN lokacije AS trenutna ON kor_trenutna_lokacija = trenutna.lok_id LEFT JOIN lokacije AS uobicaj ON kor_lokacija = uobicaj.lok_id LEFT JOIN kategorije_prostorija ON uobicaj.lok_kategorija = kat_id WHERE kor_id =  @usrId";
+                using (SqlCommand cmd = new SqlCommand(strCmd, connection))
+                {
+                    cmd.Parameters.Add("@usrId", System.Data.SqlDbType.Int).Value = userIdRequest.UserId;
+                    using (SqlDataReader data = cmd.ExecuteReader())
+                    {
+
+                        if (data.Read())
+                        {
+                            int idc = 0;
+                            bool check = Int32.TryParse(data["kor_id"].ToString(), out idc);
+                            if (check == true && idc != 0)
+                            {
+                                user.Id = int.Parse(data["kor_id"].ToString());
+                                user.userName = data["kor_username"].ToString();
+                                user.passWord = data["kor_lozinka"].ToString();
+                                user.name = data["kor_ime"].ToString();
+                                user.locationId = int.Parse(data["lok_id"].ToString());
+                                user.locationName=data["kor_lokacija"].ToString();
+                                user.sector = data["kat_naziv"].ToString();
+                                user.currentLocarion = data["trenutna_lokacija"].ToString();
+                                return Ok(user);
+                            }
+                                
+                        }
+                    }
+                }
+
+            }
+            
+            return NotFound();
+            
+        }
 
 
 
