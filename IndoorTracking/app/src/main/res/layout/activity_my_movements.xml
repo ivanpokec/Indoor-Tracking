@@ -43,7 +43,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/from_editText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:editable="false"
+        />
 
     <TextView
         android:text="Do:"
@@ -58,6 +60,7 @@
         android:id="@+id/to_editText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:editable="false"
         />
 
     <Button
