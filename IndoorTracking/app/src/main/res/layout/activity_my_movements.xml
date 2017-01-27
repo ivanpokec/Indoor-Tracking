@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
 
-    //Dodati naslov "Moja kretanja", gumbić za povratak (Back)
+
 
     <Button
         android:text="Prikaži sve"
-        android:layout_width="500px"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/button_ShowAllHistory"
         android:layout_marginTop="50dp"
         android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/background_light"
-        />
+        android:textColor="@android:color/background_light" />
 
     <View
         android:layout_width="match_parent"
@@ -24,7 +24,71 @@
         android:layout_marginTop="80px"
         />
 
+    <TextView
+        android:text="Odaberi vremenski period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:text="Od:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/from_editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Do:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/to_editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <Button
+        android:text="Traži"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button_search"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="@android:color/background_light"
+        android:layout_marginTop="20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="80px"
+        />
+
+    <TextView
+        android:text="Odaberi lokaciju"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_marginTop="5dp"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_marginTop="20dp"/>
 
 
 </LinearLayout>

@@ -60,4 +60,7 @@ public interface ApiEndpoint {
     @POST("IndoorTracking/api/User")
     @FormUrlEncoded
     Call<UserModel> getUser(@Field("UserId") int UserId);
+
+    @GET("IndoorTracking/api/Location")
+    Call<List<LocationModel>> listAllLocations();
 }
