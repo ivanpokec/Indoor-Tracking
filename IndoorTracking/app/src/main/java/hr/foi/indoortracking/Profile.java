@@ -4,12 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.HistoryModel;
 import com.example.dbaccess.RetrofitConnection;
 import com.example.dbaccess.UserModel;
 
@@ -66,11 +61,11 @@ public class Profile  extends AppCompatActivity {
         Login login = new Login();
 
         String username = login.activeUser.getUsername();
-        String odjel = login.activeUser.getOdjel();
+        String odjel = login.activeUser.getLocationName();
         String name = login.activeUser.getName(); */
 
         final String username = LoggedUser.getUser().getUserModel().getUsername();
-        final String odjel = LoggedUser.getUser().getUserModel().getOdjel();
+        final String odjel = LoggedUser.getUser().getUserModel().getLocationName();
         final String name = LoggedUser.getUser().getUserModel().getName();
         final int id = LoggedUser.getUser().getUserModel().getId();
 

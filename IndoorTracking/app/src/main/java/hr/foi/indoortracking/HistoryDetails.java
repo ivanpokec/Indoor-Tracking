@@ -2,13 +2,12 @@ package hr.foi.indoortracking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,81 +26,66 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Paula on 20.12.2016..
+ * Created by Paula on 27.1.2017..
  */
 
-public class HistoryAll extends AppCompatActivity{
-    private ListView historyListView;
-    private ArrayAdapter<HistoryModel> historyListAdapter;
-    private int id;
+public class HistoryDetails extends AppCompatActivity {
+    private String chosenDate;
+    private ArrayAdapter<HistoryModel> historyDetailsAdapter;
+    private ListView historyDetailsListView;
+    private int userId = LoggedUser.getUser().getUserModel().getId();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_all);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_history_details);
         setTitle("Moja kretanja");
 
-        historyListView = (ListView) findViewById(R.id.list_history_all);
+        Intent mIntent = getIntent();
+        chosenDate = mIntent.getStringExtra("Date");
 
-        historyListAdapter = new ArrayAdapter<HistoryModel>(this, android.R.layout.simple_list_item_1, new LinkedList<HistoryModel>()) {
+        historyDetailsListView = (ListView) findViewById(R.id.list_history_details);
+        historyDetailsAdapter = new ArrayAdapter<HistoryModel>(this, android.R.layout.simple_list_item_1, new LinkedList<HistoryModel>()) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-
                 HistoryModel hm = getItem(position);
-                //hm.separateDateTime();
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
                 }
 
-                ((TextView) convertView).setText(hm.getDate());
+                ((TextView) convertView).setText(hm.getTime() + " " + hm.getLocation());
 
                 return convertView;
             }
         };
 
-        id = LoggedUser.getUser().getUserModel().getId();
-
-        getHistory(id);
-        historyListView.setAdapter(historyListAdapter);
-
-        historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HistoryModel hm;
-                hm = historyListAdapter.getItem(position);
-                String chosenDate = hm.convertDate();
-                Intent intent = new Intent(HistoryAll.this, HistoryDetails.class);
-                intent.putExtra("Date",  chosenDate);
-                startActivity(intent);
-            }
-        });
+        getHistoryDetails(chosenDate);
+        historyDetailsListView.setAdapter(historyDetailsAdapter);
 
 
     }
 
-    private void getHistory(int id) {
-        historyListAdapter.clear();
-        historyListAdapter.notifyDataSetChanged();
+    private void getHistoryDetails(String chosenDate) {
+        historyDetailsAdapter.clear();
+        historyDetailsAdapter.notifyDataSetChanged();
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        apiService.getHistory(id).enqueue(new Callback<List<HistoryModel>>() {
+        apiService.getHistoryDetails(userId, chosenDate).enqueue(new Callback<List<HistoryModel>>() {
             @Override
             public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
                 if (response.isSuccess()) {
-                    historyListAdapter.addAll(response.body());
+                    historyDetailsAdapter.addAll(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<HistoryModel>> call, Throwable t) {
-                Toast.makeText(HistoryAll.this, "Greška prilikom dohvaćanja podataka!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HistoryDetails.this, "Greška prilikom dohvaćanja podataka!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
 
     @Override
     public boolean onSupportNavigateUp(){

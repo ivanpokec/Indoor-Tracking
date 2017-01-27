@@ -22,9 +22,18 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<UserModel> changePassword(@Field("passWord") String passWord, @Field("usrId") int id);
 
+    /*
     @POST("IndoorTracking/api/history")
     @FormUrlEncoded
-    Call<List<HistoryModel>> getHistory(@Field("UserId") int id);
+    Call<List<HistoryModel>> getHistory(@Field("UserId") int id); */
+
+    @POST("IndoorTracking/api/History/GetDateForUser")
+    @FormUrlEncoded
+    Call<List<HistoryModel>> getHistory(@Field("UserId") int userId);
+
+    @POST("IndoorTracking/api/History/GetHistoryForDateAndUser")
+    @FormUrlEncoded
+    Call<List<HistoryModel>> getHistoryDetails(@Field("UserId") int userId, @Field("date") String date);
 
     @POST("IndoorTracking/api/location")
     @FormUrlEncoded

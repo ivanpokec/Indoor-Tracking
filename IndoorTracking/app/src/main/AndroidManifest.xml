@@ -32,6 +32,7 @@
        <activity android:name=".SessionManager"></activity>
        <activity android:name=".MyMovements"></activity>
        <activity android:name=".HistoryAll"></activity>
+       <activity android:name=".HistoryDetails"></activity>
        <activity android:name=".DetailsCurrentLocation"></activity>
        <activity android:name=".Category"></activity>
        <activity android:name=".Users"></activity>

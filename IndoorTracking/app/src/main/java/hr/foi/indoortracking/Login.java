@@ -1,24 +1,17 @@
 package hr.foi.indoortracking;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.RetrofitConnection;
 import com.example.dbaccess.UserModel;
-
-import java.util.ArrayList;
 
 import hr.foi.core.LoggedUser;
 import retrofit2.Call;
@@ -51,7 +44,8 @@ public class Login extends Activity {
             activeUser.setName(manager.getPreferences(this,"name"));
             activeUser.setUsername(manager.getPreferences(this,"userName"));
             activeUser.setPassword(manager.getPreferences(this,"password"));
-            activeUser.setOdjel(manager.getPreferences(this,"locationName"));
+            activeUser.setLocationName(manager.getPreferences(this,"locationName"));
+            activeUser.setCurrentLocarion(manager.getPreferences(this, "currentLocarion"));
 
             LoggedUser.getUser().setUserModel(activeUser);
 
@@ -83,7 +77,8 @@ public class Login extends Activity {
                                 manager.setPreferences(Login.this, "password", String.valueOf(response.body().getPassword()));
                                 manager.setPreferences(Login.this, "userName", response.body().getUsername());
                                 manager.setPreferences(Login.this, "name", response.body().getName());
-                                manager.setPreferences(Login.this, "locationName", response.body().getOdjel());
+                                manager.setPreferences(Login.this, "locationName", response.body().getLocationName());
+                                manager.setPreferences(Login.this, "currentLocarion", response.body().getCurrentLocarion());
 
                                 activeUser = response.body();
                                 LoggedUser.getUser().setUserModel(activeUser);

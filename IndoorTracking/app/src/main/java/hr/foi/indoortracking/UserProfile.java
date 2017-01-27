@@ -10,9 +10,6 @@ import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.RetrofitConnection;
 import com.example.dbaccess.UserModel;
 
-import java.util.List;
-
-import hr.foi.core.LoggedUser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +46,7 @@ public class UserProfile extends AppCompatActivity {
 
                     nameFL = response.body().getName();
 
-                     odjelTextView.setText(response.body().getOdjel());
+                     odjelTextView.setText(response.body().getLocationName());
                     String[] odvojeno = nameFL.split(" ");
                     nameTextView.setText(String.format(odvojeno[0]));
                     surnameTextView.setText(String.format(odvojeno[1]));

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         login.activeUser.setName(manager.getPreferences(this,"name"));
         login.activeUser.setUsername(manager.getPreferences(this,"userName"));
         login.activeUser.setPassword(manager.getPreferences(this,"password"));
-        login.activeUser.setOdjel(manager.getPreferences(this,"locationName")); */
+        login.activeUser.setLocationName(manager.getPreferences(this,"locationName")); */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,7 +71,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
-        txtCurrentLocation.setText("Traženje...");
+        if (LoggedUser.getUser().getUserModel().getCurrentLocarion() != "") {
+            txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocarion());
+        }
+        //txtCurrentLocation.setText("Traženje...");
         txtCurrentLocationDesc = (TextView) findViewById(R.id.txtCurrentLocationOpis);
         txtCategory = (TextView) findViewById(R.id.txtCategory);
 

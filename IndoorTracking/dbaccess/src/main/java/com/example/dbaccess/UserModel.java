@@ -7,21 +7,22 @@ package com.example.dbaccess;
 public class UserModel {
     public int Id;
     public String userName;
-    String passWord;
+    public String passWord;
     public String name;
     public String locationName;
-    int locationId;
+    public int locationId;
+    public String sector;
     public String currentLocarion;
 
     public UserModel() {
 
     }
 
-        public UserModel(String name, String locationName, String currentLocarion) {
+    public UserModel(String name, String locationName, String currentLocation) {
         this.name = name;
         this.locationName=locationName;
-        this.currentLocarion=currentLocarion;
-          }
+        this.currentLocarion =currentLocation;
+    }
 
     public int getId() {
         return Id;
@@ -35,9 +36,9 @@ public class UserModel {
         this.Id = id;
     }
 
-    public void setOdjel(String locationName) {this.locationName = locationName;}
+    public void setLocationName(String locationName) {this.locationName = locationName;}
 
-    public String getOdjel() { return locationName; }
+    public String getLocationName() { return locationName; }
 
     public String getUsername() {
         return userName;
@@ -64,4 +65,17 @@ public class UserModel {
     }
 
     public String getCurrentLocarion() {return currentLocarion;}
+
+    public void setCurrentLocarion(String currentLocarion) {
+        this.currentLocarion = currentLocarion;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
 }

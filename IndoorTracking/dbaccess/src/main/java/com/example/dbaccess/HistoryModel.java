@@ -1,8 +1,11 @@
 package com.example.dbaccess;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -13,29 +16,17 @@ import java.util.ListIterator;
 
 public class HistoryModel {
 
-    String name;
+    String date;
+    String location;
     String time;
-    String description;
     String user;
 
     String datum;
     String vrijeme;
 
 
-    public HistoryModel(String description, String roomName, String time, String user) {
-        this.name = roomName;
-        this.time = time;
-        this.description = description;
-        this.user = user;
-        separateDateTime();
-    }
+    public HistoryModel() {
 
-    public String getRoomName() {
-        return name;
-    }
-
-    public void setRoomName(String name) {
-        this.name = name;
     }
 
     public String getTime() {
@@ -46,19 +37,27 @@ public class HistoryModel {
         this.time = time;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDate() {
+        return date;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getUserNameLastName() {
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getUser() {
         return user;
     }
 
-    public void setUserNameLastName(String user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -70,10 +69,36 @@ public class HistoryModel {
         return vrijeme;
     }
 
-    private void separateDateTime() {
-        String time = this.getTime();
+
+    public void separateDateTime() {
+        String time = this.getDate();
         String[] splittedTime = time.split(" ");
         this.datum = splittedTime[0];
         this.vrijeme = splittedTime[1];
     }
+
+    public String convertDate() {
+        String convertedDate = "";
+        /*String[] splittedDate = this.date.split(".");
+        Log.i("CONVERT", splittedDate[0]);
+        String d = splittedDate[0];
+        String m = splittedDate[1];
+        String y = splittedDate[3];
+        convertedDate = y+m+d;*/
+
+        String oldDate = this.date;
+        SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat date2 = new SimpleDateFormat("yyyyMMdd");
+        try {
+            Date newDate = date1.parse(oldDate);
+            convertedDate = date2.format(newDate);
+            Log.i("CONVERT", convertedDate);
+        }
+        catch (java.text.ParseException ex) {
+            Log.i("PARSE", ex.getMessage());
+        }
+
+        return convertedDate;
+    }
+
 }

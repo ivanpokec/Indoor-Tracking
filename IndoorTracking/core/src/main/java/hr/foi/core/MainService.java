@@ -141,7 +141,7 @@ public class MainService extends Service{
 //                    mLastFiltrationTime = new Date().getTime();
 //                }
                 if (nearestSensor != null && lastSensor != nearestSensor){
-                    String snrName = nearestSensor.getSnrBleMac();
+                    final String snrName = nearestSensor.getSnrBleMac();
 
                     int userId = LoggedUser.getUser().getUserModel().getId();
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
@@ -152,6 +152,7 @@ public class MainService extends Service{
                                 locationName = response.body().getName();
                                 locationDesc = response.body().getDescription();
                                 locationCat = response.body().getCategory();
+                                LoggedUser.getUser().getUserModel().setCurrentLocarion(locationName);
 
                                 generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
