@@ -85,6 +85,8 @@ public class Login extends Activity {
 
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
+                                Toast.makeText(Login.this, "Uspješno ste se prijavili! ", Toast.LENGTH_LONG).show();
+
 
                             }
                             else {

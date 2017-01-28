@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
             finish();
+            Toast.makeText(MainActivity.this, "Uspješna odjava! ", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);

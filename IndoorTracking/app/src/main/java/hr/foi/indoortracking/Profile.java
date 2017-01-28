@@ -164,6 +164,8 @@ public class Profile  extends AppCompatActivity {
              Intent intent = new Intent(Profile.this, Login.class);
              startActivity(intent);
              finish();
+             Toast.makeText(Profile.this, "Uspješna odjava! ", Toast.LENGTH_LONG).show();
+
          }
      });
 
