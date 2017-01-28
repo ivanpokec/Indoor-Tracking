@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,10 +74,27 @@ public class MainActivity extends AppCompatActivity
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
         if (LoggedUser.getUser().getUserModel().getCurrentLocarion() != "") {
             txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocarion());
+            if(txtCurrentLocation.getText().toString().equals("Mobilisis Ulaz")) {
+                ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                img.setImageResource(R.mipmap.ulaz);
+            } else if (txtCurrentLocation.getText().toString().equals("soba1 T1")) {
+                ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                img.setImageResource(R.mipmap.soba1);
+                } else if (txtCurrentLocation.getText().toString().equals("soba1 T3")) {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.t3);
+                        } else if (txtCurrentLocation.getText().toString().equals("Wc")) {
+                            ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                            img.setImageResource(R.mipmap.wc);
+                        } else {
+                            ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                            img.setImageResource(R.mipmap.plan);
+                        }
         }
         //txtCurrentLocation.setText("Traženje...");
         txtCurrentLocationDesc = (TextView) findViewById(R.id.txtCurrentLocationOpis);
         txtCategory = (TextView) findViewById(R.id.txtCategory);
+
 
         txtCategory.setText("");
         txtCurrentLocationDesc.setText("");
@@ -118,6 +136,22 @@ public class MainActivity extends AppCompatActivity
                 txtCurrentLocation.setText(nazivLokacija);
                 txtCategory.setText(kategorija);
                 txtCurrentLocationDesc.setText(opisLokacija);
+                if(nazivLokacija.toString().equals("Mobilisis Ulaz")) {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.ulaz);
+                } else if (nazivLokacija.toString().equals("soba1 T1")) {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.soba1);
+                } else if (nazivLokacija.toString().equals("soba1 T3")) {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.t3);
+                } else if (nazivLokacija.toString().equals("Wc")) {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.wc);
+                } else {
+                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                    img.setImageResource(R.mipmap.plan);
+                }
 
                 //Toast.makeText(MainActivity.this, "Sada se nalazite na " + nazivLokacija, Toast.LENGTH_LONG).show();
             }
