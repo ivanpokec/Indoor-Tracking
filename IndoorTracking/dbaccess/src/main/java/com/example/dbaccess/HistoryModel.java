@@ -77,17 +77,10 @@ public class HistoryModel {
         this.vrijeme = splittedTime[1];
     }
 
-    public String convertDate() {
+    public static String convertDate(String date, String format) {
         String convertedDate = "";
-        /*String[] splittedDate = this.date.split(".");
-        Log.i("CONVERT", splittedDate[0]);
-        String d = splittedDate[0];
-        String m = splittedDate[1];
-        String y = splittedDate[3];
-        convertedDate = y+m+d;*/
-
-        String oldDate = this.date;
-        SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy");
+        String oldDate = date;
+        SimpleDateFormat date1 = new SimpleDateFormat(format);
         SimpleDateFormat date2 = new SimpleDateFormat("yyyyMMdd");
         try {
             Date newDate = date1.parse(oldDate);

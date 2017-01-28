@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -42,24 +44,23 @@ import retrofit2.Response;
 
 public class MyMovements extends AppCompatActivity {
 
-    Button showAll;
-    ArrayAdapter<LocationModel> spinnerArrayAdapter;
+    private Button showAll;
+    private Button searchByDate;
+    private ArrayAdapter<LocationModel> spinnerArrayAdapter;
     private Spinner spinner;
-    EditText from_editText;
-    EditText to_editText;
+    private EditText from_editText;
+    private EditText to_editText;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_my_movements);
-
-
         setTitle("Moja kretanja");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // FIRST OPTION
         showAll = (Button) findViewById(R.id.button_ShowAllHistory);
         showAll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -68,8 +69,10 @@ public class MyMovements extends AppCompatActivity {
                 // Perform action on click
             }
         });
-        spinner = (Spinner) findViewById(R.id.spinner);
 
+
+        //THIRD OPTION
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         spinnerArrayAdapter = new ArrayAdapter<LocationModel>(this,
                 android.R.layout.simple_spinner_item
@@ -77,7 +80,6 @@ public class MyMovements extends AppCompatActivity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-
 
                 LocationModel locationModel = getItem(position);
 
@@ -87,7 +89,6 @@ public class MyMovements extends AppCompatActivity {
 
                 ((TextView) convertView).setText(locationModel.getName());
 
-
                 return convertView;
             }
         };
@@ -96,6 +97,8 @@ public class MyMovements extends AppCompatActivity {
         getLocations(spinner);
         spinner.setAdapter(spinnerArrayAdapter);
 
+
+        // SECOND OPTION
         from_editText = (EditText) findViewById(R.id.from_editText);
         to_editText = (EditText) findViewById(R.id.to_editText);
 
@@ -114,7 +117,7 @@ public class MyMovements extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                from_editText.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                from_editText.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -124,7 +127,6 @@ public class MyMovements extends AppCompatActivity {
             }
 
         });
-
 
         to_editText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +143,7 @@ public class MyMovements extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                to_editText.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                to_editText.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -152,9 +154,24 @@ public class MyMovements extends AppCompatActivity {
 
         });
 
+        searchByDate = (Button) findViewById(R.id.button_search);
+        searchByDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dateFrom = from_editText.getText().toString();
+                String dateTo = to_editText.getText().toString();
+                if (!from_editText.getText().toString().isEmpty() && !to_editText.getText().toString().isEmpty()) {
+                    Intent intent = new Intent(MyMovements.this, HistoryByDate.class);
+                    intent.putExtra("dateFrom", dateFrom);
+                    intent.putExtra("dateTo", dateTo);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MyMovements.this, "Niste unijeli datume!", Toast.LENGTH_SHORT).show();
+                }
 
-
-
+            }
+        });
 
 
     }
@@ -183,6 +200,8 @@ public class MyMovements extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
