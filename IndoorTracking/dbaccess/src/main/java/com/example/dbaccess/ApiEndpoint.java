@@ -39,6 +39,10 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<List<HistoryModel>> getHistoryByDate(@Field("UserId") int userId, @Field("dateFrom") String dateFrom, @Field("dateTo") String dateTo);
 
+    @POST("IndoorTracking/api/History/GetHistoryForUserLocation")
+    @FormUrlEncoded
+    Call<List<HistoryModel>> getHistoryByLocation(@Field("UserId") int userId, @Field("locationId") int locationId);
+
     @POST("IndoorTracking/api/location")
     @FormUrlEncoded
     Call<LocationModel> getLocation(@Field("MacAddress") String MacAddress, @Field("UsrId") int userId);

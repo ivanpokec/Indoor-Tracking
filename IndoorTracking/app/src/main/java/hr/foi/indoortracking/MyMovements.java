@@ -46,11 +46,13 @@ public class MyMovements extends AppCompatActivity {
 
     private Button showAll;
     private Button searchByDate;
+    private Button searchByLocation;
     private ArrayAdapter<LocationModel> spinnerArrayAdapter;
     private Spinner spinner;
     private EditText from_editText;
     private EditText to_editText;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private int locationId;
 
 
     @Override
@@ -82,6 +84,7 @@ public class MyMovements extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
 
                 LocationModel locationModel = getItem(position);
+                locationId = locationModel.getId();
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
@@ -96,6 +99,20 @@ public class MyMovements extends AppCompatActivity {
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getLocations(spinner);
         spinner.setAdapter(spinnerArrayAdapter);
+
+        searchByLocation = (Button) findViewById(R.id.button_search_by_location);
+        searchByLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TextView tv = (TextView) spinner.getSelectedView();
+                //String proba = tv.getText().toString();
+                Log.i("SPINER", String.valueOf(locationId));
+
+                Intent intent = new Intent(MyMovements.this, HistoryByLocation.class);
+                intent.putExtra("locationId", locationId);
+                startActivity(intent);
+            }
+        });
 
 
         // SECOND OPTION
