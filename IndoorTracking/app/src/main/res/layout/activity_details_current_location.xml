@@ -7,7 +7,11 @@
         android:text="Trenutno na lokaciji"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewTrenutno" />
+        android:id="@+id/textViewTrenutno"
+        android:textAlignment="center"
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="Open Sans Light"
+        android:layout_marginTop="30dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,6 +28,12 @@
                 android:layout_height="243dp"
                 android:id="@+id/trenutnonalokacijilist"
                 android:listSelector="@drawable/list_color_selector"
+                android:divider="#33b5e5"
+                android:dividerHeight="1dp"
+                android:textAlignment="center"
+                android:fontFamily="Open Sans Light"
+                android:textSize="20sp"
+                android:gravity="center"
                 />
         </LinearLayout>
     </ScrollView>
@@ -32,7 +42,11 @@
         android:text="Pridruženi lokaciji"
         android:layout_width="match_parent"
         android:layout_height="26dp"
-        android:id="@+id/textViewPridruzeniLokaciji" />
+        android:id="@+id/textViewPridruzeniLokaciji"
+        android:textAlignment="center"
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="Open Sans Light"
+        android:layout_marginTop="30dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -49,6 +63,12 @@
                 android:layout_height="217dp"
                 android:id="@+id/pridruzenilokacijilist"
                 android:listSelector="@drawable/list_color_selector"
+                android:divider="#33b5e5"
+                android:dividerHeight="1dp"
+                android:textAlignment="center"
+                android:fontFamily="Open Sans Light"
+                android:textSize="20sp"
+                android:gravity="center"
                 />
         </LinearLayout>
     </ScrollView>

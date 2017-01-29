@@ -8,5 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:listSelector="@drawable/list_color_selector"
+        android:divider="#33b5e5"
+        android:dividerHeight="1dp"
+        android:textAlignment="center"
+        android:fontFamily="Open Sans Light"
+        android:textSize="20sp"
+        android:gravity="center"
         />
 </LinearLayout>
