@@ -22,7 +22,9 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="243dp"
-                android:id="@+id/trenutnonalokacijilist" />
+                android:id="@+id/trenutnonalokacijilist"
+                android:listSelector="@drawable/list_color_selector"
+                />
         </LinearLayout>
     </ScrollView>
 
@@ -45,7 +47,9 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="217dp"
-                android:id="@+id/pridruzenilokacijilist" />
+                android:id="@+id/pridruzenilokacijilist"
+                android:listSelector="@drawable/list_color_selector"
+                />
         </LinearLayout>
     </ScrollView>
 

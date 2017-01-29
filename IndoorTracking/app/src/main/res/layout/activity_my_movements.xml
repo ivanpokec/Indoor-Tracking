@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
 
-
-
     <Button
-        android:text="Prikaži sve"
+        android:text="Prikaži svu povijest"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/button_ShowAllHistory"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:textAlignment="center" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="80px"
+        android:background="@color/list_row_selected_bg"
+        android:layout_marginTop="50px"
         />
 
     <TextView
@@ -29,14 +29,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:fontFamily="Open Sans Light"
+        android:textStyle="normal|italic"
+        android:textAlignment="center" />
 
     <TextView
         android:text="Od:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:fontFamily="Open Sans Light"
+        android:textAlignment="center"
+        />
 
     <EditText
         android:layout_width="200dp"
@@ -45,6 +51,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:editable="false"
+        android:layout_marginLeft="75dp"
         />
 
     <TextView
@@ -52,7 +59,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView6"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:fontFamily="Open Sans Light"
+        android:textAlignment="center"
+        />
 
     <EditText
         android:layout_width="200dp"
@@ -61,6 +71,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:editable="false"
+        android:layout_marginLeft="75dp"
         />
 
     <Button
@@ -71,27 +82,35 @@
         android:id="@+id/button_search"
         android:background="@android:color/holo_blue_light"
         android:textColor="@android:color/background_light"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:textAlignment="center" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="80px"
+        android:background="@color/list_row_selected_bg"
+        android:layout_marginTop="50px"
+
+        />
+
+
         />
 
     <TextView
         android:text="Odaberi lokaciju"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_marginTop="5dp"/>
+        android:fontFamily="Open Sans Light"
+        android:textStyle="normal|italic"
+        android:textAlignment="center" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="40dp"/>
 
     <Button
         android:text="Traži prema lokaciji"
@@ -101,7 +120,8 @@
         android:id="@+id/button_search_by_location"
         android:background="@android:color/holo_blue_light"
         android:textColor="@android:color/background_light"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="40dp"
+        android:textAlignment="center" />
 
 
 </LinearLayout>

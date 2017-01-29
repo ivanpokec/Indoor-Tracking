@@ -5,7 +5,9 @@
     <ListView
         android:id="@+id/list_history_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:listSelector="@drawable/list_color_selector"
+        />
 
 
 </LinearLayout>
