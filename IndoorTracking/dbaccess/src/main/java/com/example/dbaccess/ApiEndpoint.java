@@ -24,11 +24,11 @@ public interface ApiEndpoint {
 
     @POST("IndoorTracking/api/UsersOnLocation")
     @FormUrlEncoded
-    Call<List<UserLocationModel>> getCurrentUsersOnLocation(@Field("locationId") int locationId);
+    Call<List<UserModel>> getCurrentUsersOnLocation(@Field("locationId") int locationId);
 
     @POST("IndoorTracking/api/UserLocation")
     @FormUrlEncoded
-    Call<List<UserLocationModel>> getUsersOnLocation(@Field("locationId") int locationId);
+    Call<List<UserModel>> getUsersOnLocation(@Field("locationId") int locationId);
 
     @GET("IndoorTracking/api/User")
     Call<List<UserModel>> listUsers();

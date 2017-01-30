@@ -40,12 +40,12 @@ public class Login extends Activity {
         String id = manager.getPreferences(Login.this, "id");
 
         if (id != "") {
-            activeUser.setId(Integer.parseInt(id));
+            activeUser.setUserId(Integer.parseInt(id));
             activeUser.setName(manager.getPreferences(this,"name"));
             activeUser.setUsername(manager.getPreferences(this,"userName"));
             activeUser.setPassword(manager.getPreferences(this,"password"));
             activeUser.setLocationName(manager.getPreferences(this,"locationName"));
-            activeUser.setCurrentLocarion(manager.getPreferences(this, "currentLocarion"));
+            activeUser.setCurrentLocationName(manager.getPreferences(this, "currentLocarion"));
 
             LoggedUser.getUser().setUserModel(activeUser);
 
@@ -73,12 +73,12 @@ public class Login extends Activity {
                             if (response.body() != null) {
                                 //Log.i("LOGIN", response.body().getName());
 
-                                manager.setPreferences(Login.this, "id", String.valueOf(response.body().getId()));
+                                manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
                                 manager.setPreferences(Login.this, "password", String.valueOf(response.body().getPassword()));
                                 manager.setPreferences(Login.this, "userName", response.body().getUsername());
                                 manager.setPreferences(Login.this, "name", response.body().getName());
                                 manager.setPreferences(Login.this, "locationName", response.body().getLocationName());
-                                manager.setPreferences(Login.this, "currentLocarion", response.body().getCurrentLocarion());
+                                manager.setPreferences(Login.this, "currentLocarion", response.body().getCurrentLocationName());
 
                                 activeUser = response.body();
                                 LoggedUser.getUser().setUserModel(activeUser);

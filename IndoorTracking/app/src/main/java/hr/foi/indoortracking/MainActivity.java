@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         /*
         Login login = new Login();
 
-        login.activeUser.setId(Integer.parseInt(manager.getPreferences(this, "id")));
+        login.activeUser.setUserId(Integer.parseInt(manager.getPreferences(this, "id")));
         login.activeUser.setName(manager.getPreferences(this,"name"));
         login.activeUser.setUsername(manager.getPreferences(this,"userName"));
         login.activeUser.setPassword(manager.getPreferences(this,"password"));
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
-        if (LoggedUser.getUser().getUserModel().getCurrentLocarion() != "") {
-            txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocarion());
+        if (LoggedUser.getUser().getUserModel().getCurrentLocationName() != "") {
+            txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocationName());
             if(txtCurrentLocation.getText().toString().equals("Mobilisis Ulaz")) {
                 ImageView img= (ImageView) findViewById(R.id.imageView_plan);
                 img.setImageResource(R.mipmap.ulaz);

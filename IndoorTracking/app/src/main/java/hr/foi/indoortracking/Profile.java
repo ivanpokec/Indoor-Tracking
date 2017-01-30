@@ -55,19 +55,10 @@ public class Profile  extends AppCompatActivity {
         odjelTextView = (TextView) findViewById(R.id.textview_odjel);
         passwordTextView1 = (TextView) findViewById(R.id.textview_password1);
 
-        //String name = manager.getPreferences(Profile.this,"username");
-
-        /*
-        Login login = new Login();
-
-        String username = login.activeUser.getUsername();
-        String odjel = login.activeUser.getLocationName();
-        String name = login.activeUser.getName(); */
-
         final String username = LoggedUser.getUser().getUserModel().getUsername();
         final String odjel = LoggedUser.getUser().getUserModel().getLocationName();
         final String name = LoggedUser.getUser().getUserModel().getName();
-        final int id = LoggedUser.getUser().getUserModel().getId();
+        final int id = LoggedUser.getUser().getUserModel().getUserId();
 
 
         String[] odvojeno = name.split(" ");

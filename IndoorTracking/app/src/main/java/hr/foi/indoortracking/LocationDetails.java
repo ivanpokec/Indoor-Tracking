@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserLocationModel;
+import com.example.dbaccess.UserModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,10 +31,11 @@ import retrofit2.Response;
 public class LocationDetails extends AppCompatActivity {
     String locID;
     private ListView curretUserOnlocationView;
-    ArrayAdapter<UserLocationModel> curretUserOnlocationListAdapter;
+    ArrayAdapter<UserModel> curretUserOnlocationListAdapter;
 
     private ListView userOnlocationView;
-    ArrayAdapter<UserLocationModel> userOnlocationListAdapter;
+    ArrayAdapter<UserModel> userOnlocationListAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +47,14 @@ public class LocationDetails extends AppCompatActivity {
 
         curretUserOnlocationView = (ListView) findViewById(R.id.trenutnonalokacijilist);
 
-        curretUserOnlocationListAdapter = new ArrayAdapter<UserLocationModel>(LocationDetails.this,
+        curretUserOnlocationListAdapter = new ArrayAdapter<UserModel>(LocationDetails.this,
                 R.layout.list_row_on_location
-                , new LinkedList<UserLocationModel>()) {
+                , new LinkedList<UserModel>()) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-
-
-                UserLocationModel userModel = getItem(position);
+                UserModel userModel = getItem(position);
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
@@ -63,7 +62,7 @@ public class LocationDetails extends AppCompatActivity {
 
                 TextView user = (TextView)convertView.findViewById(R.id.textview_name);
 
-                user.setText(userModel.getUsrName());
+                user.setText(userModel.getName());
                 ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
                 thumb_image.setImageResource(R.mipmap.online);
 
@@ -78,14 +77,14 @@ public class LocationDetails extends AppCompatActivity {
 
         userOnlocationView = (ListView) findViewById(R.id.pridruzenilokacijilist);
 
-        userOnlocationListAdapter = new ArrayAdapter<UserLocationModel>(LocationDetails.this,
+        userOnlocationListAdapter = new ArrayAdapter<UserModel>(LocationDetails.this,
                 R.layout.list_row_on_location
-                , new LinkedList<UserLocationModel>()) {
+                , new LinkedList<UserModel>()) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-                UserLocationModel userModel = getItem(position);
+                UserModel userModel = getItem(position);
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
@@ -93,10 +92,9 @@ public class LocationDetails extends AppCompatActivity {
 
                 TextView user = (TextView)convertView.findViewById(R.id.textview_name);
 
-                user.setText(userModel.getUsrName());
+                user.setText(userModel.getName());
                 ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
                 thumb_image.setImageResource(R.mipmap.offline);
-
 
                 return convertView;
             }
@@ -105,16 +103,16 @@ public class LocationDetails extends AppCompatActivity {
 
         getDefaultUserOnLocation(userOnlocationView,Integer.parseInt(locID));
         userOnlocationView.setAdapter(userOnlocationListAdapter);
-    };
+    }
 
     public void getCurrentUserOnLocation(View view, int locId ){
         curretUserOnlocationListAdapter.clear();
         curretUserOnlocationListAdapter.notifyDataSetChanged();
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        apiService.getCurrentUsersOnLocation(locId).enqueue(new Callback<List<UserLocationModel>>() {
+        apiService.getCurrentUsersOnLocation(locId).enqueue(new Callback<List<UserModel>>() {
             @Override
-            public void onResponse(Call<List<UserLocationModel>> call, Response<List<UserLocationModel>> response) {
+            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
                 if(response.body() != null) {
 
                     curretUserOnlocationListAdapter.addAll(response.body());
@@ -123,7 +121,7 @@ public class LocationDetails extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<UserLocationModel>> call, Throwable t) {
+            public void onFailure(Call<List<UserModel>> call, Throwable t) {
                 Toast.makeText(LocationDetails.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -135,9 +133,9 @@ public class LocationDetails extends AppCompatActivity {
         userOnlocationListAdapter.notifyDataSetChanged();
 
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        apiService.getUsersOnLocation(locId).enqueue(new Callback<List<UserLocationModel>>() {
+        apiService.getUsersOnLocation(locId).enqueue(new Callback<List<UserModel>>() {
             @Override
-            public void onResponse(Call<List<UserLocationModel>> call, Response<List<UserLocationModel>> response) {
+            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
                 if(response.body() != null) {
 
                     userOnlocationListAdapter.addAll(response.body());
@@ -146,7 +144,7 @@ public class LocationDetails extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<UserLocationModel>> call, Throwable t) {
+            public void onFailure(Call<List<UserModel>> call, Throwable t) {
                 Toast.makeText(LocationDetails.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
             }
         });

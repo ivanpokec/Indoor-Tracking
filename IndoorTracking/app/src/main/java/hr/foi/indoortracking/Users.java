@@ -13,12 +13,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TwoLineListItem;
 
 import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.CategoryModel;
 import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserLocationModel;
 import com.example.dbaccess.UserModel;
 
 import java.util.LinkedList;
@@ -57,11 +54,7 @@ public class Users extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-
-
                 UserModel usersModel = getItem(position);
-
-
 
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_users, parent, false);
@@ -71,16 +64,14 @@ public class Users extends AppCompatActivity {
                 TextView currentL = (TextView)convertView.findViewById(R.id.textview_current);
 
                 user.setText(usersModel.getName());
-                currentL.setText("Trenutna lokacija: "+usersModel.getCurrentLocarion());
+                currentL.setText("Trenutna lokacija: "+usersModel.getCurrentLocationName());
                 ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
                 thumb_image.setImageResource(R.mipmap.profil);
 
-
                 return convertView;
-
-
             }
         };
+
         getUsers(usersListView);
         usersListView.setAdapter(usersListAdapter);
         usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,7 +79,7 @@ public class Users extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserModel userModel;
                 userModel = usersListAdapter.getItem(position);
-                userID=userModel.Id;
+                userID=userModel.getUserId();
                 Intent intent = new Intent(Users.this, UserProfile.class);
                 intent.putExtra("ID",  Integer.toString(userID));
                 startActivity(intent);
@@ -96,7 +87,9 @@ public class Users extends AppCompatActivity {
         });
 
 
-            }
+    }
+
+
     public void getUsers(View view) {
         usersListAdapter.clear();
         usersListAdapter.notifyDataSetChanged();
@@ -116,6 +109,8 @@ public class Users extends AppCompatActivity {
             }
         });
     }
+
+
     @Override
     public boolean onSupportNavigateUp(){
         finish();

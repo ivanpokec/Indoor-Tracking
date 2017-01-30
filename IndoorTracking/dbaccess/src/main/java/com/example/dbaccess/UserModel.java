@@ -5,40 +5,26 @@ package com.example.dbaccess;
  */
 
 public class UserModel {
-    public int Id;
-    public String userName;
-    public String passWord;
-    public String name;
-    public String locationName;
-    public int locationId;
-    public String sector;
-    public String currentLocarion;
+    private int userId;
+    private String userName;
+    private String passWord;
+    private String name;
+    private int locationId;
+    private String locationName;
+    public String locationCategory;
+    private int currentLocationId;
+    private String currentLocationName;
+    private String currentLocationCategory;
+    private String currentLocationDescription;
 
-    public UserModel() {
 
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public UserModel(String name, String locationName, String currentLocation) {
-        this.name = name;
-        this.locationName=locationName;
-        this.currentLocarion =currentLocation;
+    public int getUserId() {
+        return userId;
     }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setLocationId(int locationId) {this.locationId = locationId;}
-
-    public int getLocationId() {return locationId;}
-
-    public void setId(int id) {
-        this.Id = id;
-    }
-
-    public void setLocationName(String locationName) {this.locationName = locationName;}
-
-    public String getLocationName() { return locationName; }
 
     public String getUsername() {
         return userName;
@@ -64,18 +50,31 @@ public class UserModel {
         this.name = name;
     }
 
-    public String getCurrentLocarion() {return currentLocarion;}
+    public void setLocationId(int locationId) {this.locationId = locationId;}
 
-    public void setCurrentLocarion(String currentLocarion) {
-        this.currentLocarion = currentLocarion;
+    public int getLocationId() {return locationId;}
+
+    public void setLocationName(String locationName) {this.locationName = locationName;}
+
+    public String getLocationName() { return locationName; }
+
+    public String getCurrentLocationName() {return currentLocationName;}
+
+    public int getCurrentLocationId() {
+        return currentLocationId;
     }
 
-    public String getSector() {
-        return sector;
+    public void setCurrentLocationName(String currentLocationName) {
+        this.currentLocationName = currentLocationName;
     }
 
-    public void setSector(String sector) {
-        this.sector = sector;
+    public String getCurrentLocationCategory() {
+        return currentLocationCategory;
     }
+
+    public String getCurrentLocationDescription() {
+        return currentLocationDescription;
+    }
+
 
 }

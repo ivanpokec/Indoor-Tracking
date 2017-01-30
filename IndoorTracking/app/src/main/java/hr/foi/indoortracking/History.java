@@ -66,7 +66,7 @@ public class History extends AppCompatActivity {
         };
 
         exchangeData = new ExchangeData();
-        userId = LoggedUser.getUser().getUserModel().getId();
+        userId = LoggedUser.getUser().getUserModel().getUserId();
         exchangeData.setUserId(userId);
 
         Intent i = getIntent();

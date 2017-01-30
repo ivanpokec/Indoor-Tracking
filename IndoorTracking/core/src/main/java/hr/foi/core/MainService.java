@@ -1,7 +1,6 @@
 package hr.foi.core;
 
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.bluetooth.BluetoothAdapter;
@@ -143,7 +142,7 @@ public class MainService extends Service{
                 if (nearestSensor != null && lastSensor != nearestSensor){
                     final String snrName = nearestSensor.getSnrBleMac();
 
-                    int userId = LoggedUser.getUser().getUserModel().getId();
+                    int userId = LoggedUser.getUser().getUserModel().getUserId();
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
                     apiService.getLocation(snrName,userId).enqueue(new Callback< LocationModel>() {
                         @Override
@@ -152,7 +151,7 @@ public class MainService extends Service{
                                 locationName = response.body().getName();
                                 locationDesc = response.body().getDescription();
                                 locationCat = response.body().getCategory();
-                                LoggedUser.getUser().getUserModel().setCurrentLocarion(locationName);
+                                LoggedUser.getUser().getUserModel().setCurrentLocationName(locationName);
 
                                 generateNotification(locationName, nearestSensor.getSnrSignalZ());
 
