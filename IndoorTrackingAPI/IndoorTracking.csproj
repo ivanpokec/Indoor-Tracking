@@ -248,6 +248,7 @@
     <Compile Include="Controllers\UserLocationController.cs" />
     <Compile Include="Controllers\UserPassUpdateController.cs" />
     <Compile Include="Controllers\UsersOnLocationController.cs" />
+    <Compile Include="Controllers\UserUpdateNotificationController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -263,6 +264,7 @@
     <Compile Include="Models\LocationId.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Mac.cs" />
+    <Compile Include="Models\notificationUpdate.cs" />
     <Compile Include="Models\TimeLocation.cs" />
     <Compile Include="Models\UserAndLocation.cs" />
     <Compile Include="Models\UserCollection.cs" />

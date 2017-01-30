@@ -29,7 +29,22 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT kor_id, kor_username, kor_lozinka, kor_ime FROM korisnici";
+                string strCmd = @"SELECT kor_id, 
+		                                kor_username, 
+		                                kor_lozinka,
+		                                kor_ime,
+		                                kor_lokacija AS kor_lokacija_id, 
+		                                uobicaj.lok_naziv AS kor_lokacija_naziv, 
+		                                uobicajena.kat_naziv AS kor_lokacija_kategorija,
+		                                kor_trenutna_lokacija AS trenutna_lokacija_id, 
+		                                trenutna.lok_naziv AS trenutna_lokacija_naziv,
+		                                trenutna_kat.kat_naziv AS trenutna_lokacija_kategorija,		
+		                                kor_notification 
+                                FROM korisnici 
+                                LEFT JOIN lokacije AS trenutna ON kor_trenutna_lokacija = trenutna.lok_id 
+                                LEFT JOIN lokacije AS uobicaj ON kor_lokacija = uobicaj.lok_id 
+                                LEFT JOIN kategorije_prostorija AS uobicajena ON uobicaj.lok_kategorija = uobicajena.kat_id
+                                LEFT JOIN kategorije_prostorija AS trenutna_kat ON trenutna.lok_kategorija = trenutna_kat.kat_id";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
                     //cmd.Parameters.Add("@pa1",System.Data.SqlDbType.VarChar).Value="test";
@@ -41,10 +56,18 @@ namespace IndoorTracking.Controllers
                             
                             //Filati strukturu users
                             User userRead = new User();
-                            userRead.Id = int.Parse(data["kor_id"].ToString());
+                            userRead.userId = int.Parse(data["kor_id"].ToString());
                             userRead.userName = data["kor_username"].ToString();
                             userRead.passWord = data["kor_lozinka"].ToString();
                             userRead.name = data["kor_ime"].ToString();
+                            userRead.locationId = int.Parse(data["kor_lokacija_id"].ToString());
+                            userRead.locationName = data["kor_lokacija_naziv"].ToString();
+                            userRead.locationCategory = data["kor_lokacija_kategorija"].ToString();
+                            userRead.currentLocationId = int.Parse(data["trenutna_lokacija_id"].ToString());
+                            userRead.currentLocationName = data["trenutna_lokacija_naziv"].ToString();
+                            userRead.currentLocationCategory = data["trenutna_lokacija_kategorija"].ToString();
+                            userRead.notification = int.Parse(data["kor_notification"].ToString()); 
+
                             users.Add(userRead);
                         }
                     }
@@ -64,7 +87,23 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT kor_id, kor_username, kor_lozinka, kor_ime, trenutna.lok_naziv AS trenutna_lokacija, uobicaj.lok_id, uobicaj.lok_naziv AS kor_lokacija, kat_naziv FROM korisnici LEFT JOIN lokacije AS trenutna ON kor_trenutna_lokacija = trenutna.lok_id LEFT JOIN lokacije AS uobicaj ON kor_lokacija = uobicaj.lok_id LEFT JOIN kategorije_prostorija ON uobicaj.lok_kategorija = kat_id WHERE kor_id =  @usrId";
+                string strCmd = @"SELECT kor_id, 
+		                                kor_username, 
+		                                kor_lozinka,
+		                                kor_ime,
+		                                kor_lokacija AS kor_lokacija_id, 
+		                                uobicaj.lok_naziv AS kor_lokacija_naziv, 
+		                                uobicajena.kat_naziv AS kor_lokacija_kategorija,
+		                                kor_trenutna_lokacija AS trenutna_lokacija_id, 
+		                                trenutna.lok_naziv AS trenutna_lokacija_naziv,
+		                                trenutna_kat.kat_naziv AS trenutna_lokacija_kategorija,		
+		                                kor_notification 
+                                FROM korisnici 
+                                LEFT JOIN lokacije AS trenutna ON kor_trenutna_lokacija = trenutna.lok_id 
+                                LEFT JOIN lokacije AS uobicaj ON kor_lokacija = uobicaj.lok_id 
+                                LEFT JOIN kategorije_prostorija AS uobicajena ON uobicaj.lok_kategorija = uobicajena.kat_id
+                                LEFT JOIN kategorije_prostorija AS trenutna_kat ON trenutna.lok_kategorija = trenutna_kat.kat_id
+                                    WHERE kor_id =  @usrId";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
                     cmd.Parameters.Add("@usrId", System.Data.SqlDbType.Int).Value = userIdRequest.UserId;
@@ -77,14 +116,17 @@ namespace IndoorTracking.Controllers
                             bool check = Int32.TryParse(data["kor_id"].ToString(), out idc);
                             if (check == true && idc != 0)
                             {
-                                user.Id = int.Parse(data["kor_id"].ToString());
+                                user.userId = int.Parse(data["kor_id"].ToString());
                                 user.userName = data["kor_username"].ToString();
                                 user.passWord = data["kor_lozinka"].ToString();
                                 user.name = data["kor_ime"].ToString();
-                                user.locationId = int.Parse(data["lok_id"].ToString());
-                                user.locationName=data["kor_lokacija"].ToString();
-                                user.sector = data["kat_naziv"].ToString();
-                                user.currentLocarion = data["trenutna_lokacija"].ToString();
+                                user.locationId = int.Parse(data["kor_lokacija_id"].ToString());
+                                user.locationName = data["kor_lokacija_naziv"].ToString();
+                                user.locationCategory = data["kor_lokacija_kategorija"].ToString();
+                                user.currentLocationId = int.Parse(data["trenutna_lokacija_id"].ToString());
+                                user.currentLocationName = data["trenutna_lokacija_naziv"].ToString();
+                                user.currentLocationCategory = data["trenutna_lokacija_kategorija"].ToString();
+                                user.notification = int.Parse(data["kor_notification"].ToString());
                                 return Ok(user);
                             }
                                 
