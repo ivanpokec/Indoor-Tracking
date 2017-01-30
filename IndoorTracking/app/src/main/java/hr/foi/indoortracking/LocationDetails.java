@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +47,7 @@ public class LocationDetails extends AppCompatActivity {
         curretUserOnlocationView = (ListView) findViewById(R.id.trenutnonalokacijilist);
 
         curretUserOnlocationListAdapter = new ArrayAdapter<UserLocationModel>(LocationDetails.this,
-                android.R.layout.simple_list_item_1
+                R.layout.list_row_on_location
                 , new LinkedList<UserLocationModel>()) {
 
             @Override
@@ -57,10 +58,14 @@ public class LocationDetails extends AppCompatActivity {
                 UserLocationModel userModel = getItem(position);
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
                 }
 
-                ((TextView) convertView).setText(userModel.getUsrName());
+                TextView user = (TextView)convertView.findViewById(R.id.textview_name);
+
+                user.setText(userModel.getUsrName());
+                ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
+                thumb_image.setImageResource(R.mipmap.online);
 
 
                 return convertView;
@@ -74,7 +79,7 @@ public class LocationDetails extends AppCompatActivity {
         userOnlocationView = (ListView) findViewById(R.id.pridruzenilokacijilist);
 
         userOnlocationListAdapter = new ArrayAdapter<UserLocationModel>(LocationDetails.this,
-                android.R.layout.simple_list_item_1
+                R.layout.list_row_out_location
                 , new LinkedList<UserLocationModel>()) {
 
             @Override
@@ -83,10 +88,14 @@ public class LocationDetails extends AppCompatActivity {
                 UserLocationModel userModel = getItem(position);
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_out_location, parent, false);
                 }
 
-                ((TextView) convertView).setText(userModel.getUsrName());
+                TextView user = (TextView)convertView.findViewById(R.id.textview_name);
+
+                user.setText(userModel.getUsrName());
+                ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
+                thumb_image.setImageResource(R.mipmap.offline);
 
 
                 return convertView;
