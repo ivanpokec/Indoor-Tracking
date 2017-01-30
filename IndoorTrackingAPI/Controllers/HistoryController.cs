@@ -65,7 +65,7 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT DISTINCT CAST( pov_vrijeme AS DATE) AS pov_vrijeme FROM povijest_kretanja WHERE pov_kor = @usrId ORDER BY pov_vrijeme DESC ";
+                string strCmd = @"SELECT DISTINCT CONVERT(VARCHAR(10),pov_vrijeme,104) AS pov_time, CAST(pov_vrijeme AS DATE) AS pov_vrijeme FROM povijest_kretanja  WHERE pov_kor = @usrId ORDER BY pov_vrijeme DESC";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
 
@@ -77,7 +77,7 @@ namespace IndoorTracking.Controllers
                         while (data.Read())
                         {
                             Date newDate = new Date();
-                            newDate.date = data["pov_vrijeme"].ToString();
+                            newDate.date = data["pov_time"].ToString();
 
                             listOfDates.Add(newDate);
                         }
@@ -103,10 +103,9 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT CAST( pov_vrijeme AS DATE) AS pov_datum, CAST( pov_vrijeme AS TIME) AS pov_vrijeme, lok_naziv 
-                                    FROM povijest_kretanja 
-                                    LEFT JOIN lokacije ON lok_id = pov_loc 
-                                    WHERE pov_kor = @usrId AND CAST( pov_vrijeme AS DATE) = dbo.date2(@date+'000000') ORDER BY pov_vrijeme DESC";
+                string strCmd = @"  SELECT CONVERT(VARCHAR(10),pov_vrijeme,104) AS pov_datum, CONVERT(VARCHAR(10),pov_vrijeme,108) AS pov_time,pov_vrijeme, lok_naziv 
+                                    FROM povijest_kretanja LEFT JOIN lokacije ON lok_id = pov_loc 
+                                    WHERE pov_kor = @usrId AND CAST( pov_vrijeme AS DATE) = dbo.date2(@date+'000000')  ORDER BY pov_vrijeme DESC";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
 
@@ -120,7 +119,7 @@ namespace IndoorTracking.Controllers
                         {
                             TimeLocation newData = new TimeLocation();
                             newData.date = data["pov_datum"].ToString();
-                            newData.time = data["pov_vrijeme"].ToString();
+                            newData.time = data["pov_time"].ToString();
                             newData.location = data["lok_naziv"].ToString();
 
                             timeLocationList.Add(newData);
@@ -147,9 +146,10 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT  CAST( pov_vrijeme AS DATE) AS pov_datum,CAST( pov_vrijeme AS TIME) AS pov_vrijeme, lok_naziv 
+                string strCmd = @"SELECT  CONVERT(VARCHAR(10),pov_vrijeme,104) AS pov_datum,CONVERT(VARCHAR(10),pov_vrijeme,108) AS pov_time, pov_vrijeme, lok_naziv 
                                     FROM povijest_kretanja LEFT JOIN lokacije ON lok_id = pov_loc 
-                                    WHERE pov_kor = @usrId AND CAST( pov_vrijeme AS DATE) >= dbo.date2(@dateFrom+'000000') AND CAST( pov_vrijeme AS DATE) <= dbo.date2(@dateTo+'000000') ORDER BY pov_datum DESC, pov_vrijeme DESC";
+                                    WHERE pov_kor = @usrId AND CAST( pov_vrijeme AS DATE) >= dbo.date2(@dateFrom+'000000') AND CAST( pov_vrijeme AS DATE) <= dbo.date2(@dateTo+'000000') 
+                                    ORDER BY pov_vrijeme DESC ";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
 
@@ -164,7 +164,7 @@ namespace IndoorTracking.Controllers
                         {
                             TimeLocation newData = new TimeLocation();
                             newData.date = data["pov_datum"].ToString();
-                            newData.time = data["pov_vrijeme"].ToString();
+                            newData.time = data["pov_time"].ToString();
                             newData.location = data["lok_naziv"].ToString();
 
                             timeLocationList.Add(newData);
@@ -191,9 +191,9 @@ namespace IndoorTracking.Controllers
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
-                string strCmd = @"SELECT  CAST( pov_vrijeme AS DATE) AS pov_datum,CAST( pov_vrijeme AS TIME) AS pov_vrijeme 
+                string strCmd = @"SELECT  CONVERT(VARCHAR(10),pov_vrijeme,104) AS pov_datum,CONVERT(VARCHAR(10),pov_vrijeme,108) AS pov_time,pov_vrijeme 
                                     FROM povijest_kretanja 
-                                    WHERE pov_kor = 1 AND pov_loc = 2 ORDER BY pov_datum DESC";
+                                    WHERE pov_kor = @usrId AND pov_loc = @location  ORDER BY pov_datum DESC";
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
 
@@ -208,7 +208,7 @@ namespace IndoorTracking.Controllers
                         {
                             Models.DateTime newData = new Models.DateTime();
                             newData.date = data["pov_datum"].ToString();
-                            newData.time = data["pov_vrijeme"].ToString();
+                            newData.time = data["pov_time"].ToString();
                             
 
                             dateTimeList.Add(newData);

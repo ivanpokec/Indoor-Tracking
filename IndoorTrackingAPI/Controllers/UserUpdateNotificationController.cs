@@ -10,20 +10,21 @@ using System.Web.Http;
 
 namespace IndoorTracking.Controllers
 {
-    public class UserPassUpdateController : ApiController
+    public class UserUpdateNotificationController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult CheckLogin([FromBody] UserUpdate userUpdate)
+        public IHttpActionResult UpdateNotification([FromBody] notificationUpdate userUpdate)
         {
-            int usrId = int.Parse( userUpdate.usrId.ToString());
-            string passWord = userUpdate.passWord;
+            int usrId = int.Parse(userUpdate.usrId.ToString());
+            int usrNotification = int.Parse(userUpdate.notification.ToString());
+           
 
-            User logdUser = new User();
+            User updateUser = new User();
             using (SqlConnection connection = new SqlConnection(Server.ConnectionString))
             {
                 connection.Open();
 
-                string strCmd = @"UPDATE korisnici SET kor_lozinka = @lozinka WHERE kor_id = @userId; 
+                string strCmd = @"UPDATE korisnici SET kor_notification = @notify WHERE kor_id = @userId; 
                                     SELECT kor_id, 
 		                                kor_username, 
 		                                kor_lozinka,
@@ -44,7 +45,7 @@ namespace IndoorTracking.Controllers
                 using (SqlCommand cmd = new SqlCommand(strCmd, connection))
                 {
                     cmd.Parameters.Add("@userId", System.Data.SqlDbType.Int).Value = usrId;
-                    cmd.Parameters.Add("@lozinka", System.Data.SqlDbType.VarChar).Value = passWord;
+                    cmd.Parameters.Add("@notify", System.Data.SqlDbType.Int).Value = usrNotification;
                     using (SqlDataReader data = cmd.ExecuteReader())
                     {
                         if (data.Read())
@@ -53,19 +54,19 @@ namespace IndoorTracking.Controllers
                             bool check = Int32.TryParse(data["kor_id"].ToString(), out id);
                             if (check == true && id != 0)
                             {
-                                logdUser.userId = int.Parse(data["kor_id"].ToString());
-                                logdUser.userName = data["kor_username"].ToString();
-                                logdUser.passWord = data["kor_lozinka"].ToString();
-                                logdUser.name = data["kor_ime"].ToString();
-                                logdUser.locationId = int.Parse(data["kor_lokacija_id"].ToString());
-                                logdUser.locationName = data["kor_lokacija_naziv"].ToString();
-                                logdUser.locationCategory = data["kor_lokacija_kategorija"].ToString();
-                                logdUser.currentLocationId = int.Parse(data["trenutna_lokacija_id"].ToString());
-                                logdUser.currentLocationName = data["trenutna_lokacija_naziv"].ToString();
-                                logdUser.currentLocationCategory = data["trenutna_lokacija_kategorija"].ToString();
-                                logdUser.notification = int.Parse(data["kor_notification"].ToString());
+                                updateUser.userId = int.Parse(data["kor_id"].ToString());
+                                updateUser.userName = data["kor_username"].ToString();
+                                updateUser.passWord = data["kor_lozinka"].ToString();
+                                updateUser.name = data["kor_ime"].ToString();
+                                updateUser.locationId = int.Parse(data["kor_lokacija_id"].ToString());
+                                updateUser.locationName = data["kor_lokacija_naziv"].ToString();
+                                updateUser.locationCategory = data["kor_lokacija_kategorija"].ToString();
+                                updateUser.currentLocationId = int.Parse(data["trenutna_lokacija_id"].ToString());
+                                updateUser.currentLocationName = data["trenutna_lokacija_naziv"].ToString();
+                                updateUser.currentLocationCategory = data["trenutna_lokacija_kategorija"].ToString();
+                                updateUser.notification = int.Parse(data["kor_notification"].ToString());
 
-                                return Ok(logdUser);
+                                return Ok(updateUser);
                             }
 
                         }
