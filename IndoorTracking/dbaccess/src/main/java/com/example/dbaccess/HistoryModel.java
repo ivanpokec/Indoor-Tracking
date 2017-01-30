@@ -1,14 +1,9 @@
 package com.example.dbaccess;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by Paula on 19.12.2016..
@@ -16,14 +11,10 @@ import java.util.ListIterator;
 
 public class HistoryModel {
 
-    String date;
-    String location;
-    String time;
-    String user;
-
-    String datum;
-    String vrijeme;
-
+    private String date;
+    private String location;
+    private String time;
+    private String user;
 
     public HistoryModel() {
 
@@ -61,21 +52,6 @@ public class HistoryModel {
         this.user = user;
     }
 
-    public String getDatum() {
-        return datum;
-    }
-
-    public String getVrijeme() {
-        return vrijeme;
-    }
-
-
-    public void separateDateTime() {
-        String time = this.getDate();
-        String[] splittedTime = time.split(" ");
-        this.datum = splittedTime[0];
-        this.vrijeme = splittedTime[1];
-    }
 
     public static String convertDate(String date, String format) {
         String convertedDate = "";
@@ -92,6 +68,21 @@ public class HistoryModel {
         }
 
         return convertedDate;
+    }
+
+    public String showData(int historyType) {
+        switch (historyType) {
+            case 0: // FOR HISTORY ALL
+                return this.getDate();
+            case 1: // FOR HISTORY ALL DETAILS
+                return this.getTime() + " " + this.getLocation();
+            case 2: // FOR HISTORY BY DATE
+                return this.getDate() + " " + this.getTime() + " " + this.getLocation();
+            case 3: // FOR HISTORY BY LOCATION
+                return this.getDate() + " " + this.getTime();
+            default:
+                return "";
+        }
     }
 
 }

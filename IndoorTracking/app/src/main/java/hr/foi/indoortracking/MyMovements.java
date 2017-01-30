@@ -66,7 +66,8 @@ public class MyMovements extends AppCompatActivity {
         showAll = (Button) findViewById(R.id.button_ShowAllHistory);
         showAll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MyMovements.this, HistoryAll.class);
+                Intent intent = new Intent(MyMovements.this, History.class);
+                intent.putExtra("HistoryType", 0);
                 startActivity(intent);
                 // Perform action on click
             }
@@ -108,7 +109,8 @@ public class MyMovements extends AppCompatActivity {
                 //String proba = tv.getText().toString();
                 Log.i("SPINER", String.valueOf(locationId));
 
-                Intent intent = new Intent(MyMovements.this, HistoryByLocation.class);
+                Intent intent = new Intent(MyMovements.this, History.class);
+                intent.putExtra("HistoryType", 3);
                 intent.putExtra("locationId", locationId);
                 startActivity(intent);
             }
@@ -178,7 +180,8 @@ public class MyMovements extends AppCompatActivity {
                 String dateFrom = from_editText.getText().toString();
                 String dateTo = to_editText.getText().toString();
                 if (!from_editText.getText().toString().isEmpty() && !to_editText.getText().toString().isEmpty()) {
-                    Intent intent = new Intent(MyMovements.this, HistoryByDate.class);
+                    Intent intent = new Intent(MyMovements.this, History.class);
+                    intent.putExtra("HistoryType", 2);
                     intent.putExtra("dateFrom", dateFrom);
                     intent.putExtra("dateTo", dateTo);
                     startActivity(intent);
