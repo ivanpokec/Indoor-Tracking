@@ -100,7 +100,7 @@ public class Category extends AppCompatActivity {
         categoryListAdapter.clear();
         categoryListAdapter.notifyDataSetChanged();
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        Call<List<CategoryModel>> call = apiService.listLocations();
+        Call<List<CategoryModel>> call = apiService.listCategories();
         call.enqueue(new Callback<List<CategoryModel>>() {
             @Override
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
