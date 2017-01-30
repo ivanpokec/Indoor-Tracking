@@ -11,7 +11,8 @@
         android:textAlignment="center"
         android:textStyle="normal|bold|italic"
         android:fontFamily="Open Sans Light"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,7 +47,8 @@
         android:textAlignment="center"
         android:textStyle="normal|bold|italic"
         android:fontFamily="Open Sans Light"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
 
     <ScrollView
         android:layout_width="match_parent"
