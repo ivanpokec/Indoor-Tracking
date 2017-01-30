@@ -61,8 +61,6 @@ public class History extends AppCompatActivity {
 
                 txt.setText(hm.showData(historyType));
 
-               // ((TextView) convertView).setText(hm.showData(historyType));
-
                 return convertView;
             }
         };

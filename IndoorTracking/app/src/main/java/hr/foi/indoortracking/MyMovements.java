@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -55,6 +56,7 @@ public class MyMovements extends AppCompatActivity {
     private int locationId;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +77,9 @@ public class MyMovements extends AppCompatActivity {
 
 
         //THIRD OPTION
-        spinner = (Spinner) findViewById(R.id.spinner);
+         spinner = (Spinner) findViewById(R.id.spinner);
 
-        spinnerArrayAdapter = new ArrayAdapter<LocationModel>(this,
+         spinnerArrayAdapter = new ArrayAdapter<LocationModel>(this,
                 android.R.layout.simple_spinner_item
                 , new LinkedList<LocationModel>()) {
 
@@ -93,13 +95,32 @@ public class MyMovements extends AppCompatActivity {
 
                 ((TextView) convertView).setText(locationModel.getName());
 
+
                 return convertView;
             }
+
+             @Override
+             public View getDropDownView(int position, View convertView,
+                                         ViewGroup parent) {
+                 LocationModel locationModel = getItem(position);
+                 if (convertView == null) {
+                     convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+                 }
+                 ((TextView) convertView).setText(locationModel.getName());
+
+
+                 return convertView;
+             }
         };
+
+
+
+
 
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getLocations(spinner);
         spinner.setAdapter(spinnerArrayAdapter);
+
 
         searchByLocation = (Button) findViewById(R.id.button_search_by_location);
         searchByLocation.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +229,7 @@ public class MyMovements extends AppCompatActivity {
                 if (response.body() != null) {
 
                     spinnerArrayAdapter.addAll(response.body());
+
 
                 }
             }
