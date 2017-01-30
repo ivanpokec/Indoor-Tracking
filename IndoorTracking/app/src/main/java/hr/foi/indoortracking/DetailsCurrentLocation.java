@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
     private ServiceConnection sConnection;
     private MainService mainService;
     private BroadcastReceiver myReceiver;
+    private ProgressBar spinner;
 
     private ListView curretUserOnlocationView;
     ArrayAdapter<UserModel> curretUserOnlocationListAdapter;
@@ -54,6 +56,9 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
         setTitle("Detalji");
         setContentView(R.layout.activity_details_current_location);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        spinner=(ProgressBar)findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.VISIBLE);
+
 
         final Intent mService = new Intent(this, MainService.class);
 
@@ -108,6 +113,8 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
                 };
                 getCurrentUserOnLocation(curretUserOnlocationView,idLokcaije);
                 curretUserOnlocationView.setAdapter(curretUserOnlocationListAdapter);
+                spinner.setVisibility(View.INVISIBLE);
+
 
                 //default user on location
 
