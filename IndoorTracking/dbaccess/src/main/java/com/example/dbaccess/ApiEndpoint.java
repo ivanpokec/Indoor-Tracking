@@ -37,6 +37,10 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<UserModel> getUser(@Field("UserId") int UserId);
 
+    @POST("IndoorTracking/api/UserUpdateNotification")
+    @FormUrlEncoded
+    Call<UserModel> updateNotificationSetting(@Field("notification") int notification, @Field("usrId") int userId);
+
 
 
     @POST("IndoorTracking/api/History/GetDateForUser")

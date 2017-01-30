@@ -153,7 +153,9 @@ public class MainService extends Service{
                                 locationCat = response.body().getCategory();
                                 LoggedUser.getUser().getUserModel().setCurrentLocationName(locationName);
 
-                                generateNotification(locationName, nearestSensor.getSnrSignalZ());
+                                if (LoggedUser.getUser().getUserModel().getNotification() == 1) {
+                                    generateNotification(locationName, nearestSensor.getSnrSignalZ());
+                                }
 
                                 int locationId = response.body().getId();
 

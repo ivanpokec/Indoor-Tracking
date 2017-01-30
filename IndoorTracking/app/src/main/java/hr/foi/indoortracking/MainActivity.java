@@ -51,16 +51,8 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         manager = new SessionManager();
-
-        /*
-        Login login = new Login();
-
-        login.activeUser.setUserId(Integer.parseInt(manager.getPreferences(this, "id")));
-        login.activeUser.setName(manager.getPreferences(this,"name"));
-        login.activeUser.setUsername(manager.getPreferences(this,"userName"));
-        login.activeUser.setPassword(manager.getPreferences(this,"password"));
-        login.activeUser.setLocationName(manager.getPreferences(this,"locationName")); */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,6 +64,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         txtCurrentLocation = (TextView) findViewById(R.id.txtCurrentLocation);
+        txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocationName());
+
         if (LoggedUser.getUser().getUserModel().getCurrentLocationName() != "") {
             txtCurrentLocation.setText(LoggedUser.getUser().getUserModel().getCurrentLocationName());
             if(txtCurrentLocation.getText().toString().equals("Mobilisis Ulaz")) {
@@ -91,13 +85,13 @@ public class MainActivity extends AppCompatActivity
                 img.setImageResource(R.mipmap.plan);
                         }
         }
-        //txtCurrentLocation.setText("Traženje...");
+
         txtCurrentLocationDesc = (TextView) findViewById(R.id.txtCurrentLocationOpis);
         txtCategory = (TextView) findViewById(R.id.txtCategory);
 
+        txtCategory.setText(LoggedUser.getUser().getUserModel().getCurrentLocationCategory());
+        txtCurrentLocationDesc.setText(LoggedUser.getUser().getUserModel().getCurrentLocationDescription());
 
-        txtCategory.setText("");
-        txtCurrentLocationDesc.setText("");
         details = (Button) findViewById(R.id.buttonDetails);
 
         details.setOnClickListener(new View.OnClickListener() {
@@ -200,10 +194,11 @@ public class MainActivity extends AppCompatActivity
 
         if(id== R.id.action_logout) {
             manager.setPreferences(MainActivity.this, "id", "");
+            /*
             manager.setPreferences(MainActivity.this, "name", "");
             manager.setPreferences(MainActivity.this, "userName", "");
             manager.setPreferences(MainActivity.this, "passWord", "");
-            manager.setPreferences(MainActivity.this, "locationName", "");
+            manager.setPreferences(MainActivity.this, "locationName", "");*/
             LoggedUser.getUser().releaseUserModel();
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);

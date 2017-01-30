@@ -16,6 +16,7 @@ public class UserModel {
     private String currentLocationName;
     private String currentLocationCategory;
     private String currentLocationDescription;
+    private int notification;
 
 
     public void setUserId(int userId) {
@@ -76,5 +77,31 @@ public class UserModel {
         return currentLocationDescription;
     }
 
+    public String getLocationCategory() {
+        return locationCategory;
+    }
 
+    public void setLocationCategory(String locationCategory) {
+        this.locationCategory = locationCategory;
+    }
+
+    public void setCurrentLocationId(int currentLocationId) {
+        this.currentLocationId = currentLocationId;
+    }
+
+    public void setCurrentLocationCategory(String currentLocationCategory) {
+        this.currentLocationCategory = currentLocationCategory;
+    }
+
+    public void setCurrentLocationDescription(String currentLocationDescription) {
+        this.currentLocationDescription = currentLocationDescription;
+    }
+
+    public int getNotification() {
+        return notification;
+    }
+
+    public void setNotification(int notification) {
+        this.notification = notification;
+    }
 }

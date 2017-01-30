@@ -40,12 +40,19 @@ public class Login extends Activity {
         String id = manager.getPreferences(Login.this, "id");
 
         if (id != "") {
-            activeUser.setUserId(Integer.parseInt(id));
-            activeUser.setName(manager.getPreferences(this,"name"));
-            activeUser.setUsername(manager.getPreferences(this,"userName"));
-            activeUser.setPassword(manager.getPreferences(this,"password"));
-            activeUser.setLocationName(manager.getPreferences(this,"locationName"));
-            activeUser.setCurrentLocationName(manager.getPreferences(this, "currentLocarion"));
+
+            ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
+            apiService.getUser(Integer.parseInt(id)).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    activeUser = response.body();
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+
+                }
+            });
 
             LoggedUser.getUser().setUserModel(activeUser);
 
@@ -61,9 +68,6 @@ public class Login extends Activity {
                     Toast.makeText(Login.this, "Niste unijeli potrebne podatke!", Toast.LENGTH_SHORT).show();
                 } else {
                     spinner.setVisibility(View.VISIBLE);
-                    //Log.d("user",userName.getText().toString());
-                    //String status = manager.getPreferences(Login.this, "status");
-                    //Log.d("status", status);
 
                     ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
                     apiService.getUser(userName.getText().toString(), passWord.getText().toString()).enqueue(new Callback<UserModel>() {
@@ -71,14 +75,8 @@ public class Login extends Activity {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
-                                //Log.i("LOGIN", response.body().getName());
 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
-                                manager.setPreferences(Login.this, "password", String.valueOf(response.body().getPassword()));
-                                manager.setPreferences(Login.this, "userName", response.body().getUsername());
-                                manager.setPreferences(Login.this, "name", response.body().getName());
-                                manager.setPreferences(Login.this, "locationName", response.body().getLocationName());
-                                manager.setPreferences(Login.this, "currentLocarion", response.body().getCurrentLocationName());
 
                                 activeUser = response.body();
                                 LoggedUser.getUser().setUserModel(activeUser);
@@ -86,7 +84,6 @@ public class Login extends Activity {
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(Login.this, "Uspješno ste se prijavili! ", Toast.LENGTH_LONG).show();
-
 
                             }
                             else {
