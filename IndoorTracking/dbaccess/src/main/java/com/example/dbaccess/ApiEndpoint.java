@@ -22,10 +22,22 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<UserModel> changePassword(@Field("passWord") String passWord, @Field("usrId") int id);
 
-    /*
-    @POST("IndoorTracking/api/history")
+    @POST("IndoorTracking/api/UsersOnLocation")
     @FormUrlEncoded
-    Call<List<HistoryModel>> getHistory(@Field("UserId") int id); */
+    Call<List<UserLocationModel>> getCurrentUsersOnLocation(@Field("locationId") int locationId);
+
+    @POST("IndoorTracking/api/UserLocation")
+    @FormUrlEncoded
+    Call<List<UserLocationModel>> getUsersOnLocation(@Field("locationId") int locationId);
+
+    @GET("IndoorTracking/api/User")
+    Call<List<UserModel>> listUsers();
+
+    @POST("IndoorTracking/api/User")
+    @FormUrlEncoded
+    Call<UserModel> getUser(@Field("UserId") int UserId);
+
+
 
     @POST("IndoorTracking/api/History/GetDateForUser")
     @FormUrlEncoded
@@ -43,32 +55,25 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     Call<List<HistoryModel>> getHistoryByLocation(@Field("UserId") int userId, @Field("locationId") int locationId);
 
+
+
     @POST("IndoorTracking/api/location")
     @FormUrlEncoded
     Call<LocationModel> getLocation(@Field("MacAddress") String MacAddress, @Field("UsrId") int userId);
 
-    @GET("IndoorTracking/api/Category")
-    Call<List<CategoryModel>> listLocations();
-
-    @POST("IndoorTracking/api/UsersOnLocation")
-    @FormUrlEncoded
-    Call<List<UserLocationModel>> getCurrentUsersOnLocation(@Field("locationId") int locationId);
-
-    @POST("IndoorTracking/api/UserLocation")
-    @FormUrlEncoded
-    Call<List<UserLocationModel>> getUsersOnLocation(@Field("locationId") int locationId);
-
-    @GET("IndoorTracking/api/User")
-    Call<List<UserModel>> listUsers();
+    @GET("IndoorTracking/api/Location")
+    Call<List<LocationModel>> listAllLocations();
 
     @POST("IndoorTracking/api/LocationInCategori")
     @FormUrlEncoded
-    Call<List<LocationCategoryModel>> getLocationInCategory(@Field("catId") int catId);
+    Call<List<LocationModel>> getLocationInCategory(@Field("catId") int catId);
 
-    @POST("IndoorTracking/api/User")
-    @FormUrlEncoded
-    Call<UserModel> getUser(@Field("UserId") int UserId);
 
-    @GET("IndoorTracking/api/Location")
-    Call<List<LocationModel>> listAllLocations();
+
+    @GET("IndoorTracking/api/Category")
+    Call<List<CategoryModel>> listCategories();
+
+
+
+
 }

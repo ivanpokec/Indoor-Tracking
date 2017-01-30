@@ -1,12 +1,9 @@
 package hr.foi.indoortracking;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.HistoryModel;
-import com.example.dbaccess.LocationCategoryModel;
 import com.example.dbaccess.LocationModel;
 import com.example.dbaccess.RetrofitConnection;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
