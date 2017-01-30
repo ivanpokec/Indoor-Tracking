@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+
+
+
+    <TextView
+        android:id="@+id/textview_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lokacija"
+        android:paddingBottom="10dp"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:textStyle="normal|bold|italic"
+        android:textAlignment="center"
+
+        />
+
+
+
+</RelativeLayout>

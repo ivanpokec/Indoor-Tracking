@@ -47,17 +47,21 @@ public class History extends AppCompatActivity {
 
         historyListView = (ListView) findViewById(R.id.list_history_by_location);
 
-        historyAdapter = new ArrayAdapter<HistoryModel>(this, android.R.layout.simple_list_item_1, new LinkedList<HistoryModel>()) {
+        historyAdapter = new ArrayAdapter<HistoryModel>(this,R.layout.list_row_history, new LinkedList<HistoryModel>()) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
                 HistoryModel hm = getItem(position);
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_history, parent, false);
                 }
 
-                ((TextView) convertView).setText(hm.showData(historyType));
+                TextView txt = (TextView)convertView.findViewById(R.id.textview_name);
+
+                txt.setText(hm.showData(historyType));
+
+               // ((TextView) convertView).setText(hm.showData(historyType));
 
                 return convertView;
             }
