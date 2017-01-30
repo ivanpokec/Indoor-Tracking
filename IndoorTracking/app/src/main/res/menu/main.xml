@@ -5,15 +5,20 @@
         android:id="@+id/action_profil"
         android:orderInCategory="100"
         android:title="Moj profil"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:icon="@mipmap/profil"
+        />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="Postavke"
+        android:icon="@mipmap/settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="Odjava"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:icon="@mipmap/logout"
+        />
 </menu>

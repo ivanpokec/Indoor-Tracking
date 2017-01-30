@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,9 @@ public class Locations extends AppCompatActivity {
     private ListView locationsListView;
     ArrayAdapter<LocationCategoryModel> locationsListAdapter;
     String catID;
+    String catName;
     int locID;
+    TextView textView_title;
 
 
     @Override
@@ -49,13 +52,17 @@ public class Locations extends AppCompatActivity {
 
         Intent mIntent = getIntent();
         catID = mIntent.getStringExtra("ID");
+        catName = mIntent.getStringExtra("name");
+
 
        //Toast.makeText(Locations.this, catID, Toast.LENGTH_SHORT).show();
 
         locationsListView = (ListView) findViewById(R.id.list_locations);
+        textView_title = (TextView) findViewById(R.id.txtCategory);
+        textView_title.setText(catName);
 
         locationsListAdapter = new ArrayAdapter<LocationCategoryModel>(this,
-                android.R.layout.simple_list_item_1
+                R.layout.list_row_simple
                 , new LinkedList<LocationCategoryModel>()) {
 
             @Override
@@ -66,10 +73,13 @@ public class Locations extends AppCompatActivity {
                 LocationCategoryModel locationCategoryModel = getItem(position);
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_simple, parent, false);
                 }
 
-                ((TextView) convertView).setText(locationCategoryModel.getLocationInCategory());
+                TextView location = (TextView)convertView.findViewById(R.id.textview_name);
+
+                location.setText(locationCategoryModel.name);
+
 
 
                 return convertView;

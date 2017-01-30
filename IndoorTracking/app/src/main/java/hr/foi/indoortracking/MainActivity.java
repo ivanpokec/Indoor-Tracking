@@ -77,18 +77,18 @@ public class MainActivity extends AppCompatActivity
             if(txtCurrentLocation.getText().toString().equals("Mobilisis Ulaz")) {
                 ImageView img= (ImageView) findViewById(R.id.imageView_plan);
                 img.setImageResource(R.mipmap.ulaz);
-            } else if (txtCurrentLocation.getText().toString().equals("soba1 T1")) {
+            }else if (txtCurrentLocation.getText().toString().equals("soba1 T1")) {
                 ImageView img= (ImageView) findViewById(R.id.imageView_plan);
                 img.setImageResource(R.mipmap.soba1);
-                } else if (txtCurrentLocation.getText().toString().equals("soba1 T3")) {
-                    ImageView img= (ImageView) findViewById(R.id.imageView_plan);
-                    img.setImageResource(R.mipmap.t3);
-                        } else if (txtCurrentLocation.getText().toString().equals("Wc")) {
-                            ImageView img= (ImageView) findViewById(R.id.imageView_plan);
-                            img.setImageResource(R.mipmap.wc);
-                        } else {
-                            ImageView img= (ImageView) findViewById(R.id.imageView_plan);
-                            img.setImageResource(R.mipmap.plan);
+            }else if (txtCurrentLocation.getText().toString().equals("soba1 T3")) {
+                ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                img.setImageResource(R.mipmap.t3);
+             }else if (txtCurrentLocation.getText().toString().equals("Wc")) {
+                ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                img.setImageResource(R.mipmap.wc);
+            }else {
+                ImageView img= (ImageView) findViewById(R.id.imageView_plan);
+                img.setImageResource(R.mipmap.plan);
                         }
         }
         //txtCurrentLocation.setText("Traženje...");
@@ -223,7 +223,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         if (id == R.id.nav_trenutna) {
-
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_lokacije) {
             Intent intent = new Intent(MainActivity.this,Category.class);
             startActivity(intent);

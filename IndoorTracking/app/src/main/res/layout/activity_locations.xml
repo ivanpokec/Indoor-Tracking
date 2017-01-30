@@ -3,6 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
+
+        <TextView
+            android:text="Kategorija"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCategory"
+            android:textAlignment="center"
+            android:textStyle="normal|bold|italic"
+            android:fontFamily="Open Sans Light"
+            android:layout_marginTop="30dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
+
+
+
+
+
     <ListView
         android:id="@+id/list_locations"
         android:layout_width="match_parent"

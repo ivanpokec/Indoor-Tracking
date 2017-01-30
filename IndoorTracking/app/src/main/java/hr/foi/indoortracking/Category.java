@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,9 +16,7 @@ import android.widget.Toast;
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.CategoryModel;
 import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class Category extends AppCompatActivity {
         categoryListView = (ListView) findViewById(R.id.list_category);
 
         categoryListAdapter = new ArrayAdapter<CategoryModel>(this,
-                        android.R.layout.simple_list_item_1
+                        R.layout.list_row_locations
                         , new LinkedList<CategoryModel>()) {
 
                     @Override
@@ -56,14 +55,25 @@ public class Category extends AppCompatActivity {
 
 
 
-                        CategoryModel categoryModel = getItem(position);
+                       CategoryModel categoryModel = getItem(position);
 
                         if (convertView == null) {
-                            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_locations, parent, false);
                         }
 
-                        ((TextView) convertView).setText(categoryModel.catName);
+                        TextView category = (TextView)convertView.findViewById(R.id.textview_name);
 
+                        category.setText(categoryModel.catName);
+                        ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
+                        if(categoryModel.catName.toString().equals("M2 - Razvoj softvera")) {
+                            thumb_image.setImageResource(R.mipmap.software);
+                        }else if (categoryModel.catName.toString().equals("M3 - Razvoj hardvera")) {
+                            thumb_image.setImageResource(R.mipmap.hardware);
+                        }else if(categoryModel.catName.toString().equals("Prodaja")){
+                            thumb_image.setImageResource(R.mipmap.sale);
+                        }else {
+                            thumb_image.setImageResource(R.mipmap.other);
+                        }
 
 
                         return convertView;
@@ -80,6 +90,7 @@ public class Category extends AppCompatActivity {
                 catId=catmodel.catId;
                 Intent intent = new Intent(Category.this, Locations.class);
                 intent.putExtra("ID",  Integer.toString(catId));
+                intent.putExtra("name",  catmodel.catName);
                 startActivity(intent);
             }
         });

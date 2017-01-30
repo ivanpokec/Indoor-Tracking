@@ -79,7 +79,7 @@ public class LocationDetails extends AppCompatActivity {
         userOnlocationView = (ListView) findViewById(R.id.pridruzenilokacijilist);
 
         userOnlocationListAdapter = new ArrayAdapter<UserLocationModel>(LocationDetails.this,
-                R.layout.list_row_out_location
+                R.layout.list_row_on_location
                 , new LinkedList<UserLocationModel>()) {
 
             @Override
@@ -88,7 +88,7 @@ public class LocationDetails extends AppCompatActivity {
                 UserLocationModel userModel = getItem(position);
 
                 if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_out_location, parent, false);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
                 }
 
                 TextView user = (TextView)convertView.findViewById(R.id.textview_name);

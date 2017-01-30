@@ -4,15 +4,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_trenutna"
+            android:icon="@mipmap/current"
             android:title="Trenutna lokacija" />
         <item
             android:id="@+id/nav_lokacije"
+            android:icon="@mipmap/locations"
             android:title="Lokacije" />
         <item
             android:id="@+id/nav_kretanja"
-            android:title="Moja kretanja" />
+            android:title="Moja kretanja"
+            android:icon="@mipmap/movement"
+            />
         <item
             android:id="@+id/nav_korisnici"
+            android:icon="@mipmap/user"
             android:title="Korisnici" />
     </group>
 

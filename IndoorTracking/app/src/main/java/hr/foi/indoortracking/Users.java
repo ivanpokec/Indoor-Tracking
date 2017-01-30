@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import android.widget.TwoLineListItem;
 import com.example.dbaccess.ApiEndpoint;
 import com.example.dbaccess.CategoryModel;
 import com.example.dbaccess.RetrofitConnection;
+import com.example.dbaccess.UserLocationModel;
 import com.example.dbaccess.UserModel;
 
 import java.util.LinkedList;
@@ -49,7 +51,7 @@ public class Users extends AppCompatActivity {
         usersListView = (ListView) findViewById(R.id.list_users);
 
         usersListAdapter = new ArrayAdapter<UserModel>(this,
-                android.R.layout.simple_list_item_2
+                R.layout.list_row_users
                 , new LinkedList<UserModel>()) {
 
             @Override
@@ -58,46 +60,23 @@ public class Users extends AppCompatActivity {
 
 
                 UserModel usersModel = getItem(position);
-                TwoLineListItem twoLineListItem;
 
-               if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
-                   context=getContext();
-                   LayoutInflater inflater = (LayoutInflater) context
-                           .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                   twoLineListItem = (TwoLineListItem) inflater.inflate(
-                           android.R.layout.simple_list_item_2, null);
-                } else {
-                   twoLineListItem = (TwoLineListItem) convertView;
-               }
-
-
-
-               // ((TextView) convertView).setText(usersModel.name);
-                //((TextView) convertView).setText(usersModel.locationName);
-
-                //return convertView;
 
 
                 if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) context
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    twoLineListItem = (TwoLineListItem) inflater.inflate(
-                            android.R.layout.simple_list_item_2, null);
-                } else {
-                    twoLineListItem = (TwoLineListItem) convertView;
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_users, parent, false);
                 }
 
-                TextView text1 = twoLineListItem.getText1();
-                TextView text2 = twoLineListItem.getText2();
+                TextView user = (TextView)convertView.findViewById(R.id.textview_name);
+                TextView currentL = (TextView)convertView.findViewById(R.id.textview_current);
 
-                text1.setText(usersModel.name);
+                user.setText(usersModel.getName());
+                currentL.setText("Trenutna lokacija: "+usersModel.getCurrentLocarion());
+                ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
+                thumb_image.setImageResource(R.mipmap.profil);
 
 
-                text2.setText("Trenutacna lokacija: " + usersModel.currentLocarion);
-
-                return twoLineListItem;
-
+                return convertView;
 
 
             }
