@@ -123,7 +123,7 @@ public class Login extends Activity {
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
 
-                                checkPermissions();
+                                //checkPermissions();
 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
                                 manager.setPreferences(Login.this, "name", response.body().getName());
