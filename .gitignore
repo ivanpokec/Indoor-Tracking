@@ -55,3 +55,9 @@ captures/
 
 # Visio autosave temporary files
 *.~vsdx
+
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
