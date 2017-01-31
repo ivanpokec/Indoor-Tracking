@@ -10,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.LocationModel;
-import com.example.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.LocationModel;
+import hr.foi.dbaccess.RetrofitConnection;
 
 import java.util.Calendar;
 import java.util.LinkedList;

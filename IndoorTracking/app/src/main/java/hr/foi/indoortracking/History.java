@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.dbaccess.HistoryModel;
+import hr.foi.dbaccess.HistoryModel;
 
 import java.util.LinkedList;
 

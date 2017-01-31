@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.UserModel;
 
 import hr.foi.core.LoggedUser;
 import retrofit2.Call;

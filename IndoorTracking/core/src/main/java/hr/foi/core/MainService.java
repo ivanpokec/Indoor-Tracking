@@ -16,9 +16,9 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.LocationModel;
-import com.example.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.LocationModel;
+import hr.foi.dbaccess.RetrofitConnection;
 
 import java.util.ArrayList;
 import java.util.Date;

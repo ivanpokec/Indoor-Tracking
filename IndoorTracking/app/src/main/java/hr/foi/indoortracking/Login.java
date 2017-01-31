@@ -7,16 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.UserModel;
 
 import hr.foi.core.LoggedUser;
 import retrofit2.Call;
@@ -49,6 +48,8 @@ public class Login extends Activity {
             activeUser.setUserId(Integer.parseInt(id));
             activeUser.setName(manager.getPreferences(Login.this, "name"));
             activeUser.setUsername(manager.getPreferences(Login.this, "username"));
+            activeUser.setPassword(manager.getPreferences(Login.this, "password"));
+
             try {
                 activeUser.setLocationId(Integer.parseInt(manager.getPreferences(Login.this, "locationId")));
             }

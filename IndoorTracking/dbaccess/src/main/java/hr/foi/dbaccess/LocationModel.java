@@ -1,4 +1,4 @@
-package com.example.dbaccess;
+package hr.foi.dbaccess;
 
 /**
  * Created by Paula on 20.12.2016..

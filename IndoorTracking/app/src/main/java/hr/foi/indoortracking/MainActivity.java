@@ -26,15 +26,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.UserModel;
 
 import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {

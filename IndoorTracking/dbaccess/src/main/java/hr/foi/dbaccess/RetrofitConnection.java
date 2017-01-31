@@ -1,13 +1,7 @@
-package com.example.dbaccess;
+package hr.foi.dbaccess;
 
-import java.util.ArrayList;
-
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
  * Created by Paula on 14.11.2016..

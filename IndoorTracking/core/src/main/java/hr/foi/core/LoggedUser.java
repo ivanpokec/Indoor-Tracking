@@ -1,6 +1,6 @@
 package hr.foi.core;
 
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.UserModel;
 
 /**
  * Created by Paula on 27.12.2016..
