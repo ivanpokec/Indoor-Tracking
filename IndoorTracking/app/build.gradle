@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -30,4 +31,6 @@ dependencies {
     compile project(':dbaccess')
     compile project(':ble')
     compile project(':core')
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.3'
+    testCompile 'junit:junit:4.12'
 }
