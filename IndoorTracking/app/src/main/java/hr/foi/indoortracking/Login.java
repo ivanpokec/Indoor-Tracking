@@ -1,8 +1,12 @@
 package hr.foi.indoortracking;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,14 +49,31 @@ public class Login extends Activity {
             activeUser.setUserId(Integer.parseInt(id));
             activeUser.setName(manager.getPreferences(Login.this, "name"));
             activeUser.setUsername(manager.getPreferences(Login.this, "username"));
-            activeUser.setLocationId(Integer.parseInt(manager.getPreferences(Login.this, "locationId")));
+            try {
+                activeUser.setLocationId(Integer.parseInt(manager.getPreferences(Login.this, "locationId")));
+            }
+            catch (NumberFormatException ex) {
+                activeUser.setLocationId(0);
+            }
+
             activeUser.setLocationName(manager.getPreferences(Login.this, "locationName"));
             activeUser.setLocationCategory(manager.getPreferences(Login.this, "locationCategory"));
-            activeUser.setCurrentLocationId(Integer.parseInt(manager.getPreferences(Login.this, "currentLocationId")));
+            try {
+                activeUser.setCurrentLocationId(Integer.parseInt(manager.getPreferences(Login.this, "currentLocationId")));
+            }
+            catch (NumberFormatException ex) {
+                activeUser.setCurrentLocationId(0);
+            }
+
             activeUser.setCurrentLocationName(manager.getPreferences(Login.this, "currentLocationName"));
             activeUser.setCurrentLocationCategory(manager.getPreferences(Login.this, "currentLocationCategory"));
             activeUser.setCurrentLocationDescription(manager.getPreferences(Login.this, "currentLocationDescription"));
-            activeUser.setNotification(Integer.parseInt(manager.getPreferences(Login.this, "notification")));
+            try {
+                activeUser.setNotification(Integer.parseInt(manager.getPreferences(Login.this, "notification")));
+            }
+            catch (NumberFormatException ex) {
+                activeUser.setNotification(1);
+            }
 
             LoggedUser.getUser().setUserModel(activeUser);
 
@@ -82,6 +103,9 @@ public class Login extends Activity {
 
 
         }
+        else {
+
+        }
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +122,8 @@ public class Login extends Activity {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
+
+                                checkPermissions();
 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
                                 manager.setPreferences(Login.this, "name", response.body().getName());
@@ -138,5 +164,68 @@ public class Login extends Activity {
 
     }
 
+
+    private boolean checkPermissions(){
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BLUETOOTH)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.BLUETOOTH},
+                    2);
+
+
+            // Show an expanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            return false;
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BLUETOOTH_ADMIN)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.BLUETOOTH_ADMIN},
+                    2);
+
+
+            // Show an expanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            return false;
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    2);
+
+
+            // Show an expanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            return false;
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    2);
+
+
+            // Show an expanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            return false;
+        }
+        return true;
+    }
 
 }

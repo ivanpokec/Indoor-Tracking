@@ -45,18 +45,20 @@ public class MainActivity extends AppCompatActivity
     private ServiceConnection sConnection;
     private MainService mainService;
     private BroadcastReceiver myReceiver;
-
+    private IntentFilter filter;
 
     private static TextView txtCurrentLocation;
     private static TextView txtCurrentLocationDesc;
     private static TextView txtCategory;
     private Button details;
 
+    Intent mService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Trenutna lokacija");
-        checkPermissions();
+        //checkPermissions();
 
         setContentView(R.layout.activity_main);
 
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Intent mService = new Intent(this, MainService.class);
+        mService = new Intent(this, MainService.class);
         startService(mService);
 
         sConnection = new ServiceConnection() {
@@ -164,12 +166,20 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-        IntentFilter filter = new IntentFilter("ServiceIntent");
+        filter = new IntentFilter("ServiceIntent");
 
         registerReceiver(myReceiver, filter);
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        startService(mService);
+        registerReceiver(myReceiver, filter);
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -227,7 +237,9 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "passWord", "");
             manager.setPreferences(MainActivity.this, "locationName", "");*/
 
-
+            unbindService(sConnection);
+            unregisterReceiver(myReceiver);
+            stopService(mService);
 
             LoggedUser.getUser().releaseUserModel();
             Intent intent = new Intent(MainActivity.this, Login.class);
@@ -264,6 +276,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private boolean checkPermissions(){
+
+
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.BLUETOOTH)

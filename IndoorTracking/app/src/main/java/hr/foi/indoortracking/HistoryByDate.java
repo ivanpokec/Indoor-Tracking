@@ -30,6 +30,9 @@ public class HistoryByDate implements HistoryDataLoader {
                 if (response.isSuccess()) {
                     exchangeData.getHistoryAdapter().addAll(response.body());
                 }
+                if (response.body().isEmpty()) {
+                    Log.i("RESPONSE", "empty");
+                }
                 if (response.body() == null) {
                     Log.i("RESPONSE", "null");
                     exchangeData.setError(1);
