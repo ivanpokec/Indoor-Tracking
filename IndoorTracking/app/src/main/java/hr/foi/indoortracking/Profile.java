@@ -110,7 +110,20 @@ public class Profile  extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                                     if (response.body() != null) {
-                                        manager.setPreferences(Profile.this, "id",String.valueOf(id));
+
+                                        //manager.setPreferences(Profile.this, "id",String.valueOf(id));
+
+                                        manager.setPreferences(Profile.this, "id", String.valueOf(response.body().getUserId()));
+                                        manager.setPreferences(Profile.this, "name", response.body().getName());
+                                        manager.setPreferences(Profile.this, "username", response.body().getUsername());
+                                        manager.setPreferences(Profile.this, "locationId", String.valueOf(response.body().getLocationId()));
+                                        manager.setPreferences(Profile.this, "locationName", response.body().getLocationName());
+                                        manager.setPreferences(Profile.this, "locationCategory", response.body().getLocationCategory());
+                                        manager.setPreferences(Profile.this, "currentLocationId", String.valueOf(response.body().getCurrentLocationId()));
+                                        manager.setPreferences(Profile.this, "currentLocationName", response.body().getCurrentLocationName());
+                                        manager.setPreferences(Profile.this, "currentLocationCategory", response.body().getCurrentLocationCategory());
+                                        manager.setPreferences(Profile.this, "currentLocationDescription", response.body().getCurrentLocationDescription());
+                                        manager.setPreferences(Profile.this, "notification", String.valueOf(response.body().getNotification()));
 
                                         /*
                                         manager.setPreferences(Profile.this, "password", String.valueOf(response.body().getPassword()));
@@ -150,7 +163,19 @@ public class Profile  extends AppCompatActivity {
          public void onClick(View v) {
 
              manager.setPreferences(Profile.this, "id", "");
+             manager.setPreferences(Profile.this, "name", "");
+             manager.setPreferences(Profile.this, "username", "");
+             manager.setPreferences(Profile.this, "locationId", "");
+             manager.setPreferences(Profile.this, "locationName", "");
+             manager.setPreferences(Profile.this, "locationCategory", "");
+             manager.setPreferences(Profile.this, "currentLocationId", "");
+             manager.setPreferences(Profile.this, "currentLocationName", "");
+             manager.setPreferences(Profile.this, "currentLocationCategory", "");
+             manager.setPreferences(Profile.this, "currentLocationDescription", "");
+             manager.setPreferences(Profile.this, "notification", "");
+
              /*
+             manager.setPreferences(Profile.this, "id", "");
              manager.setPreferences(Profile.this, "name", "");
              manager.setPreferences(Profile.this, "userName", "");
              manager.setPreferences(Profile.this, "passWord", "");

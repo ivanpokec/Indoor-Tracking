@@ -207,12 +207,28 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(id== R.id.action_logout) {
+
             manager.setPreferences(MainActivity.this, "id", "");
+            manager.setPreferences(MainActivity.this, "name", "");
+            manager.setPreferences(MainActivity.this, "username", "");
+            manager.setPreferences(MainActivity.this, "locationId", "");
+            manager.setPreferences(MainActivity.this, "locationName", "");
+            manager.setPreferences(MainActivity.this, "locationCategory", "");
+            manager.setPreferences(MainActivity.this, "currentLocationId", "");
+            manager.setPreferences(MainActivity.this, "currentLocationName", "");
+            manager.setPreferences(MainActivity.this, "currentLocationCategory", "");
+            manager.setPreferences(MainActivity.this, "currentLocationDescription", "");
+            manager.setPreferences(MainActivity.this, "notification", "");
+
             /*
+            manager.setPreferences(MainActivity.this, "id", "");
             manager.setPreferences(MainActivity.this, "name", "");
             manager.setPreferences(MainActivity.this, "userName", "");
             manager.setPreferences(MainActivity.this, "passWord", "");
             manager.setPreferences(MainActivity.this, "locationName", "");*/
+
+
+
             LoggedUser.getUser().releaseUserModel();
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
