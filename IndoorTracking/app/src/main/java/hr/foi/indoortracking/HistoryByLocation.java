@@ -1,10 +1,8 @@
 package hr.foi.indoortracking;
 
-import android.util.Log;
-
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.HistoryModel;
-import com.example.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.HistoryModel;
+import hr.foi.dbaccess.RetrofitConnection;
 
 import java.util.List;
 

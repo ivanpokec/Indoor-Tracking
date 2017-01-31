@@ -1,13 +1,8 @@
 package hr.foi.indoortracking;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -20,9 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.UserModel;
 
 import java.util.LinkedList;
 import java.util.List;

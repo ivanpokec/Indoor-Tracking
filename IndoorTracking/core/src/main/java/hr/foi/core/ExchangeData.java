@@ -2,7 +2,7 @@ package hr.foi.core;
 
 import android.widget.ArrayAdapter;
 
-import com.example.dbaccess.HistoryModel;
+import hr.foi.dbaccess.HistoryModel;
 
 /**
  * Created by Paula on 30.1.2017..

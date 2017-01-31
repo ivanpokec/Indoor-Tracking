@@ -1,4 +1,4 @@
-package com.example.dbaccess;
+package hr.foi.dbaccess;
 
 import java.util.List;
 

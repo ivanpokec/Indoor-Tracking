@@ -13,9 +13,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.CategoryModel;
-import com.example.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.CategoryModel;
+import hr.foi.dbaccess.RetrofitConnection;
 
 import java.util.LinkedList;
 import java.util.List;

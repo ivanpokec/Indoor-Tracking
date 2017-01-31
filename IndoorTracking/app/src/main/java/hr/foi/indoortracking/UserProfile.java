@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.UserModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;

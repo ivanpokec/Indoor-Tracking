@@ -1,7 +1,5 @@
 package hr.foi.indoortracking;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,11 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.example.dbaccess.ApiEndpoint;
-import com.example.dbaccess.RetrofitConnection;
-import com.example.dbaccess.UserModel;
+import hr.foi.dbaccess.ApiEndpoint;
+import hr.foi.dbaccess.RetrofitConnection;
+import hr.foi.dbaccess.UserModel;
 
 import hr.foi.core.LoggedUser;
 import retrofit2.Call;
