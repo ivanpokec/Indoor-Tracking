@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Trenutna lokacija");
-        //checkPermissions();
+        boolean permisions = checkPermissions(2);
 
         setContentView(R.layout.activity_main);
 
@@ -117,7 +117,10 @@ public class MainActivity extends AppCompatActivity
         });
 
         mService = new Intent(this, MainService.class);
-        startService(mService);
+        if(permisions == true){
+            startService(mService);
+
+        }
 
         sConnection = new ServiceConnection() {
             @Override
@@ -221,6 +224,7 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "id", "");
             manager.setPreferences(MainActivity.this, "name", "");
             manager.setPreferences(MainActivity.this, "username", "");
+            manager.setPreferences(MainActivity.this, "password", "");
             manager.setPreferences(MainActivity.this, "locationId", "");
             manager.setPreferences(MainActivity.this, "locationName", "");
             manager.setPreferences(MainActivity.this, "locationCategory", "");
@@ -275,69 +279,131 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private boolean checkPermissions(){
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+
+        switch (requestCode) {
+            case 2: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "Permission3", Toast.LENGTH_SHORT).show();
+                    checkPermissions(3);
+                } else {
 
 
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.BLUETOOTH)
-                != PackageManager.PERMISSION_GRANTED) {
+                }
+                return;
+            }
+            case 3: {
 
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.BLUETOOTH},
-                    2);
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "Permission4", Toast.LENGTH_SHORT).show();
+                    checkPermissions(4);
+                } else {
 
 
-            // Show an expanation to the user *asynchronously* -- don't block
-            // this thread waiting for the user's response! After the user
-            // sees the explanation, try again to request the permission.
-            return false;
+
+                }
+                return;
+            }
+            case 4: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "Permission5", Toast.LENGTH_SHORT).show();
+                    checkPermissions(5);
+                } else {
+
+
+
+                }
+                return;
+            }
+            case 5: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "Permission6", Toast.LENGTH_SHORT).show();
+                    startService(mService);
+
+                } else {
+
+
+
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+    private boolean checkPermissions(int perm){
+
+        switch (perm){
+            case 2:{
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.BLUETOOTH)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.BLUETOOTH},
+                            2);
+
+
+
+                    return false;
+                }
+            }
+            case 3:{
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.BLUETOOTH_ADMIN)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.BLUETOOTH_ADMIN},
+                            3);
+
+                    return false;
+                }
+            }
+            case 4:{
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            4);
+
+                    return false;
+                }
+            }
+            case 5:{
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            5);
+
+                }
+            }
+
         }
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.BLUETOOTH_ADMIN)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.BLUETOOTH_ADMIN},
-                    2);
-
-
-            // Show an expanation to the user *asynchronously* -- don't block
-            // this thread waiting for the user's response! After the user
-            // sees the explanation, try again to request the permission.
-            return false;
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    2);
-
-
-            // Show an expanation to the user *asynchronously* -- don't block
-            // this thread waiting for the user's response! After the user
-            // sees the explanation, try again to request the permission.
-            return false;
-        }
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    2);
-
-
-            // Show an expanation to the user *asynchronously* -- don't block
-            // this thread waiting for the user's response! After the user
-            // sees the explanation, try again to request the permission.
-            return false;
-        }
         return true;
     }
+
+
 
 }

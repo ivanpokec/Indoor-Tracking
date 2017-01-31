@@ -9,7 +9,7 @@ import android.test.ActivityInstrumentationTestCase2;
  * Created by Zana on 31.1.2017..
  */
 
-public class TestLogInOut extends  ActivityInstrumentationTestCase2 {
+public class TestLogIn extends  ActivityInstrumentationTestCase2 {
     private Solo solo;
 
     private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "hr.foi.indoortracking.Login";
@@ -24,7 +24,7 @@ public class TestLogInOut extends  ActivityInstrumentationTestCase2 {
     }
 
 
-    public TestLogInOut() throws ClassNotFoundException {
+    public TestLogIn() throws ClassNotFoundException {
         super(launcherActivityClass);
     }
 
@@ -44,6 +44,7 @@ public class TestLogInOut extends  ActivityInstrumentationTestCase2 {
         solo.enterText((android.widget.EditText) solo.getView("editText_Password"), "zanaz");
         solo.clickOnView(solo.getView("button_LogIn"));
         solo.waitForActivity("MainActivity", 2000000);
+        Timeout.setSmallTimeout(15425);
         //solo.sendKey(Solo.MENU);
         //solo.clickOnText("Odjava");
         //solo.waitForActivity("Login", 2000000);

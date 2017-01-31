@@ -63,7 +63,7 @@ public class Profile  extends AppCompatActivity {
 
         String[] odvojeno = name.split(" ");
         final String passWord = LoggedUser.getUser().getUserModel().getPassword();
-
+        //final String passWord ="zanaz";
 
         usernameTextView.setText(String.format(username));
         nameTextView.setText(String.format(odvojeno[0]));
@@ -114,6 +114,7 @@ public class Profile  extends AppCompatActivity {
                                         //manager.setPreferences(Profile.this, "id",String.valueOf(id));
 
                                         manager.setPreferences(Profile.this, "id", String.valueOf(response.body().getUserId()));
+                                        manager.setPreferences(Profile.this, "password", response.body().getPassword());
                                         manager.setPreferences(Profile.this, "name", response.body().getName());
                                         manager.setPreferences(Profile.this, "username", response.body().getUsername());
                                         manager.setPreferences(Profile.this, "locationId", String.valueOf(response.body().getLocationId()));
@@ -165,6 +166,7 @@ public class Profile  extends AppCompatActivity {
              manager.setPreferences(Profile.this, "id", "");
              manager.setPreferences(Profile.this, "name", "");
              manager.setPreferences(Profile.this, "username", "");
+             manager.setPreferences(Profile.this, "password", "");
              manager.setPreferences(Profile.this, "locationId", "");
              manager.setPreferences(Profile.this, "locationName", "");
              manager.setPreferences(Profile.this, "locationCategory", "");

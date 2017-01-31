@@ -123,11 +123,12 @@ public class Login extends Activity {
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.body() != null) {
 
-                                checkPermissions();
+                                //checkPermissions();
 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
                                 manager.setPreferences(Login.this, "name", response.body().getName());
                                 manager.setPreferences(Login.this, "username", response.body().getUsername());
+                                manager.setPreferences(Login.this, "password", response.body().getPassword());
                                 manager.setPreferences(Login.this, "locationId", String.valueOf(response.body().getLocationId()));
                                 manager.setPreferences(Login.this, "locationName", response.body().getLocationName());
                                 manager.setPreferences(Login.this, "locationCategory", response.body().getLocationCategory());
