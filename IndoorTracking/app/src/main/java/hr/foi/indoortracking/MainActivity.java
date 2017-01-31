@@ -26,20 +26,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dbaccess.ApiEndpoint;
+import com.example.dbaccess.RetrofitConnection;
+import com.example.dbaccess.UserModel;
+
 import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
-    SessionManager manager;
+
+    private SessionManager manager;
+    private UserModel activeUser;
+
     private ServiceConnection sConnection;
     private MainService mainService;
     private BroadcastReceiver myReceiver;
 
+
     private static TextView txtCurrentLocation;
     private static TextView txtCurrentLocationDesc;
     private static TextView txtCategory;
-    Button details;
+    private Button details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         manager = new SessionManager();
+        mainService = new MainService();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -130,6 +142,7 @@ public class MainActivity extends AppCompatActivity
                 txtCurrentLocation.setText(nazivLokacija);
                 txtCategory.setText(kategorija);
                 txtCurrentLocationDesc.setText(opisLokacija);
+
                 if(nazivLokacija.toString().equals("Mobilisis Ulaz")) {
                     ImageView img= (ImageView) findViewById(R.id.imageView_plan);
                     img.setImageResource(R.mipmap.ulaz);
@@ -156,6 +169,7 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(myReceiver, filter);
 
     }
+
 
     @Override
     public void onBackPressed() {

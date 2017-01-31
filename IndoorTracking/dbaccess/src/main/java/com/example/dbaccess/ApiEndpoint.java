@@ -35,7 +35,7 @@ public interface ApiEndpoint {
 
     @POST("IndoorTracking/api/User")
     @FormUrlEncoded
-    Call<UserModel> getUser(@Field("UserId") int UserId);
+    Call<UserModel> getUser(@Field("userId") int UserId);
 
     @POST("IndoorTracking/api/UserUpdateNotification")
     @FormUrlEncoded

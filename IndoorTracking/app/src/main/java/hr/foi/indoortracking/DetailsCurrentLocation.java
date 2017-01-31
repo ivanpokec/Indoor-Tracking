@@ -27,6 +27,7 @@ import com.example.dbaccess.UserModel;
 import java.util.LinkedList;
 import java.util.List;
 
+import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +44,8 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
     private MainService mainService;
     private BroadcastReceiver myReceiver;
     private ProgressBar spinner;
+    private String locationName;
+    private int locationId;
 
     private ListView curretUserOnlocationView;
     ArrayAdapter<UserModel> curretUserOnlocationListAdapter;
@@ -53,13 +56,18 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Detalji");
+        locationName = LoggedUser.getUser().getUserModel().getCurrentLocationName();
+        setTitle("Detalji za "+locationName);
         setContentView(R.layout.activity_details_current_location);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         spinner=(ProgressBar)findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
 
+        locationId = LoggedUser.getUser().getUserModel().getCurrentLocationId();
 
+
+
+        /*
         final Intent mService = new Intent(this, MainService.class);
 
         sConnection = new ServiceConnection() {
@@ -74,17 +82,17 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
             }
         };
 
-        bindService(mService, sConnection, Context.BIND_AUTO_CREATE);
+        bindService(mService, sConnection, Context.BIND_AUTO_CREATE); */
 
-        myReceiver = new BroadcastReceiver() {
+        /*myReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Bundle extras = intent.getExtras();
+                Bundle extras = intent.getExtras(); */
 
 
-                int idLokcaije = extras.getInt("LocationId");
-                setTitle("Detalji za "+extras.getString("Naziv"));
-                Toast.makeText(DetailsCurrentLocation.this, "lokacija: "+idLokcaije, Toast.LENGTH_SHORT).show();
+                //int idLokcaije = extras.getInt("LocationId");
+                //setTitle("Detalji za "+extras.getString("Naziv"));
+                //Toast.makeText(DetailsCurrentLocation.this, "lokacija: "+idLokcaije, Toast.LENGTH_SHORT).show();
 
                 curretUserOnlocationView = (ListView) findViewById(R.id.trenutnonalokacijilist);
 
@@ -111,7 +119,8 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
                         return convertView;
                     }
                 };
-                getCurrentUserOnLocation(curretUserOnlocationView,idLokcaije);
+
+                getCurrentUserOnLocation(curretUserOnlocationView, locationId);
                 curretUserOnlocationView.setAdapter(curretUserOnlocationListAdapter);
                 spinner.setVisibility(View.INVISIBLE);
 
@@ -143,19 +152,20 @@ public class DetailsCurrentLocation  extends AppCompatActivity{
                         return convertView;
                     }
                 };
-                getDefaultUserOnLocation(userOnlocationView,idLokcaije);
+
+                getDefaultUserOnLocation(userOnlocationView,locationId);
                 userOnlocationView.setAdapter(userOnlocationListAdapter);
 
                 //Toast.makeText(DetailsCurrentLocation.this, "ID lokacije:  " + idLokcaije, Toast.LENGTH_LONG).show();
             }
-        };
+        //};
 
-        IntentFilter filter = new IntentFilter("ServiceIntent");
+        //IntentFilter filter = new IntentFilter("ServiceIntent");
 
-        registerReceiver(myReceiver, filter);
+        //registerReceiver(myReceiver, filter);
 
 
-    }
+    //}
 
     public void getCurrentUserOnLocation(View view, int locId ){
         curretUserOnlocationListAdapter.clear();

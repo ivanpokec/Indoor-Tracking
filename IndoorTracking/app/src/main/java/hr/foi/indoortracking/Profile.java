@@ -111,10 +111,12 @@ public class Profile  extends AppCompatActivity {
                                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                                     if (response.body() != null) {
                                         manager.setPreferences(Profile.this, "id",String.valueOf(id));
+
+                                        /*
                                         manager.setPreferences(Profile.this, "password", String.valueOf(response.body().getPassword()));
                                         manager.setPreferences(Profile.this, "userName",username);
                                         manager.setPreferences(Profile.this, "name",name);
-                                        manager.setPreferences(Profile.this, "locationName",odjel);
+                                        manager.setPreferences(Profile.this, "locationName",odjel); */
 
                                         activeUser = response.body();
                                         LoggedUser.getUser().setUserModel(activeUser);
@@ -146,11 +148,14 @@ public class Profile  extends AppCompatActivity {
         button_LogOut.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+
              manager.setPreferences(Profile.this, "id", "");
+             /*
              manager.setPreferences(Profile.this, "name", "");
              manager.setPreferences(Profile.this, "userName", "");
              manager.setPreferences(Profile.this, "passWord", "");
-             manager.setPreferences(Profile.this, "locationName", "");
+             manager.setPreferences(Profile.this, "locationName", ""); */
+
              LoggedUser.getUser().releaseUserModel();
              Intent intent = new Intent(Profile.this, Login.class);
              startActivity(intent);

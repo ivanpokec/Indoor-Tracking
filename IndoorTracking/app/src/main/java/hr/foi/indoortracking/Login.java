@@ -3,6 +3,7 @@ package hr.foi.indoortracking;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,24 +41,36 @@ public class Login extends Activity {
         String id = manager.getPreferences(Login.this, "id");
 
         if (id != "") {
-
+            int userId = Integer.parseInt(id);
             ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-            apiService.getUser(Integer.parseInt(id)).enqueue(new Callback<UserModel>() {
+            apiService.getUser(userId).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    activeUser = response.body();
+                    if (response.body() != null) {
+                        activeUser = response.body();
+                        LoggedUser.getUser().setUserModel(activeUser);
+                        //Log.i("JOOOJ", activeUser.getName());
+                    }
+                    else {
+                        //Log.i("JOOOJ", "body je null");
+                    }
+
                 }
 
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
-
+                    //Log.i("JOOOJ", "lol xD");
                 }
             });
 
-            LoggedUser.getUser().setUserModel(activeUser);
+            if (LoggedUser.getUser().getUserModel() != null) {
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(Login.this, "Greška prilikom povezivanja sa serverom.", Toast.LENGTH_SHORT).show();
+            }
 
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
         }
 
         logIn.setOnClickListener(new View.OnClickListener() {
