@@ -27,21 +27,33 @@
         </activity>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:screenOrientation="portrait" />
+
+       />
 
 
-       <activity android:name=".Profile"></activity>
+
+
+       <activity android:name=".Profile"
+           android:screenOrientation="portrait"
+           />
        <activity android:name=".SessionManager"></activity>
-       <activity android:name=".MyMovements"></activity>
+       <activity android:name=".MyMovements"
+           android:screenOrientation="portrait"
+       />
 
        <activity android:name=".History"></activity>
-       <activity android:name=".DetailsCurrentLocation"></activity>
+       <activity android:name=".DetailsCurrentLocation"
+           android:screenOrientation="portrait"
+       />
        <activity android:name=".Category"></activity>
        <activity android:name=".Users"></activity>
        <activity android:name=".Locations"></activity>
        <activity android:name=".Settings"></activity>
        <activity android:name=".UserProfile"></activity>
-       <activity android:name=".LocationDetails"></activity>
+       <activity android:name=".LocationDetails"
+           android:screenOrientation="portrait"
+       />
 
 
 
