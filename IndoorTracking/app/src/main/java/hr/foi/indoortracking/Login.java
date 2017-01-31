@@ -49,6 +49,8 @@ public class Login extends Activity {
             activeUser.setUserId(Integer.parseInt(id));
             activeUser.setName(manager.getPreferences(Login.this, "name"));
             activeUser.setUsername(manager.getPreferences(Login.this, "username"));
+            activeUser.setPassword(manager.getPreferences(Login.this, "password"));
+
             try {
                 activeUser.setLocationId(Integer.parseInt(manager.getPreferences(Login.this, "locationId")));
             }
