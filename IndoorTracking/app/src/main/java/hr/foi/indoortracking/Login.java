@@ -41,18 +41,35 @@ public class Login extends Activity {
         String id = manager.getPreferences(Login.this, "id");
 
         if (id != "") {
-            int userId = Integer.parseInt(id);
+
+            activeUser.setUserId(Integer.parseInt(id));
+            activeUser.setName(manager.getPreferences(Login.this, "name"));
+            activeUser.setUsername(manager.getPreferences(Login.this, "username"));
+            activeUser.setLocationId(Integer.parseInt(manager.getPreferences(Login.this, "locationId")));
+            activeUser.setLocationName(manager.getPreferences(Login.this, "locationName"));
+            activeUser.setLocationCategory(manager.getPreferences(Login.this, "locationCategory"));
+            activeUser.setCurrentLocationId(Integer.parseInt(manager.getPreferences(Login.this, "currentLocationId")));
+            activeUser.setCurrentLocationName(manager.getPreferences(Login.this, "currentLocationName"));
+            activeUser.setCurrentLocationCategory(manager.getPreferences(Login.this, "currentLocationCategory"));
+            activeUser.setCurrentLocationDescription(manager.getPreferences(Login.this, "currentLocationDescription"));
+            activeUser.setNotification(Integer.parseInt(manager.getPreferences(Login.this, "notification")));
+
+            LoggedUser.getUser().setUserModel(activeUser);
+
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+
+            /*
             ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
             apiService.getUser(userId).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    if (response.body() != null) {
+                    if (response.isSuccess()) {
                         activeUser = response.body();
                         LoggedUser.getUser().setUserModel(activeUser);
-                        //Log.i("JOOOJ", activeUser.getName());
-                    }
-                    else {
-                        //Log.i("JOOOJ", "body je null");
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+
                     }
 
                 }
@@ -61,15 +78,8 @@ public class Login extends Activity {
                 public void onFailure(Call<UserModel> call, Throwable t) {
                     //Log.i("JOOOJ", "lol xD");
                 }
-            });
+            }); */
 
-            if (LoggedUser.getUser().getUserModel() != null) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(Login.this, "Greška prilikom povezivanja sa serverom.", Toast.LENGTH_SHORT).show();
-            }
 
         }
 
@@ -90,6 +100,16 @@ public class Login extends Activity {
                             if (response.body() != null) {
 
                                 manager.setPreferences(Login.this, "id", String.valueOf(response.body().getUserId()));
+                                manager.setPreferences(Login.this, "name", response.body().getName());
+                                manager.setPreferences(Login.this, "username", response.body().getUsername());
+                                manager.setPreferences(Login.this, "locationId", String.valueOf(response.body().getLocationId()));
+                                manager.setPreferences(Login.this, "locationName", response.body().getLocationName());
+                                manager.setPreferences(Login.this, "locationCategory", response.body().getLocationCategory());
+                                manager.setPreferences(Login.this, "currentLocationId", String.valueOf(response.body().getCurrentLocationId()));
+                                manager.setPreferences(Login.this, "currentLocationName", response.body().getCurrentLocationName());
+                                manager.setPreferences(Login.this, "currentLocationCategory", response.body().getCurrentLocationCategory());
+                                manager.setPreferences(Login.this, "currentLocationDescription", response.body().getCurrentLocationDescription());
+                                manager.setPreferences(Login.this, "notification", String.valueOf(response.body().getNotification()));
 
                                 activeUser = response.body();
                                 LoggedUser.getUser().setUserModel(activeUser);
