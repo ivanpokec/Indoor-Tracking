@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
             manager.setPreferences(MainActivity.this, "id", "");
             manager.setPreferences(MainActivity.this, "name", "");
             manager.setPreferences(MainActivity.this, "username", "");
-            
+            manager.setPreferences(MainActivity.this, "password", "");
             manager.setPreferences(MainActivity.this, "locationId", "");
             manager.setPreferences(MainActivity.this, "locationName", "");
             manager.setPreferences(MainActivity.this, "locationCategory", "");
