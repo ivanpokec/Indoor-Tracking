@@ -143,6 +143,12 @@ public class MainActivity extends AppCompatActivity
                 txtCategory.setText(kategorija);
                 txtCurrentLocationDesc.setText(opisLokacija);
 
+                LoggedUser.getUser().getUserModel().setCurrentLocationId(extras.getInt("LocationId"));
+                LoggedUser.getUser().getUserModel().setCurrentLocationName(nazivLokacija);
+                LoggedUser.getUser().getUserModel().setCurrentLocationDescription(opisLokacija);
+                LoggedUser.getUser().getUserModel().setCurrentLocationCategory(kategorija);
+
+
                 if(nazivLokacija.toString().equals("Mobilisis Ulaz")) {
                     ImageView img= (ImageView) findViewById(R.id.imageView_plan);
                     img.setImageResource(R.mipmap.ulaz);
