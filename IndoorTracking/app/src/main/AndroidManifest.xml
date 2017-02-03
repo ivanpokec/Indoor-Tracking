@@ -39,15 +39,22 @@
            />
        <activity android:name=".SessionManager"></activity>
        <activity android:name=".MyMovements"
+           android:theme="@style/AppTheme.NoActionBar"
            android:screenOrientation="portrait"
        />
 
-       <activity android:name=".History"></activity>
+       <activity android:name=".History"
+           android:theme="@style/AppTheme.NoActionBar"
+           />
        <activity android:name=".DetailsCurrentLocation"
            android:screenOrientation="portrait"
        />
-       <activity android:name=".Category"></activity>
-       <activity android:name=".Users"></activity>
+       <activity android:name=".Category"
+           android:theme="@style/AppTheme.NoActionBar"
+           />
+       <activity android:name=".Users"
+           android:theme="@style/AppTheme.NoActionBar"
+       />
        <activity android:name=".Locations"></activity>
        <activity android:name=".Settings"></activity>
        <activity android:name=".UserProfile"></activity>

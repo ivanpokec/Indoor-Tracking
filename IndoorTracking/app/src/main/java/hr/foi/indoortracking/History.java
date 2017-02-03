@@ -42,7 +42,7 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_history);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Moja kretanja");
 
         historyListView = (ListView) findViewById(R.id.list_history_by_location);
@@ -146,10 +146,10 @@ public class History extends AppCompatActivity {
 
     }
 
-
+/*
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
-    }
+    }  */
 }
