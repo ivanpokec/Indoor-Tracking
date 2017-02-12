@@ -16,6 +16,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +37,8 @@ import hr.foi.dbaccess.ApiEndpoint;
 import hr.foi.dbaccess.CategoryModel;
 import hr.foi.dbaccess.RetrofitConnection;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +61,11 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
     ArrayAdapter<CategoryModel> categoryListAdapter;
     public int catId;
 
+    private RecyclerView recyclerView;
+    private ArrayList<CategoryModel> data;
+    private DataAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +74,7 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_main1);
+        initViews();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,7 +88,7 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        categoryListView = (ListView) findViewById(R.id.list_category);
+      /*  categoryListView = (ListView) findViewById(R.id.list_category);
 
         categoryListAdapter = new ArrayAdapter<CategoryModel>(this,
                         R.layout.list_row_locations
@@ -127,19 +137,29 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
                 intent.putExtra("name",  catmodel.catName);
                 startActivity(intent);
             }
-        });
+        }); */
     }
 
-    public void getLocations(View view) {
-        categoryListAdapter.clear();
-        categoryListAdapter.notifyDataSetChanged();
+    private void initViews(){
+        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        getLocations();
+
+    }
+
+    public void getLocations() {
+
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
         Call<List<CategoryModel>> call = apiService.listCategories();
         call.enqueue(new Callback<List<CategoryModel>>() {
             @Override
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
                 if (response.isSuccess()) {
-                    categoryListAdapter.addAll(response.body());
+                    data = new ArrayList<>(response.body());
+                    adapter = new DataAdapter(data);
+                    recyclerView.setAdapter(adapter);
                                     }
             }
 

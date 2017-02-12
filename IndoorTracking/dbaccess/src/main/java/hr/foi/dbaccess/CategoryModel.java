@@ -14,6 +14,15 @@ public class CategoryModel {
         this.catName = catName;
 
     }
+    public  CategoryModel() {
 
+    }
 
+    public int getCatId() {
+        return catId;
+    }
+
+    public String getCatName() {
+        return catName;
+    }
 }
