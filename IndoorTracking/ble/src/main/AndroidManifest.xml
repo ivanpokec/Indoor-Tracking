@@ -13,7 +13,7 @@
             android:name=".BluetoothMonitoringService"
             android:enabled="true"
             android:exported="true"></service>
-
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
         <receiver android:name=".BluetoothStateReceiver" >
             <intent-filter>

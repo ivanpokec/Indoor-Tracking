@@ -11,6 +11,15 @@ public class LocationModel {
     private String description;
     private String category;
 
+//    public CategoryModel(int catId, String catName) {
+//        this.catId = catId;
+//        this.catName = catName;
+//
+//    }
+//    public  CategoryModel() {
+//
+//    }
+
     public int getId() {
         return Id;
     }

@@ -33,8 +33,8 @@ public class LocationDetails extends AppCompatActivity {
     private ListView curretUserOnlocationView;
     ArrayAdapter<UserModel> curretUserOnlocationListAdapter;
 
-    private ListView userOnlocationView;
-    ArrayAdapter<UserModel> userOnlocationListAdapter;
+//    private ListView userOnlocationView;
+//    ArrayAdapter<UserModel> userOnlocationListAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,34 +75,34 @@ public class LocationDetails extends AppCompatActivity {
 
         //default user on location
 
-        userOnlocationView = (ListView) findViewById(R.id.pridruzenilokacijilist);
-
-        userOnlocationListAdapter = new ArrayAdapter<UserModel>(LocationDetails.this,
-                R.layout.list_row_on_location
-                , new LinkedList<UserModel>()) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                UserModel userModel = getItem(position);
-
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
-                }
-
-                TextView user = (TextView)convertView.findViewById(R.id.textview_name);
-
-                user.setText(userModel.getName());
-                ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
-                thumb_image.setImageResource(R.mipmap.offline);
-
-                return convertView;
-            }
-        };
-
-
-        getDefaultUserOnLocation(userOnlocationView,Integer.parseInt(locID));
-        userOnlocationView.setAdapter(userOnlocationListAdapter);
+//        userOnlocationView = (ListView) findViewById(R.id.pridruzenilokacijilist);
+//
+//        userOnlocationListAdapter = new ArrayAdapter<UserModel>(LocationDetails.this,
+//                R.layout.list_row_on_location
+//                , new LinkedList<UserModel>()) {
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                UserModel userModel = getItem(position);
+//
+//                if (convertView == null) {
+//                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_on_location, parent, false);
+//                }
+//
+//                TextView user = (TextView)convertView.findViewById(R.id.textview_name);
+//
+//                user.setText(userModel.getName());
+//                ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
+//                thumb_image.setImageResource(R.mipmap.offline);
+//
+//                return convertView;
+//            }
+//        };
+//
+//
+//        getDefaultUserOnLocation(userOnlocationView,Integer.parseInt(locID));
+//        userOnlocationView.setAdapter(userOnlocationListAdapter);
     }
 
     public void getCurrentUserOnLocation(View view, int locId ){
@@ -128,28 +128,28 @@ public class LocationDetails extends AppCompatActivity {
 
     }
 
-    public void getDefaultUserOnLocation(View view, int locId ){
-        userOnlocationListAdapter.clear();
-        userOnlocationListAdapter.notifyDataSetChanged();
-
-        ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        apiService.getUsersOnLocation(locId).enqueue(new Callback<List<UserModel>>() {
-            @Override
-            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
-                if(response.body() != null) {
-
-                    userOnlocationListAdapter.addAll(response.body());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<UserModel>> call, Throwable t) {
-                Toast.makeText(LocationDetails.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    public void getDefaultUserOnLocation(View view, int locId ){
+//        userOnlocationListAdapter.clear();
+//        userOnlocationListAdapter.notifyDataSetChanged();
+//
+//        ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
+//        apiService.getUsersOnLocation(locId).enqueue(new Callback<List<UserModel>>() {
+//            @Override
+//            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
+//                if(response.body() != null) {
+//
+//                    userOnlocationListAdapter.addAll(response.body());
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<UserModel>> call, Throwable t) {
+//                Toast.makeText(LocationDetails.this, "Greska u citanju naziva lokacije.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
     @Override
     public boolean onSupportNavigateUp(){

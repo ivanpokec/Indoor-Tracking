@@ -51,6 +51,8 @@ public class MainService extends Service{
         super();
     }
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -75,7 +77,15 @@ public class MainService extends Service{
                 if (!mBluetoothAdapter.isEnabled()) {
                     //Misc.openBluetoothSettings(AllStaticData.getmContext());
                 }else {
-                    if (!BeaconsMonitoringService.isScanRunning()) startService(new Intent(this, BeaconsMonitoringService.class));
+
+                    if (!BeaconsMonitoringService.isScanRunning()) {
+                        Toast.makeText(this, "Uletio u if", Toast.LENGTH_SHORT).show();
+                        startService(new Intent(this, BeaconsMonitoringService.class));
+                    } else {
+                        Toast.makeText(this, "Uletio u else", Toast.LENGTH_SHORT).show();
+                        BeaconsMonitoringService.refresh();
+                    }
+
                     BeaconsMonitoringService.setMainHandler(mHandler);
                     writeSensorsToLog();
                 }
@@ -106,9 +116,9 @@ public class MainService extends Service{
                     diffFiltration = dateNow.getTime() - mLastFiltrationTime;
                     if (diffFiltration > 1000) removeInactive = true;
                 }
-
                 ListIterator<Sensor> sensorListIterator = scanedSensors.listIterator();
                 int nearestSensorSignal = -120;
+
                 while (sensorListIterator.hasNext()) {
                     Sensor sensor = sensorListIterator.next();
                     Date date = new Date(sensor.getLastScannTime());
@@ -133,12 +143,8 @@ public class MainService extends Service{
                     }
 
                 }
-//                if (removeInactive){
-//                    BeaconsAdapter beaconsAdapter = (BeaconsAdapter) lvBeacons.getAdapter();
-//                    beaconsAdapter.setSensors(scanedSensors);
-//                    beaconsAdapter.notifyDataSetChanged();
-//                    mLastFiltrationTime = new Date().getTime();
-//                }
+
+
                 if (nearestSensor != null && lastSensor != nearestSensor){
                     final String snrName = nearestSensor.getSnrBleMac();
 
@@ -191,6 +197,7 @@ public class MainService extends Service{
     private void generateNotification(String locationName, int notId) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
+                        .setVibrate(new long[] { 0, 500, 1000, 500, 1000})
                         .setSmallIcon(R.drawable.notification_icon)
                         .setContentTitle("Indoor Tracking")
                         .setContentText("Prostorija: "+ locationName);
@@ -320,6 +327,7 @@ public class MainService extends Service{
 //        try {
 //            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 //
+
 //            if (mBluetoothAdapter == null) {
 //                Toast.makeText(this, "Uređaj ne podržava BLE!", Toast.LENGTH_SHORT).show();
 //

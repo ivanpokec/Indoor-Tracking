@@ -81,17 +81,22 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
     public void onCreate() {
         // Configure BeaconManager.
         Log.d(TAG, "Beacons monitoring service created");
-        Toast.makeText(this, "Beacons monitoring service started (created)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Beacons monitoring service started (created2)", Toast.LENGTH_SHORT).show();
 
-        BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-        mBluetoothAdapter = manager.getAdapter();
-        scanedDevices = new ArrayList<BluetoothDevice>();
-        //mainFragment = MainFragment.getFragment();
-        bluetoothDevices = new ArrayList<BluetoothDevice>();
-        scanedSensors = new ArrayList<Sensor>();
-        scanRunning = true;
-        nearestRssi = -120;
-        startScan();
+        try {
+            BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+            mBluetoothAdapter = manager.getAdapter();
+            scanedDevices = new ArrayList<BluetoothDevice>();
+            //mainFragment = MainFragment.getFragment();
+            bluetoothDevices = new ArrayList<BluetoothDevice>();
+            scanedSensors = new ArrayList<Sensor>();
+            scanRunning = true;
+            nearestRssi = -120;
+            startScan();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void stopService(){
@@ -104,8 +109,9 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
 
     @Override
     public void onDestroy() {
+        Toast.makeText(this, "Uništena", Toast.LENGTH_SHORT).show();
         try {
-            Log.d(TAG, "Beacons monitoring service destroyed");
+
             mHandler.removeCallbacks(mStopRunnable);
             if (mBluetoothAdapter != null)mBluetoothAdapter.stopLeScan(this);
             mHandler.removeCallbacksAndMessages(null);
@@ -257,7 +263,7 @@ public class BeaconsMonitoringService extends Service implements BluetoothAdapte
     };
 
     public static void refresh(){
-
+        Log.d(TAG, "Beacons monitoring service refresh");
         if (scanedDevices != null)scanedDevices.clear();
         if (scanedSensors != null)scanedSensors.clear();
         lastScanTime = null;

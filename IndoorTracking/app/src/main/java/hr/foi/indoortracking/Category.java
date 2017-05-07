@@ -35,6 +35,7 @@ import hr.foi.core.LoggedUser;
 import hr.foi.core.MainService;
 import hr.foi.dbaccess.ApiEndpoint;
 import hr.foi.dbaccess.CategoryModel;
+import hr.foi.dbaccess.LocationModel;
 import hr.foi.dbaccess.RetrofitConnection;
 
 import java.util.ArrayList;
@@ -53,16 +54,20 @@ import retrofit2.Response;
  */
 
 public class Category extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView categoryListView;
+
+
     private SessionManager manager;
     private UserModel activeUser;
 
+    private ListView locationsListView;
+    ArrayAdapter<LocationModel> locationsListAdapter;
 
-    ArrayAdapter<CategoryModel> categoryListAdapter;
+    int locID;
+
     public int catId;
 
-    private RecyclerView recyclerView;
-    private ArrayList<CategoryModel> data;
+
+    private ArrayList<LocationModel> data;
     private DataAdapter adapter;
 
 
@@ -70,11 +75,11 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTitle("Kategorije lokacija");
+        setTitle("Lokacije");
         super.onCreate(savedInstanceState);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_main1);
-        initViews();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,92 +92,73 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        locationsListView = (ListView) findViewById(R.id.location_cat_list_view);
 
-      /*  categoryListView = (ListView) findViewById(R.id.list_category);
+        locationsListAdapter = new ArrayAdapter<LocationModel>(this, R.layout.list_row_simple, new LinkedList<LocationModel>()) {
 
-        categoryListAdapter = new ArrayAdapter<CategoryModel>(this,
-                        R.layout.list_row_locations
-                        , new LinkedList<CategoryModel>()) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
 
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
+                LocationModel locationModel = getItem(position);
 
+                if (convertView == null) {
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_simple, parent, false);
+                }
 
+                TextView location = (TextView)convertView.findViewById(R.id.textview_name);
 
-                       CategoryModel categoryModel = getItem(position);
+                location.setText(locationModel.getName());
 
-                        if (convertView == null) {
-                            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_locations, parent, false);
-                        }
-
-                        TextView category = (TextView)convertView.findViewById(R.id.textview_name);
-
-                        category.setText(categoryModel.catName);
-                        ImageView thumb_image=(ImageView)convertView.findViewById(R.id.list_image);
-                        if(categoryModel.catName.toString().equals("M2 - Razvoj softvera")) {
-                            thumb_image.setImageResource(R.mipmap.software);
-                        }else if (categoryModel.catName.toString().equals("M3 - Razvoj hardvera")) {
-                            thumb_image.setImageResource(R.mipmap.hardware);
-                        }else if(categoryModel.catName.toString().equals("Prodaja")){
-                            thumb_image.setImageResource(R.mipmap.sale);
-                        }else {
-                            thumb_image.setImageResource(R.mipmap.other);
-                        }
-
-
-                        return convertView;
+                return convertView;
             }
         };
-        getLocations(categoryListView);
-        categoryListView.setAdapter(categoryListAdapter);
 
-        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CategoryModel catmodel;
-                catmodel = categoryListAdapter.getItem(position);
-                catId=catmodel.catId;
-                Intent intent = new Intent(Category.this, Locations.class);
-                intent.putExtra("ID",  Integer.toString(catId));
-                intent.putExtra("name",  catmodel.catName);
-                startActivity(intent);
-            }
-        }); */
+        initViews();
     }
 
     private void initViews(){
-        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        getLocations();
 
+        getLocations();
+        locationsListView.setAdapter(locationsListAdapter);
+
+        locationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LocationModel locationModel;
+                locationModel = locationsListAdapter.getItem(position);
+                locID = locationModel.getId();
+                Intent intent = new Intent(Category.this, LocationDetails.class);
+                intent.putExtra("ID",  Integer.toString(locID));
+                startActivity(intent);
+            }
+        });
     }
 
     public void getLocations() {
 
+        locationsListAdapter.clear();
+        locationsListAdapter.notifyDataSetChanged();
+
         ApiEndpoint apiService = RetrofitConnection.Factory.getInstance();
-        Call<List<CategoryModel>> call = apiService.listCategories();
-        call.enqueue(new Callback<List<CategoryModel>>() {
+        Call<List<LocationModel>> call = apiService.listAllLocations();
+        call.enqueue(new Callback<List<LocationModel>>() {
             @Override
-            public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
-                if (response.isSuccess()) {
-                    data = new ArrayList<>(response.body());
-                    adapter = new DataAdapter(data);
-                    recyclerView.setAdapter(adapter);
-                                    }
+            public void onResponse(Call<List<LocationModel>> call, Response<List<LocationModel>> response) {
+                if(response.body() != null) {
+
+                    locationsListAdapter.addAll(response.body());
+
+                }
             }
 
             @Override
-            public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
+            public void onFailure(Call<List<LocationModel>> call, Throwable t) {
                 Toast.makeText(Category.this, "Greška prilikom dohvaćanja podataka!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
     }
-
-
 
 
     @Override
@@ -224,8 +210,6 @@ public class Category extends AppCompatActivity implements NavigationView.OnNavi
             manager.setPreferences(Category.this, "currentLocationCategory", "");
             manager.setPreferences(Category.this, "currentLocationDescription", "");
             manager.setPreferences(Category.this, "notification", "");
-
-
 
 
             LoggedUser.getUser().releaseUserModel();
